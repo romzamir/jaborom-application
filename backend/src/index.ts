@@ -3,6 +3,8 @@ import HttpStatus from 'http-status';
 
 import { PORT } from './core/config/app.config';
 
+import Bootstrap from './bootstrapper';
+
 const app = Express();
 app.use(Express.json());
 
@@ -10,6 +12,9 @@ app.get('/ok', (req, res) => {
     res.sendStatus(HttpStatus.OK);
 });
 
-app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
+Bootstrap().then((router) => {
+    app.use('/', router);
+    app.listen(PORT, () => {
+        console.log(`Listening on port ${PORT}`);
+    });
 });
