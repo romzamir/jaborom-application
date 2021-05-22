@@ -4,6 +4,8 @@ import { Router } from 'express';
 import { LoginRouter } from './routers/login.router';
 //#endregion
 
+import * as DbConfig from './core/config/db.config';
+
 export default async function Boot(): Promise<Router> {
     const router = Router();
 
