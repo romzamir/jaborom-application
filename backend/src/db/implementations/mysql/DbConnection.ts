@@ -1,4 +1,4 @@
-import { createConnection, Connection } from 'mysql';
+import { createConnection, Connection, ConnectionConfig } from 'mysql';
 
 import IDbConnection from '../../abstractions/DbConnection';
 
@@ -11,21 +11,8 @@ export default class MySqlDbConnection implements IDbConnection {
         this.connection = null;
     }
 
-    connect(config: {
-        hostname: string;
-        port?: number;
-        user: string;
-        pass: string;
-        database?: string;
-    }): Promise<void> {
-        this.connection = createConnection({
-            host: config.hostname,
-            port: config.port,
-            user: config.user,
-            password: config.pass,
-            database: config.database,
-        });
-
+    connect(config: string | ConnectionConfig): Promise<void> {
+        this.connection = createConnection(config);
         this.connected = false;
         return new Promise((resolve, reject) => {
             if (!this.connection) {
