@@ -1,12 +1,15 @@
 import { Router } from 'express';
 
+//#region Db
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';
 
+//#endregion
+//#region Authentication
 import IAuthenticationValidator from './authentication/abstractions/authenticationValidator';
 import FirebaseAuthenticationValidator from './authentication/firebase/authenticationValidator';
 import MockAuthenticationValidator from './authentication/mock/authenticationValidator';
 import FirebaseCheckAuthenticationRoute from './authentication/checkAuthenticationRoute';
-
+//#endregion
 //#region Routers
 import VerifyTokenRouter from './routers/verifyToken.router';
 //#endregion
