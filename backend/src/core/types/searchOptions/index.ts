@@ -32,3 +32,32 @@ export type SearchOptionsPropertyConditionNumber = {
     name: 'lt' | 'gt' | 'lte' | 'gte';
     value: number;
 };
+
+// Example:
+// const options: SearchOptions<{ a: string; b: number; c: any }> = {
+//     $left: {
+//         key: 'a',
+//         condition: {
+//             name: 'equals',
+//             value: 'test',
+//         },
+//     },
+//     $operator: 'AND',
+//     $right: {
+//         $left: {
+//             key: 'b',
+//             condition: {
+//                 name: 'lt',
+//                 value: 123,
+//             },
+//         },
+//         $operator: 'OR',
+//         $right: {
+//             key: 'c',
+//             condition: {
+//                 name: 'notEquals',
+//                 value: 'not equals to this',
+//             },
+//         },
+//     },
+// };
