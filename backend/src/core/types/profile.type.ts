@@ -4,8 +4,8 @@ export type Profile = {
     personId: number;
     firstName: string;
     lastName: string;
-    dateOfBirth?: Date;
-    dateOfSigning?: Date;
+    dateOfBirth?: number;
+    dateOfSigning?: number;
     address?: string;
     hobbies?: string;
     allergies?: string;
