@@ -7,5 +7,16 @@
 			"path": "backend"
 		}
 	],
-    "settings": {}
+    "settings": {
+        "cSpell.words": [
+            "APIKEY",
+            "AUTHDOMAIN",
+            "MESSAGINGSENDERID",
+            "PROJECTID",
+            "STORAGEBUCKET",
+            "appspot",
+            "firebaseapp",
+            "jaborom"
+        ]
+    }
 }
