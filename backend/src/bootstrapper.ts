@@ -4,6 +4,7 @@ import MySqlDbConnection from './db/implementations/mysql/DbConnection';
 
 import IAuthenticationValidator from './authentication/abstractions/authenticationValidator';
 import FirebaseAuthenticationValidator from './authentication/firebase/authenticationValidator';
+import MockAuthenticationValidator from './authentication/mock/authenticationValidator';
 import FirebaseCheckAuthenticationRoute from './authentication/checkAuthenticationRoute';
 
 //#region Routers
@@ -34,7 +35,7 @@ export default async function Boot(): Promise<Router> {
 
     //#region Authentication
     const authenticationValidator: IAuthenticationValidator =
-        new FirebaseAuthenticationValidator();
+        new MockAuthenticationValidator();
     const checkAuthenticationRoute = FirebaseCheckAuthenticationRoute(
         authenticationValidator
     );
