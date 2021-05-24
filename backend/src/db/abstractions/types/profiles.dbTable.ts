@@ -1,5 +1,4 @@
 import { Profile } from '../../../core/types/profile.type';
-import { SearchOptions } from '../../../core/types/searchOptions';
 import { ProfilesSearchOptions } from '../../../core/types/searchOptions/profiles.type';
 
 export default interface IProfilesDbTable {
@@ -8,9 +7,9 @@ export default interface IProfilesDbTable {
     insertProfile(profile: Profile): Promise<Profile>;
 
     updateProfile(
-        options: SearchOptions<Profile>,
+        options: Required<ProfilesSearchOptions>,
         profile: Profile
     ): Promise<Profile>;
 
-    deleteProfile(options: SearchOptions<Profile>): Promise<boolean>;
+    deleteProfile(options: Required<ProfilesSearchOptions>): Promise<boolean>;
 }
