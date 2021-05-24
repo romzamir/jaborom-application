@@ -1,14 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpStatus from 'http-status';
 
-import FirebaseAuthentication from './firebaseAuthentication';
+import IAuthenticationValidator from '../abstractions/authenticationValidator';
 
 export default function CheckAuthentication(
-    authenticationChecker: FirebaseAuthentication
+    authenticationValidator: IAuthenticationValidator
 ) {
-    return async (req: Request, res: Response, next: NextFunction) => {
+    return async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
         const authToken = req.header('Auth-Token');
-        if (await authenticationChecker.verifyToken(authToken)) {
+        if (await authenticationValidator.verifyToken(authToken)) {
             next();
         } else {
             res.status(HttpStatus.UNAUTHORIZED).send('Unauthorized!');

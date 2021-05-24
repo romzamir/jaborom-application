@@ -1,8 +1,11 @@
 import Admin from 'firebase-admin';
+import IAuthenticationValidator from '../abstractions/authenticationValidator';
 
 const serviceAccount = require('./firebase-admin-authentication.json');
 
-export default class FirebaseAuthentication {
+export default class FirebaseAuthenticationValidator
+    implements IAuthenticationValidator
+{
     private readonly _app: Admin.app.App;
     constructor() {
         this._app = Admin.initializeApp({
