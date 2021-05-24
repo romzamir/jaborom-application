@@ -4,4 +4,4 @@ import IAuthenticationValidator from './authenticationValidator';
 
 export type CheckAuthenticationRoute = (
     authenticationValidator: IAuthenticationValidator
-) => (req: Request, res: Response, next: NextFunction) => void;
+) => (req: Request, res: Response, next: NextFunction) => Promise<void>;
