@@ -3,9 +3,8 @@ import { Router } from 'express';
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';
 
 import IAuthenticationValidator from './authentication/abstractions/authenticationValidator';
-import { CheckAuthenticationRoute } from './authentication/abstractions/checkAuthenticationRoute.type';
 import FirebaseAuthenticationValidator from './authentication/firebase/authenticationValidator';
-import FirebaseCheckAuthenticationRoute from './authentication/firebase/checkAuthenticationRoute';
+import FirebaseCheckAuthenticationRoute from './authentication/checkAuthenticationRoute';
 
 //#region Routers
 //#endregion
@@ -36,8 +35,9 @@ export default async function Boot(): Promise<Router> {
     //#region Authentication
     const authenticationValidator: IAuthenticationValidator =
         new FirebaseAuthenticationValidator();
-    const checkAuthenticationRoute: CheckAuthenticationRoute =
-        FirebaseCheckAuthenticationRoute(authenticationValidator);
+    const checkAuthenticationRoute = FirebaseCheckAuthenticationRoute(
+        authenticationValidator
+    );
     //#endregion
 
     router.use('/', checkAuthenticationRoute);
