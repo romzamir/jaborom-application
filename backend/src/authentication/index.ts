@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import FirebaseAuthentication from '.';
+import HttpStatus from 'http-status';
+
+import FirebaseAuthentication from './firebaseAuthentication';
 
 export default function CheckAuthentication(
     authenticationChecker: FirebaseAuthentication
@@ -9,7 +11,7 @@ export default function CheckAuthentication(
         if (await authenticationChecker.verifyToken(authToken)) {
             next();
         } else {
-            res.status(403).send('Unauthorized!');
+            res.status(HttpStatus.UNAUTHORIZED).send('Unauthorized!');
         }
     };
 }

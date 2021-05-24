@@ -2,8 +2,8 @@ import { Router } from 'express';
 
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';
 
-import FirebaseAuthentication from './authentication/index';
-import AuthenticationChecker from './authentication/checker';
+import FirebaseAuthentication from './authentication/firebaseAuthentication';
+import AuthenticationChecker from './authentication';
 
 //#region Routers
 //#endregion
