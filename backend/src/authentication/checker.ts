@@ -6,8 +6,9 @@ const AUTHORIZED_DUMMY: boolean = false;
 export default function CheckAuthentication(
     authenticationChecker: FirebaseAuthentication
 ) {
-    return (req: Request, res: Response, next: NextFunction) => {
-        if (AUTHORIZED_DUMMY) {
+    return async (req: Request, res: Response, next: NextFunction) => {
+        const authToken = req.header('Auth-Token');
+        if (await authenticationChecker.verifyToken(authToken)) {
             next();
         } else {
             res.status(403).send('Unauthorized!');
