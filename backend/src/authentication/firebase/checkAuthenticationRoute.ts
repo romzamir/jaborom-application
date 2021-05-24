@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpStatus from 'http-status';
 
-import AuthenticationValidator from './authenticationValidator';
+import IAuthenticationValidator from '../abstractions/authenticationValidator';
 
 export default function CheckAuthentication(
-    authenticationValidator: AuthenticationValidator
+    authenticationValidator: IAuthenticationValidator
 ) {
-    return async (req: Request, res: Response, next: NextFunction) => {
+    return async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
         const authToken = req.header('Auth-Token');
         if (await authenticationValidator.verifyToken(authToken)) {
             next();
