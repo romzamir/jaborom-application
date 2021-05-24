@@ -8,7 +8,7 @@ import MockAuthenticationValidator from './authentication/mock/authenticationVal
 import FirebaseCheckAuthenticationRoute from './authentication/checkAuthenticationRoute';
 
 //#region Routers
-import VerifyTokenRouter from './routers/verifyToken';
+import VerifyTokenRouter from './routers/verifyToken.router';
 //#endregion
 
 import * as DbConfig from './core/config/db.config';
