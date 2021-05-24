@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import HttpStatus from 'http-status';
 
-import IAuthenticationValidator from '../abstractions/authenticationValidator';
+import IAuthenticationValidator from './abstractions/authenticationValidator';
 
 export default function CheckAuthentication(
     authenticationValidator: IAuthenticationValidator
