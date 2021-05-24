@@ -2,7 +2,8 @@ import { Router } from 'express';
 
 //#region Db
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';
-
+import IProfilesDbTable from './db/abstractions/types/profiles.dbTable';
+import ProfilesMySqlDbTable from './db/implementations/mysql/types/profiles.dbTable';
 //#endregion
 //#region Authentication
 import IAuthenticationValidator from './authentication/abstractions/authenticationValidator';
@@ -12,6 +13,7 @@ import FirebaseCheckAuthenticationRoute from './authentication/checkAuthenticati
 //#endregion
 //#region Routers
 import VerifyTokenRouter from './routers/verifyToken.router';
+import ProfilesRouter from './routers/profiles.router';
 //#endregion
 
 import * as DbConfig from './core/config/db.config';
@@ -33,9 +35,12 @@ export default async function Boot(): Promise<Router> {
     } catch (err) {
         console.error(err);
     }
+
+    const profilesDbTable: IProfilesDbTable = new ProfilesMySqlDbTable();
     //#endregion
     //#region Routers
     const verifyTokenRouter = VerifyTokenRouter();
+    const profilesRouter = ProfilesRouter(profilesDbTable);
     //#endregion
     //#region Authentication
     const authenticationValidator: IAuthenticationValidator =
@@ -47,6 +52,7 @@ export default async function Boot(): Promise<Router> {
 
     router.use('/', checkAuthenticationRoute);
     router.use('/verifyToken', verifyTokenRouter);
+    router.use('/profiles', profilesRouter);
 
     return router;
 }
