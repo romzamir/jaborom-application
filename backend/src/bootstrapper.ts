@@ -5,7 +5,6 @@ import MySqlDbConnection from './db/implementations/mysql/DbConnection';
 import AuthenticationChecker from './authentication/checker';
 
 //#region Routers
-import { LoginRouter } from './routers/login.router';
 //#endregion
 
 import * as DbConfig from './core/config/db.config';
@@ -29,10 +28,9 @@ export default async function Boot(): Promise<Router> {
     }
     //#endregion
     //#region Routers
-    const loginRouter = await LoginRouter();
     //#endregion
 
-    router.use('/login', loginRouter);
+    router.use('/', () => AuthenticationChecker(firebaseAuthentication));
     router.use('/', AuthenticationChecker);
 
     return router;
