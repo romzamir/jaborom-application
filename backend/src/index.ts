@@ -10,7 +10,7 @@ require('dotenv').config({ path: './.env' });
 const app = Express();
 app.use(Express.json());
 
-app.get('/ok', (req, res) => {
+app.get('/ok', (_req, res) => {
     res.sendStatus(HttpStatus.OK);
 });
 
