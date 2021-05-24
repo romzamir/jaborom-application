@@ -2,6 +2,8 @@ import { Router } from 'express';
 
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';
 
+import AuthenticationChecker from './authentication/checker';
+
 //#region Routers
 import { LoginRouter } from './routers/login.router';
 //#endregion
@@ -31,6 +33,7 @@ export default async function Boot(): Promise<Router> {
     //#endregion
 
     router.use('/login', loginRouter);
+    router.use('/', AuthenticationChecker);
 
     return router;
 }
