@@ -8,6 +8,7 @@ import MockAuthenticationValidator from './authentication/mock/authenticationVal
 import FirebaseCheckAuthenticationRoute from './authentication/checkAuthenticationRoute';
 
 //#region Routers
+import VerifyTokenRouter from './routers/verifyToken';
 //#endregion
 
 import * as DbConfig from './core/config/db.config';
@@ -31,8 +32,8 @@ export default async function Boot(): Promise<Router> {
     }
     //#endregion
     //#region Routers
+    const verifyTokenRouter = VerifyTokenRouter();
     //#endregion
-
     //#region Authentication
     const authenticationValidator: IAuthenticationValidator =
         new MockAuthenticationValidator();
@@ -42,6 +43,7 @@ export default async function Boot(): Promise<Router> {
     //#endregion
 
     router.use('/', checkAuthenticationRoute);
+    router.use('/verifyToken', verifyTokenRouter);
 
     return router;
 }
