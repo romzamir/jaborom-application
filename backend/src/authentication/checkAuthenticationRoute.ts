@@ -12,7 +12,9 @@ export default function CheckAuthentication(
         next: NextFunction
     ): Promise<void> => {
         const authToken = req.header('Auth-Token');
-        if (await authenticationValidator.verifyToken(authToken)) {
+        if (!authToken) {
+            res.status(HttpStatus.UNAUTHORIZED).send('No Token Specified!');
+        } else if (await authenticationValidator.verifyToken(authToken)) {
             next();
         } else {
             res.status(HttpStatus.UNAUTHORIZED).send('Unauthorized!');
