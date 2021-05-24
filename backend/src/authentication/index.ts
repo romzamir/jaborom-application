@@ -10,7 +10,11 @@ export default class FirebaseAuthentication {
         });
     }
 
-    verifyToken(token: string): Promise<boolean> {
+    verifyToken(token: string | undefined): Promise<boolean> {
+        if (!token) {
+            return Promise.resolve(false);
+        }
+
         return new Promise<boolean>((resolve) => {
             this._app
                 .auth()
