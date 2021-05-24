@@ -2,8 +2,13 @@ import { Router } from 'express';
 
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';
 
+import IAuthenticationValidator from './authentication/abstractions/authenticationValidator';
+import FirebaseAuthenticationValidator from './authentication/firebase/authenticationValidator';
+import MockAuthenticationValidator from './authentication/mock/authenticationValidator';
+import FirebaseCheckAuthenticationRoute from './authentication/checkAuthenticationRoute';
+
 //#region Routers
-import { LoginRouter } from './routers/login.router';
+import VerifyTokenRouter from './routers/verifyToken';
 //#endregion
 
 import * as DbConfig from './core/config/db.config';
@@ -27,10 +32,18 @@ export default async function Boot(): Promise<Router> {
     }
     //#endregion
     //#region Routers
-    const loginRouter = await LoginRouter();
+    const verifyTokenRouter = VerifyTokenRouter();
+    //#endregion
+    //#region Authentication
+    const authenticationValidator: IAuthenticationValidator =
+        new MockAuthenticationValidator();
+    const checkAuthenticationRoute = FirebaseCheckAuthenticationRoute(
+        authenticationValidator
+    );
     //#endregion
 
-    router.use('/login', loginRouter);
+    router.use('/', checkAuthenticationRoute);
+    router.use('/verifyToken', verifyTokenRouter);
 
     return router;
 }
