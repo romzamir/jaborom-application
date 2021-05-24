@@ -5,6 +5,8 @@ import { PORT } from './core/config/app.config';
 
 import Bootstrap from './bootstrapper';
 
+require('dotenv').config({ path: './.env' });
+
 const app = Express();
 app.use(Express.json());
 
