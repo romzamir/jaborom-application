@@ -15,7 +15,7 @@ const mapConditionNameToSql = new Map<string, string>([
     ['lte', '<='],
 ]);
 
-export default class MySqlDbTable extends DbTable {
+export default abstract class MySqlDbTable extends DbTable {
     constructor(
         name: string,
         protected readonly connection: MySqlDbConnection
