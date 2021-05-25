@@ -23,8 +23,18 @@ export default class ProfilesMySqlDbTable
         return result ?? [];
     }
 
-    insertProfile(profile: Profile): Promise<Profile> {
-        throw new Error('Method not implemented.');
+    async insertProfile(profile: Profile): Promise<Profile> {
+        const sql =
+            `INSERT INTO \`${this._name}\` ` + this.ObjectToInsertSql(profile);
+        const newProfile = { ...profile };
+        const result = await this.connection.query(sql);
+        if (!result.insertId) {
+            newProfile.id = result.insertId;
+        } else {
+            throw new Error('Failed creating profile');
+        }
+
+        return newProfile;
     }
 
     updateProfile(
