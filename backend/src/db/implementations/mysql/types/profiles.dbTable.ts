@@ -1,8 +1,18 @@
 import { Profile } from '../../../../core/types/profile.type';
-import IProfilesDbTable from '../../../abstractions/types/profiles.dbTable';
 import { ProfilesSearchOptions } from '../../../../core/types/searchOptions/profiles.type';
+import IProfilesDbTable from '../../../abstractions/types/profiles.dbTable';
+import MySqlDbTable from '../DbTable';
+import MySqlDbConnection from '../DbConnection';
 
-export default class ProfilesMySqlDbTable implements IProfilesDbTable {
+export default class ProfilesMySqlDbTable
+    extends MySqlDbTable
+    implements IProfilesDbTable
+{
+    constructor(name: string, connection: MySqlDbConnection) {
+        super(name, connection);
+    }
+
+    async getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
     getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
         throw new Error('Method not implemented.');
     }
