@@ -13,8 +13,14 @@ export default class ProfilesMySqlDbTable
     }
 
     async getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
-    getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
-        throw new Error('Method not implemented.');
+        const sql =
+            `SELECT * FROM ${this._name}` +
+            (options && options.additional
+                ? 'WHERE ' +
+                  this.SearchOptionsToSqlCondition(options.additional)
+                : '');
+        const result = await this.connection.query(sql);
+        return result ?? [];
     }
 
     insertProfile(profile: Profile): Promise<Profile> {
