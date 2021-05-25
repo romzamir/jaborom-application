@@ -44,7 +44,7 @@ export default class ProfilesMySqlDbTable
         throw new Error('Method not implemented.');
     }
 
-    deleteProfile(options: Required<ProfilesSearchOptions>): Promise<boolean> {
+    deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number> {
         throw new Error('Method not implemented.');
     }
 }

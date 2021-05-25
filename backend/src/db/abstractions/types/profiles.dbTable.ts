@@ -11,5 +11,5 @@ export default interface IProfilesDbTable {
         profile: Profile
     ): Promise<Profile>;
 
-    deleteProfile(options: Required<ProfilesSearchOptions>): Promise<boolean>;
+    deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number>;
 }
