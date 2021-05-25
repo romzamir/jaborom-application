@@ -36,7 +36,10 @@ export default async function Boot(): Promise<Router> {
         console.error(err);
     }
 
-    const profilesDbTable: IProfilesDbTable = new ProfilesMySqlDbTable();
+    const profilesDbTable: IProfilesDbTable = new ProfilesMySqlDbTable(
+        'Profiles',
+        dbConnection
+    );
     //#endregion
     //#region Routers
     const verifyTokenRouter = VerifyTokenRouter();
