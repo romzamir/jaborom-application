@@ -14,7 +14,7 @@ export default class ProfilesMySqlDbTable
 
     async getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
         const sql =
-            `SELECT * FROM ${this._name}` +
+            `SELECT * FROM \`${this._name}\`` +
             (options && options.additional
                 ? 'WHERE ' +
                   this.SearchOptionsToSqlCondition(options.additional)
