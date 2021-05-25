@@ -52,4 +52,19 @@ export default abstract class MySqlDbTable extends DbTable {
             mapConditionNameToSql.get(property.condition.name) ?? '=';
         return `(${property.key}${operator}${property.condition.value})`;
     }
+
+    public ObjectToInsertSql(object: any): string {
+        const keys = Object.keys(object)
+            .map((key) => `\`${key}\``)
+            .join(',');
+        const values = this.ObjectToValuesSql(object);
+
+        return `(${keys}) VALUES (${values})`;
+    }
+
+    public ObjectToValuesSql(object: any): string {
+        return Object.values(object)
+            .map((value) => `'${value}'`)
+            .join(',');
+    }
 }
