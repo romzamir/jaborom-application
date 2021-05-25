@@ -1,9 +1,8 @@
 export type SearchOptions<T> = SearchOptionsQuery<T> | SearchOptionsProperty<T>;
 
 export type SearchOptionsQuery<T> = {
-    $left: SearchOptions<T>;
     $operator: SearchOptionsQueryOperator;
-    $right: SearchOptions<T>;
+    $operands: SearchOptions<T>[];
 };
 
 export type SearchOptionsQueryOperator = 'OR' | 'AND';
