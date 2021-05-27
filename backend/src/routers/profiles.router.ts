@@ -24,5 +24,32 @@ export default function ProfilesRouter(dbTable: IProfilesDbTable): Router {
             res.status(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     });
+
+    router.delete('/:id', async (req, res) => {
+        const id: number = parseInt(req.params.id?.toString() || '');
+        if (id === NaN) {
+            res.status(HttpStatus.BAD_REQUEST);
+        } else {
+            const deletedAmount = await dbTable.deleteProfile({
+                includeGraduates: true,
+                additional: {
+                    key: 'id',
+                    condition: {
+                        name: 'equals',
+                        value: id,
+                    },
+                },
+            });
+
+            if (deletedAmount === 0) {
+                res.status(HttpStatus.NOT_FOUND);
+            } else {
+                res.status(HttpStatus.OK);
+            }
+        }
+
+        res.end();
+    });
+
     return router;
 }
