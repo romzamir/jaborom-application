@@ -23,6 +23,8 @@ export default function ProfilesRouter(dbTable: IProfilesDbTable): Router {
         } catch (error) {
             res.status(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        res.end();
     });
 
     router.delete('/:id', async (req, res) => {
