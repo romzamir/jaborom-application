@@ -28,7 +28,7 @@ export default class ProfilesMySqlDbTable
             `INSERT INTO \`${this._name}\` ` + this.ObjectToInsertSql(profile);
         const newProfile = { ...profile };
         const result = await this.connection.query(sql);
-        if (!result.insertId) {
+        if (!!result.insertId) {
             newProfile.id = result.insertId;
         } else {
             throw new Error('Failed creating profile');
