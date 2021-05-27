@@ -44,7 +44,13 @@ export default class ProfilesMySqlDbTable
         throw new Error('Method not implemented.');
     }
 
-    deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number> {
-        throw new Error('Method not implemented.');
+    async deleteProfile(
+        options: Required<ProfilesSearchOptions>
+    ): Promise<number> {
+        const sql =
+            `DELETE FROM \`${this._name}\` ` +
+            ('WHERE ' + this.SearchOptionsToSqlCondition(options.additional));
+        const result = await this.connection.query(sql);
+        return result.affectedRows;
     }
 }
