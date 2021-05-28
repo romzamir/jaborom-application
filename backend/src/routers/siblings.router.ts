@@ -7,13 +7,13 @@ import ISiblingsDbTable from '../db/abstractions/types/siblings.dbTables';
 export default function SiblingsRouter(dbTable: ISiblingsDbTable): Router {
     const router = Router();
 
-    router.get('/:id', async (req, res) => {
+    router.get('/:profileId', async (req, res) => {
         try {
             const result = await dbTable.getSiblings({
-                key: 'id',
+                key: 'profileId',
                 condition: {
                     name: 'equals',
-                    value: req.params.id,
+                    value: req.params.profileId,
                 },
             });
 
