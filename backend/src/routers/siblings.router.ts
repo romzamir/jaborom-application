@@ -29,5 +29,20 @@ export default function SiblingsRouter(dbTable: ISiblingsDbTable): Router {
         res.end();
     });
 
+    router.post('/:profileId', async (req, res) => {
+        const siblings: Sibling | Sibling[] = req.body;
+        if (!siblings) {
+            res.status(HttpStatus.BAD_REQUEST);
+        } else {
+            if (Array.isArray(siblings)) {
+                res.json(await dbTable.insertSiblings(siblings));
+            } else {
+                res.json(await dbTable.insertSibling(siblings));
+            }
+        }
+
+        res.end();
+    });
+
     return router;
 }
