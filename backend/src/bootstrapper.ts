@@ -1,14 +1,22 @@
 import { Router } from 'express';
 
+//#region Db
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';
-
+import IProfilesDbTable from './db/abstractions/types/profiles.dbTable';
+import ProfilesMySqlDbTable from './db/implementations/mysql/types/profiles.dbTable';
+import ISiblingsDbTable from './db/abstractions/types/siblings.dbTables';
+import SiblingsMySqlDbTable from './db/implementations/mysql/types/siblings.dbTable';
+//#endregion
+//#region Authentication
 import IAuthenticationValidator from './authentication/abstractions/authenticationValidator';
 import FirebaseAuthenticationValidator from './authentication/firebase/authenticationValidator';
 import MockAuthenticationValidator from './authentication/mock/authenticationValidator';
 import FirebaseCheckAuthenticationRoute from './authentication/checkAuthenticationRoute';
-
+//#endregion
 //#region Routers
 import VerifyTokenRouter from './routers/verifyToken.router';
+import ProfilesRouter from './routers/profiles.router';
+import SiblingsRouter from './routers/siblings.router';
 //#endregion
 
 import * as DbConfig from './core/config/db.config';
@@ -30,9 +38,20 @@ export default async function Boot(): Promise<Router> {
     } catch (err) {
         console.error(err);
     }
+
+    const profilesDbTable: IProfilesDbTable = new ProfilesMySqlDbTable(
+        'Profiles',
+        dbConnection
+    );
+    const siblingsDbTable: ISiblingsDbTable = new SiblingsMySqlDbTable(
+        'Siblings',
+        dbConnection
+    );
     //#endregion
     //#region Routers
     const verifyTokenRouter = VerifyTokenRouter();
+    const profilesRouter = ProfilesRouter(profilesDbTable);
+    const siblingsRouter = SiblingsRouter(siblingsDbTable);
     //#endregion
     //#region Authentication
     const authenticationValidator: IAuthenticationValidator =
@@ -44,6 +63,8 @@ export default async function Boot(): Promise<Router> {
 
     router.use('/', checkAuthenticationRoute);
     router.use('/verifyToken', verifyTokenRouter);
+    router.use('/profiles', profilesRouter);
+    router.use('/siblings', siblingsRouter);
 
     return router;
 }

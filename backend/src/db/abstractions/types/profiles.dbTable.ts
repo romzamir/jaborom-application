@@ -1,0 +1,15 @@
+import { Profile } from '../../../core/types/profile.type';
+import { ProfilesSearchOptions } from '../../../core/types/searchOptions/profiles.type';
+
+export default interface IProfilesDbTable {
+    getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]>;
+
+    insertProfile(profile: Profile): Promise<Profile>;
+
+    updateProfile(
+        options: Required<ProfilesSearchOptions>,
+        profile: Profile
+    ): Promise<Profile>;
+
+    deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number>;
+}
