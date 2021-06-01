@@ -57,4 +57,8 @@ export default class ProfilesProvider implements IProfilesProvider {
 
         return result !== 0;
     }
+
+    async getSiblingsByProfileId(profileId: number): Promise<Sibling[] | null> {
+        throw new Error('Method not implemented.');
+    }
 }
