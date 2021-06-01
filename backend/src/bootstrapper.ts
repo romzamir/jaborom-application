@@ -7,6 +7,10 @@ import ProfilesMySqlDbTable from './db/implementations/mysql/types/profiles.dbTa
 import ISiblingsDbTable from './db/abstractions/types/siblings.dbTables';
 import SiblingsMySqlDbTable from './db/implementations/mysql/types/siblings.dbTable';
 //#endregion
+//#region Providers
+import IProfilesProvider from './providers/abstractions/types/profiles.provider';
+import ProfilesProvider from './providers/implementations/profiles.provider';
+//#endregion
 //#region Authentication
 import IAuthenticationValidator from './authentication/abstractions/authenticationValidator';
 import FirebaseAuthenticationValidator from './authentication/firebase/authenticationValidator';
@@ -48,9 +52,15 @@ export default async function Boot(): Promise<Router> {
         dbConnection
     );
     //#endregion
+    //#region Providers
+    const profilesProvider: IProfilesProvider = new ProfilesProvider(
+        profilesDbTable,
+        siblingsDbTable
+    );
+    //#endregion
     //#region Routers
     const verifyTokenRouter = VerifyTokenRouter();
-    const profilesRouter = ProfilesRouter(profilesDbTable);
+    const profilesRouter = ProfilesRouter(profilesProvider);
     const siblingsRouter = SiblingsRouter(siblingsDbTable);
     //#endregion
     //#region Authentication
