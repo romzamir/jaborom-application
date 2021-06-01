@@ -23,6 +23,17 @@ export default class ProfilesMySqlDbTable
         return result ?? [];
     }
 
+    async checkIsProfileExists(
+        options: Required<ProfilesSearchOptions>
+    ): Promise<boolean> {
+        const result = await this.connection.query(
+            `SELECT \`id\` FROM ${this._name} WHERE ` +
+                this.SearchOptionsToSqlCondition(options.additional)
+        );
+
+        return !!result[0];
+    }
+
     async insertProfile(profile: Profile): Promise<Profile> {
         const sql =
             `INSERT INTO \`${this._name}\` ` + this.ObjectToInsertSql(profile);

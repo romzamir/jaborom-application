@@ -4,6 +4,8 @@ import { ProfilesSearchOptions } from '../../../core/types/searchOptions/profile
 export default interface IProfilesDbTable {
     getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]>;
 
+    checkIsProfileExists(options: ProfilesSearchOptions): Promise<boolean>;
+
     insertProfile(profile: Profile): Promise<Profile>;
 
     updateProfile(
