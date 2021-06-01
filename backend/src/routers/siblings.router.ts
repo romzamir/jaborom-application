@@ -2,22 +2,25 @@ import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status';
 
 import { Sibling } from '../core/types/sibling.type';
-import ISiblingsDbTable from '../db/abstractions/types/siblings.dbTables';
+import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
-export default function SiblingsRouter(dbTable: ISiblingsDbTable): Router {
+export default function SiblingsRouter(
+    profilesProvider: IProfilesProvider
+): Router {
     const router = Router();
 
     router.get('/', async (req, res) => {
-        try {
-            const result = await dbTable.getSiblings({
-                key: 'profileId',
-                condition: {
-                    name: 'equals',
-                    value: req.params.profileId,
-                },
-            });
+        const profileId = parseInt(req.params.profileId);
+        if (Number.isNaN(profileId)) {
+            //TODO: handle profileId is NaN
+        }
 
-            if (result.length === 0) {
+        try {
+            const result = await profilesProvider.getSiblingsByProfileId(
+                profileId
+            );
+
+            if (!result) {
                 res.status(HttpStatus.NOT_FOUND);
             } else {
                 res.json(result);
@@ -35,9 +38,9 @@ export default function SiblingsRouter(dbTable: ISiblingsDbTable): Router {
             res.status(HttpStatus.BAD_REQUEST);
         } else {
             if (Array.isArray(siblings)) {
-                res.json(await dbTable.insertSiblings(siblings));
+                throw new Error('Method not implemented.');
             } else {
-                res.json(await dbTable.insertSibling(siblings));
+                throw new Error('Method not implemented.');
             }
         }
 
