@@ -5,7 +5,8 @@ import { Profile } from '../core/types/profile.type';
 import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
 export default function ProfilesRouter(
-    profilesProvider: IProfilesProvider
+    profilesProvider: IProfilesProvider,
+    siblingsRouter: Router
 ): Router {
     const router = Router();
 
@@ -47,6 +48,8 @@ export default function ProfilesRouter(
 
         res.end();
     });
+
+    router.use('/siblings', siblingsRouter);
 
     return router;
 }

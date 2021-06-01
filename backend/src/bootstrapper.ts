@@ -60,8 +60,8 @@ export default async function Boot(): Promise<Router> {
     //#endregion
     //#region Routers
     const verifyTokenRouter = VerifyTokenRouter();
-    const profilesRouter = ProfilesRouter(profilesProvider);
     const siblingsRouter = SiblingsRouter(siblingsDbTable);
+    const profilesRouter = ProfilesRouter(profilesProvider, siblingsRouter);
     //#endregion
     //#region Authentication
     const authenticationValidator: IAuthenticationValidator =
@@ -74,7 +74,6 @@ export default async function Boot(): Promise<Router> {
     router.use('/', checkAuthenticationRoute);
     router.use('/verifyToken', verifyTokenRouter);
     router.use('/profiles', profilesRouter);
-    router.use('/siblings', siblingsRouter);
 
     return router;
 }
