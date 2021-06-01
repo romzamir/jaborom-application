@@ -66,6 +66,18 @@ export default class ProfilesProvider implements IProfilesProvider {
     }
 
     async getSiblingsByProfileId(profileId: number): Promise<Sibling[] | null> {
-        throw new Error('Method not implemented.');
+        const siblings = await this._siblingsDbTable.getSiblings({
+            key: 'profileId',
+            condition: {
+                name: 'equals',
+                value: profileId,
+            },
+        });
+
+        if (siblings.length === 0) {
+            return null;
+        }
+
+        return siblings;
     }
 }
