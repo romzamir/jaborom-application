@@ -7,7 +7,7 @@ import ISiblingsDbTable from '../db/abstractions/types/siblings.dbTables';
 export default function SiblingsRouter(dbTable: ISiblingsDbTable): Router {
     const router = Router();
 
-    router.get('/:profileId', async (req, res) => {
+    router.get('/', async (req, res) => {
         try {
             const result = await dbTable.getSiblings({
                 key: 'profileId',
@@ -29,7 +29,7 @@ export default function SiblingsRouter(dbTable: ISiblingsDbTable): Router {
         res.end();
     });
 
-    router.post('/:profileId', async (req, res) => {
+    router.post('/', async (req, res) => {
         const siblings: Sibling | Sibling[] = req.body;
         if (!siblings) {
             res.status(HttpStatus.BAD_REQUEST);
