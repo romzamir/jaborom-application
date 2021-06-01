@@ -49,7 +49,7 @@ export default function ProfilesRouter(
         res.end();
     });
 
-    router.use('/siblings', siblingsRouter);
+    router.use('/:profileId/siblings', siblingsRouter);
 
     return router;
 }
