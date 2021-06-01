@@ -94,17 +94,42 @@ export default class ProfilesProvider implements IProfilesProvider {
         return siblings;
     }
 
-    addSiblingToProfileId(
+    private async insertSibling(
         profileId: number,
-        siblings: Sibling
+        sibling: Sibling,
+        checkIfProfileExists: boolean = true
     ): Promise<Sibling | null> {
-        throw new Error('Method not implemented.');
+        if (checkIfProfileExists && !this.checkIsProfileExists(profileId)) {
+            return null;
+        }
+
+        const result = await this._siblingsDbTable.insertSibling(sibling);
+        return result;
     }
 
-    addSiblingsToProfileId(
+    addSiblingToProfileId(
+        profileId: number,
+        sibling: Sibling
+    ): Promise<Sibling | null> {
+        return this.insertSibling(profileId, sibling, true);
+    }
+
+    async addSiblingsToProfileId(
         profileId: number,
         siblings: Sibling[]
     ): Promise<Sibling[] | null> {
-        throw new Error('Method not implemented.');
+        const profileExists = await this.checkIsProfileExists(profileId);
+        if (!profileExists) {
+            return null;
+        }
+
+        const results: Sibling[] = [];
+        for (const sibling of siblings) {
+            results.push(
+                (await this.insertSibling(profileId, sibling, false))!
+            );
+        }
+
+        return results;
     }
 }
