@@ -13,6 +13,7 @@ export default function SiblingsRouter(
         const profileId = parseInt(req.params.profileId);
         if (Number.isNaN(profileId)) {
             //TODO: handle profileId is NaN
+            throw new Error('Method not implemented.');
         }
 
         try {
