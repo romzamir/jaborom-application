@@ -21,6 +21,19 @@ export default class ProfilesProvider implements IProfilesProvider {
         return this._profilesDbTable.getProfiles({ includeGraduates });
     }
 
+    checkIsProfileExists(profileId: number): Promise<boolean> {
+        return this._profilesDbTable.checkIsProfileExists({
+            includeGraduates: true,
+            additional: {
+                key: 'id',
+                condition: {
+                    name: 'equals',
+                    value: profileId,
+                },
+            },
+        });
+    }
+
     async getProfileByID(
         id: number,
         includeGraduates: boolean = false

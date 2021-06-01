@@ -4,6 +4,7 @@ import IDataProvider from '../provider';
 
 export default interface IProfilesProvider extends IDataProvider {
     getAllProfiles(includeGraduates?: boolean): Promise<Profile[]>;
+    checkIsProfileExists(profileId: number): Promise<boolean>;
     getProfileByID(
         id: number,
         includeGraduates?: boolean
