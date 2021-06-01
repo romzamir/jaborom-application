@@ -1,3 +1,3 @@
-export default interface IDataProvider<T> {
+export default interface IDataProvider {
     readonly name: string;
 }
