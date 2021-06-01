@@ -1,22 +1,60 @@
 import { Profile } from '../../core/types/profile.type';
+import IProfilesDbTable from '../../db/abstractions/types/profiles.dbTable';
 import IProfilesProvider from '../abstractions/types/profiles.provider';
 
 export default class ProfilesProvider implements IProfilesProvider {
-    name = 'profiles';
+    private readonly _profilesDbTable: IProfilesDbTable;
+    public readonly name = 'profiles';
 
-    getAllProfiles(): Promise<Profile[]> {
-        throw new Error('Method not implemented.');
+    constructor(profilesDbTable: IProfilesDbTable) {
+        this._profilesDbTable = profilesDbTable;
     }
 
-    getProfileByID(id: string): Promise<Profile | null> {
-        throw new Error('Method not implemented.');
+    getAllProfiles(includeGraduates: boolean = false): Promise<Profile[]> {
+        return this._profilesDbTable.getProfiles({ includeGraduates });
     }
 
-    insertProfile(profile: Profile): Promise<Profile | null> {
-        throw new Error('Method not implemented.');
+    async getProfileByID(
+        id: number,
+        includeGraduates: boolean = false
+    ): Promise<Profile | null> {
+        const result = await this._profilesDbTable.getProfiles({
+            includeGraduates,
+            additional: {
+                key: 'id',
+                condition: {
+                    name: 'equals',
+                    value: id,
+                },
+            },
+        });
+
+        return result[0] ?? null;
     }
 
-    deleteProfile(id: string): Promise<Profile | null> {
-        throw new Error('Method not implemented.');
+    async insertProfile(profile: Profile): Promise<Profile | null> {
+        try {
+            return await this._profilesDbTable.insertProfile(profile);
+        } catch {
+            return null;
+        }
+    }
+
+    async deleteProfile(
+        id: number,
+        includeGraduates: boolean = false
+    ): Promise<boolean> {
+        const result = await this._profilesDbTable.deleteProfile({
+            includeGraduates,
+            additional: {
+                key: 'id',
+                condition: {
+                    name: 'equals',
+                    value: id,
+                },
+            },
+        });
+
+        return result !== 0;
     }
 }
