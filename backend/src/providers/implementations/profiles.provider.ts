@@ -1,13 +1,20 @@
 import { Profile } from '../../core/types/profile.type';
+import { Sibling } from '../../core/types/sibling.type';
 import IProfilesDbTable from '../../db/abstractions/types/profiles.dbTable';
+import ISiblingsDbTable from '../../db/abstractions/types/siblings.dbTables';
 import IProfilesProvider from '../abstractions/types/profiles.provider';
 
 export default class ProfilesProvider implements IProfilesProvider {
     private readonly _profilesDbTable: IProfilesDbTable;
+    private readonly _siblingsDbTable: ISiblingsDbTable;
     public readonly name = 'profiles';
 
-    constructor(profilesDbTable: IProfilesDbTable) {
+    constructor(
+        profilesDbTable: IProfilesDbTable,
+        siblingsDbTable: ISiblingsDbTable
+    ) {
         this._profilesDbTable = profilesDbTable;
+        this._siblingsDbTable = siblingsDbTable;
     }
 
     getAllProfiles(includeGraduates: boolean = false): Promise<Profile[]> {
