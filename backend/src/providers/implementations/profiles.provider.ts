@@ -80,4 +80,18 @@ export default class ProfilesProvider implements IProfilesProvider {
 
         return siblings;
     }
+
+    addSiblingToProfileId(
+        profileId: number,
+        siblings: Sibling
+    ): Promise<Sibling | null> {
+        throw new Error('Method not implemented.');
+    }
+
+    addSiblingsToProfileId(
+        profileId: number,
+        siblings: Sibling[]
+    ): Promise<Sibling[] | null> {
+        throw new Error('Method not implemented.');
+    }
 }

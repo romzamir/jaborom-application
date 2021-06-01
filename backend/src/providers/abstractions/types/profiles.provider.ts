@@ -12,4 +12,14 @@ export default interface IProfilesProvider extends IDataProvider {
     deleteProfile(id: number): Promise<boolean>;
 
     getSiblingsByProfileId(profileId: number): Promise<Sibling[] | null>;
+
+    addSiblingToProfileId(
+        profileId: number,
+        siblings: Sibling
+    ): Promise<Sibling | null>;
+
+    addSiblingsToProfileId(
+        profileId: number,
+        siblings: Sibling[]
+    ): Promise<Sibling[] | null>;
 }
