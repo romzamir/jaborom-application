@@ -33,14 +33,33 @@ export default function SiblingsRouter(
     });
 
     router.post('/', async (req, res) => {
+        const profileId = parseInt(req.params.profileId);
+        if (Number.isNaN(profileId)) {
+            //TODO: handle profileId is NaN
+            throw new Error('Method not implemented.');
+        }
+
         const siblings: Sibling | Sibling[] = req.body;
         if (!siblings) {
             res.status(HttpStatus.BAD_REQUEST);
         } else {
+            let result;
             if (Array.isArray(siblings)) {
-                throw new Error('Method not implemented.');
+                result = await profilesProvider.addSiblingsToProfileId(
+                    profileId,
+                    siblings
+                );
             } else {
-                throw new Error('Method not implemented.');
+                result = await profilesProvider.addSiblingToProfileId(
+                    profileId,
+                    siblings
+                );
+            }
+
+            if (!result) {
+                res.status(HttpStatus.NOT_FOUND);
+            } else {
+                res.json(result);
             }
         }
 
