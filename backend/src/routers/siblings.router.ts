@@ -2,22 +2,26 @@ import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status';
 
 import { Sibling } from '../core/types/sibling.type';
-import ISiblingsDbTable from '../db/abstractions/types/siblings.dbTables';
+import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
-export default function SiblingsRouter(dbTable: ISiblingsDbTable): Router {
+export default function SiblingsRouter(
+    profilesProvider: IProfilesProvider
+): Router {
     const router = Router();
 
-    router.get('/:profileId', async (req, res) => {
-        try {
-            const result = await dbTable.getSiblings({
-                key: 'profileId',
-                condition: {
-                    name: 'equals',
-                    value: req.params.profileId,
-                },
-            });
+    router.get('/', async (req, res) => {
+        const profileId = parseInt(req.params.profileId);
+        if (Number.isNaN(profileId)) {
+            //TODO: handle profileId is NaN
+            throw new Error('Method not implemented.');
+        }
 
-            if (result.length === 0) {
+        try {
+            const result = await profilesProvider.getSiblingsByProfileId(
+                profileId
+            );
+
+            if (!result) {
                 res.status(HttpStatus.NOT_FOUND);
             } else {
                 res.json(result);
@@ -29,15 +33,34 @@ export default function SiblingsRouter(dbTable: ISiblingsDbTable): Router {
         res.end();
     });
 
-    router.post('/:profileId', async (req, res) => {
+    router.post('/', async (req, res) => {
+        const profileId = parseInt(req.params.profileId);
+        if (Number.isNaN(profileId)) {
+            //TODO: handle profileId is NaN
+            throw new Error('Method not implemented.');
+        }
+
         const siblings: Sibling | Sibling[] = req.body;
         if (!siblings) {
             res.status(HttpStatus.BAD_REQUEST);
         } else {
+            let result;
             if (Array.isArray(siblings)) {
-                res.json(await dbTable.insertSiblings(siblings));
+                result = await profilesProvider.addSiblingsToProfileId(
+                    profileId,
+                    siblings
+                );
             } else {
-                res.json(await dbTable.insertSibling(siblings));
+                result = await profilesProvider.addSiblingToProfileId(
+                    profileId,
+                    siblings
+                );
+            }
+
+            if (!result) {
+                res.status(HttpStatus.NOT_FOUND);
+            } else {
+                res.json(result);
             }
         }
 

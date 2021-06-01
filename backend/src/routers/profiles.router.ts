@@ -2,25 +2,30 @@ import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status';
 
 import { Profile } from '../core/types/profile.type';
-import IProfilesDbTable from '../db/abstractions/types/profiles.dbTable';
+import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
-export default function ProfilesRouter(dbTable: IProfilesDbTable): Router {
+export default function ProfilesRouter(
+    profilesProvider: IProfilesProvider,
+    siblingsRouter: Router
+): Router {
     const router = Router();
 
     router.get('/', async (req, res) => {
         const includeGraduates = (req.query.includeGraduate ||
             false) as boolean;
 
-        const profiles = await dbTable.getProfiles({ includeGraduates });
+        const profiles = await profilesProvider.getAllProfiles(
+            includeGraduates
+        );
         res.json(profiles);
     });
 
     router.post('/', async (req, res) => {
         const profile: Profile = req.body;
-        try {
-            const result = await dbTable.insertProfile(profile);
+        const result = await profilesProvider.insertProfile(profile);
+        if (result !== null) {
             res.json(result);
-        } catch (error) {
+        } else {
             res.status(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -32,18 +37,9 @@ export default function ProfilesRouter(dbTable: IProfilesDbTable): Router {
         if (id === NaN) {
             res.status(HttpStatus.BAD_REQUEST);
         } else {
-            const deletedAmount = await dbTable.deleteProfile({
-                includeGraduates: true,
-                additional: {
-                    key: 'id',
-                    condition: {
-                        name: 'equals',
-                        value: id,
-                    },
-                },
-            });
+            const didDelete = await profilesProvider.deleteProfile(id);
 
-            if (deletedAmount === 0) {
+            if (didDelete) {
                 res.status(HttpStatus.NOT_FOUND);
             } else {
                 res.status(HttpStatus.OK);
@@ -52,6 +48,8 @@ export default function ProfilesRouter(dbTable: IProfilesDbTable): Router {
 
         res.end();
     });
+
+    router.use('/:profileId/siblings', siblingsRouter);
 
     return router;
 }

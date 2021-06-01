@@ -7,6 +7,10 @@ import ProfilesMySqlDbTable from './db/implementations/mysql/types/profiles.dbTa
 import ISiblingsDbTable from './db/abstractions/types/siblings.dbTables';
 import SiblingsMySqlDbTable from './db/implementations/mysql/types/siblings.dbTable';
 //#endregion
+//#region Providers
+import IProfilesProvider from './providers/abstractions/types/profiles.provider';
+import ProfilesProvider from './providers/implementations/profiles.provider';
+//#endregion
 //#region Authentication
 import IAuthenticationValidator from './authentication/abstractions/authenticationValidator';
 import FirebaseAuthenticationValidator from './authentication/firebase/authenticationValidator';
@@ -48,10 +52,16 @@ export default async function Boot(): Promise<Router> {
         dbConnection
     );
     //#endregion
+    //#region Providers
+    const profilesProvider: IProfilesProvider = new ProfilesProvider(
+        profilesDbTable,
+        siblingsDbTable
+    );
+    //#endregion
     //#region Routers
     const verifyTokenRouter = VerifyTokenRouter();
-    const profilesRouter = ProfilesRouter(profilesDbTable);
-    const siblingsRouter = SiblingsRouter(siblingsDbTable);
+    const siblingsRouter = SiblingsRouter(profilesProvider);
+    const profilesRouter = ProfilesRouter(profilesProvider, siblingsRouter);
     //#endregion
     //#region Authentication
     const authenticationValidator: IAuthenticationValidator =
@@ -64,7 +74,6 @@ export default async function Boot(): Promise<Router> {
     router.use('/', checkAuthenticationRoute);
     router.use('/verifyToken', verifyTokenRouter);
     router.use('/profiles', profilesRouter);
-    router.use('/siblings', siblingsRouter);
 
     return router;
 }
