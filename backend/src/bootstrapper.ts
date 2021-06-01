@@ -60,7 +60,7 @@ export default async function Boot(): Promise<Router> {
     //#endregion
     //#region Routers
     const verifyTokenRouter = VerifyTokenRouter();
-    const siblingsRouter = SiblingsRouter(siblingsDbTable);
+    const siblingsRouter = SiblingsRouter(profilesProvider);
     const profilesRouter = ProfilesRouter(profilesProvider, siblingsRouter);
     //#endregion
     //#region Authentication
