@@ -44,7 +44,7 @@ export function HomePage(props: { onPageChosen: OnPageChosenFunction }) {
                 </div>
                 מה תרצה לעשות?
             </div>
-            <HomePageButtons />
+            <HomePageButtons onPageChosen={props.onPageChosen} />
         </div>
     );
 }
