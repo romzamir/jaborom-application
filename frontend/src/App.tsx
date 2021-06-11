@@ -5,14 +5,10 @@ import './App.css';
 import { PagesHandler } from './pagesHandler';
 
 export default function App() {
-    const onPageChosen = (page: AppPage) => {
-        console.log(page);
-    };
-
     return (
         <div className="App">
             <PagesHandler>
-                <HomePage name="HOME" onPageChosen={onPageChosen} />
+                <div></div>
             </PagesHandler>
         </div>
     );

@@ -6,10 +6,7 @@ import { HomePageButtons } from './homePageButtons/homePageButtons';
 
 import './homePage.css';
 
-export function HomePage(props: {
-    name: AppPage;
-    onPageChosen: OnPageChosenFunction;
-}) {
+export function HomePage(props: { onPageChosen: OnPageChosenFunction }) {
     const [clockText, setClockText] = useState(generateTimeText());
 
     function generateTimeText() {
