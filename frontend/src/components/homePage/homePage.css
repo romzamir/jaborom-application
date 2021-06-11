@@ -1,0 +1,29 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    width: auto;
+    height: auto;
+    align-items: center;
+}
+
+.home-page-clock {
+    font-family: 'Montserrat';
+    font-size: 7em;
+    font-weight: bold;
+}
+
+.home-page-text {
+    font-family: 'Varela Round';
+    font-size: 1.5em;
+}
+
+.home-page-hello-container {
+    font-size: 1.7em;
+}
+
+.home-page-hello-name {
+    margin-right: 0.4em;
+    color: #343acc;
+    font-weight: bolder;
+}
