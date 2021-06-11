@@ -1,7 +1,16 @@
+import { HomePage } from './components/homePage/homePage';
+import { AppPage } from './types/page.type';
+
+import './App.css';
+
 export default function App() {
-  return (
-    <div className="App">
-        <h1>Hello World!</h1>
-    </div>
-  );
+    const onPageChosen = (page: AppPage) => {
+        console.log(page);
+    };
+
+    return (
+        <div className="App">
+            <HomePage onPageChosen={onPageChosen} />
+        </div>
+    );
 }

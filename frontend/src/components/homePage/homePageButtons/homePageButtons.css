@@ -1,0 +1,4 @@
+.home-page-buttons {
+    display: flex;
+    flex-direction: row;
+}
