@@ -1,47 +1,61 @@
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 import { HomePage } from './components/pages/homePage/homePage';
-import { AppPage, PageComponent } from './types/page.type';
+import { AppPage } from './types/page.type';
 
-export function PagesHandler(props: PagesHandlerProps) {
+export function PagesHandler(props: { children: any[] }) {
     const [currentPage, setCurrentPage] = useState(-1);
 
     const onPageChosen = (page: AppPage) => {
         if (Array.isArray(props.children)) {
             const index = props.children.findIndex(
-                (child) => child.type === page
+                (child) => child.props.name === page
             );
 
             setCurrentPage(index);
         }
     };
 
-    const createChild = (child: ReactElement<PageComponent>, index: number) => {
-        if (index === currentPage) {
-            return <div>{child}</div>;
+    const createHomepage = () => {
+        if (currentPage === -1) {
+            return (
+                <div key={-1}>
+                    <HomePage onPageChosen={onPageChosen} />
+                </div>
+            );
         }
 
-        return <div style={{ display: 'none' }}>{child}</div>;
+        return (
+            <div key={-1} style={{ display: 'none' }}>
+                <HomePage onPageChosen={onPageChosen} />
+            </div>
+        );
+    };
+
+    const createChild = (child: any, index: number) => {
+        if (index === currentPage) {
+            return <div key={index}>{child}</div>;
+        }
+
+        return (
+            <div key={index} style={{ display: 'none' }}>
+                {child}
+            </div>
+        );
     };
 
     const createChildren = () => {
+        const homePage = createHomepage();
+        const newChildren = [homePage];
         if (Array.isArray(props.children)) {
-            return props.children.map(createChild);
+            for (let i = 0; i < props.children.length; i++) {
+                newChildren.push(createChild(props.children[i], i));
+            }
+        } else {
+            newChildren.push(createChild(props.children, 0));
         }
 
-        return createChild(props.children, 0);
+        return newChildren;
     };
 
-    return (
-        <div>
-            {currentPage === -1 ? (
-                <HomePage onPageChosen={onPageChosen} />
-            ) : (
-                createChildren()
-            )}
-        </div>
-    );
+    return <div>{createChildren()}</div>;
 }
-
-export type PagesHandlerProps = {
-    children: ReactElement<PageComponent> | ReactElement<PageComponent>[];
-};
