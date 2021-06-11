@@ -4,7 +4,9 @@ import { AppPage } from './types/page.type';
 import './App.css';
 
 export default function App() {
-    const onPageChosen = (page: AppPage) => {};
+    const onPageChosen = (page: AppPage) => {
+        console.log(page);
+    };
 
     return (
         <div className="App">
