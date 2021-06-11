@@ -1,0 +1,26 @@
+.home-page-button-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 8vw;
+    height: 4vw;
+    margin: 5vh;
+    padding: 2vw;
+
+    border-radius: 10%;
+    cursor: pointer;
+    color: white;
+}
+
+.home-page-button-icon {
+    width: 3em;
+    height: 3em;
+
+    margin-bottom: 0.5em;
+}
+
+.home-page-button-title {
+    font-family: 'Rubik';
+    font-weight: normal;
+    font-size: 1.8em;
+}
