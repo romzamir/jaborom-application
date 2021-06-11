@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { AppPage, onPageChosenFunction } from '../../types/page.type';
+import { useEffect, useState } from 'react';
+
+import { onPageChosenFunction } from '../../types/page.type';
+
+import { HomePageButtons } from './homePageButtons/homePageButtons';
 
 import './homePage.css';
 
@@ -15,12 +18,12 @@ export function HomePage(props: { onPageChosen: onPageChosenFunction }) {
         return `${hoursText}:${minutesText}`;
     }
 
-    const updateClockText = () => {
+    function updateClockText() {
         const newText = generateTimeText();
         if (newText === clockText) return;
 
         setClockText(newText);
-    };
+    }
 
     useEffect(() => {
         const intervalId = setInterval(updateClockText, 1000);
@@ -28,6 +31,7 @@ export function HomePage(props: { onPageChosen: onPageChosenFunction }) {
         return function () {
             clearInterval(intervalId);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -40,6 +44,7 @@ export function HomePage(props: { onPageChosen: onPageChosenFunction }) {
                 </div>
                 מה תרצה לעשות?
             </div>
+            <HomePageButtons />
         </div>
     );
 }
