@@ -15,7 +15,7 @@ export function HomePageButtons(props: { onPageChosen: OnPageChosenFunction }) {
             <HomePageButton
                 color="#E88E3C"
                 icon={ProfilesSvg}
-                title="טפסי קליטה"
+                title="חניכים"
                 onPageChosen={() => props.onPageChosen('PROFILES')}
             />
             <HomePageButton
