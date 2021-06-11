@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import { OnPageChosenFunction } from '../../../types/page.type';
+import { AppPage, OnPageChosenFunction } from '../../../types/page.type';
 
 import { HomePageButtons } from './homePageButtons/homePageButtons';
 
 import './homePage.css';
 
-export function HomePage(props: { onPageChosen: OnPageChosenFunction }) {
+export function HomePage(props: {
+    name: AppPage;
+    onPageChosen: OnPageChosenFunction;
+}) {
     const [clockText, setClockText] = useState(generateTimeText());
 
     function generateTimeText() {

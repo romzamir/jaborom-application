@@ -2,6 +2,7 @@ import { HomePage } from './components/pages/homePage/homePage';
 import { AppPage } from './types/page.type';
 
 import './App.css';
+import { PagesHandler } from './pagesHandler';
 
 export default function App() {
     const onPageChosen = (page: AppPage) => {
@@ -10,7 +11,9 @@ export default function App() {
 
     return (
         <div className="App">
-            <HomePage onPageChosen={onPageChosen} />
+            <PagesHandler>
+                <HomePage name="HOME" onPageChosen={onPageChosen} />
+            </PagesHandler>
         </div>
     );
 }
