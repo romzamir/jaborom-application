@@ -23,20 +23,20 @@ export function PagesHandler(props: PagesHandlerProps) {
         return <div style={{ display: 'none' }}>{child}</div>;
     };
 
-    const children = (() => {
+    const createChildren = () => {
         if (Array.isArray(props.children)) {
             return props.children.map(createChild);
         }
 
         return createChild(props.children, 0);
-    })();
+    };
 
     return (
         <div>
             {currentPage === -1 ? (
                 <HomePage onPageChosen={onPageChosen} />
             ) : (
-                children
+                createChildren()
             )}
         </div>
     );
