@@ -5,7 +5,7 @@ import FeedbackSvg from './images/feedback.svg';
 import BudgetSvg from './images/budget.svg';
 import ManagementSvg from './images/management.svg';
 
-import { AppPage, OnPageChosenFunction } from '../../../types/page.type';
+import { OnPageChosenFunction } from '../../../types/page.type';
 
 import './homePageButtons.css';
 
