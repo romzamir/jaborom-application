@@ -2,10 +2,10 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 8vw;
-    height: 4vw;
-    margin: 5vh;
-    padding: 2vw;
+    width: 9.6em;
+    height: 5em;
+    margin: 5em;
+    padding: 3em;
 
     border-radius: 10%;
     cursor: pointer;
