@@ -16,10 +16,12 @@
 .home-page-text {
     font-family: 'Varela Round';
     font-size: 1.5em;
+    color: gray;
 }
 
 .home-page-hello-container {
     font-size: 1.7em;
+    color: black;
 }
 
 .home-page-hello-name {
