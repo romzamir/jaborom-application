@@ -1,7 +1,6 @@
 .home-page {
     display: flex;
     flex-direction: column;
-    background-color: lightgray;
     width: auto;
     height: auto;
     align-items: center;
