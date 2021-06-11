@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { OnPageChosenFunction } from '../../types/page.type';
+import { AppPage, OnPageChosenFunction } from '../../../types/page.type';
 
 import { HomePageButtons } from './homePageButtons/homePageButtons';
 
