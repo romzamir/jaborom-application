@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { HomePage } from './components/pages/homePage/homePage';
 import { AppPage } from './types/page.type';
 
-export function PagesHandler(props: { children: any[] }) {
+export function PagesHandler(props: { children: any[]; hide?: boolean }) {
+    props.hide = props.hide ?? true;
     const [currentPage, setCurrentPage] = useState(-1);
 
     const onPageChosen = (page: AppPage) => {
@@ -24,11 +25,14 @@ export function PagesHandler(props: { children: any[] }) {
             );
         }
 
-        return (
-            <div key={-1} style={{ display: 'none' }}>
-                <HomePage onPageChosen={onPageChosen} />
-            </div>
-        );
+        if (props.hide)
+            return (
+                <div key={-1} style={{ display: 'none' }}>
+                    <HomePage onPageChosen={onPageChosen} />
+                </div>
+            );
+
+        return null;
     };
 
     const createChild = (child: any, index: number) => {
@@ -36,16 +40,19 @@ export function PagesHandler(props: { children: any[] }) {
             return <div key={index}>{child}</div>;
         }
 
-        return (
-            <div key={index} style={{ display: 'none' }}>
-                {child}
-            </div>
-        );
+        if (props.hide)
+            return (
+                <div key={index} style={{ display: 'none' }}>
+                    {child}
+                </div>
+            );
+
+        return null;
     };
 
     const createChildren = () => {
         const homePage = createHomepage();
-        const newChildren = [homePage];
+        const newChildren: (JSX.Element | null)[] = [homePage];
         if (Array.isArray(props.children)) {
             for (let i = 0; i < props.children.length; i++) {
                 newChildren.push(createChild(props.children[i], i));
