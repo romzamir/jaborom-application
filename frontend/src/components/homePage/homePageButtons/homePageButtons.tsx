@@ -13,21 +13,25 @@ export function HomePageButtons(props: { onPageChosen: OnPageChosenFunction }) {
     return (
         <div className="home-page-buttons">
             <HomePageButton
+                color="#E88E3C"
                 icon={ProfilesSvg}
                 title="טפסי קליטה"
                 onPageChosen={() => props.onPageChosen('PROFILES')}
             />
             <HomePageButton
+                color="#3CAAE8"
                 icon={FeedbackSvg}
                 title="משוב"
                 onPageChosen={() => props.onPageChosen('FEEDBACKS')}
             />
             <HomePageButton
+                color="#E83C5B"
                 icon={BudgetSvg}
                 title="תקציב"
                 onPageChosen={() => props.onPageChosen('BUDGET')}
             />
             <HomePageButton
+                color="#3CE8BE"
                 icon={ManagementSvg}
                 title="ניהול"
                 onPageChosen={() => props.onPageChosen('MANAGEMENT')}
