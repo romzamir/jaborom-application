@@ -1,6 +1,26 @@
+import { ProfilesPageItem } from './profilesPageItem/profilesPageItem';
+
 import { AppPage } from '../../../types/page.type';
+
 import './profilesPage.css';
+import { Profile } from '../../../types/profile.type';
+
+const exampleProfile: Profile = {
+    partial: true,
+    personId: 123456789,
+    firstName: 'רום',
+    lastName: 'זמיר',
+    school: 0,
+    grade: 12,
+    sex: true,
+};
 
 export function ProfilesPage(props: { name: AppPage }) {
-    return <h1>HELLO</h1>;
+    return (
+        <div className="profiles-page">
+            <div className="profiles-grid-container">
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+            </div>
+        </div>
+    );
 }
