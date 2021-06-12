@@ -3,7 +3,7 @@ import { HomePage } from './components/pages/homePage/homePage';
 import { AppPage } from './types/page.type';
 
 export function PagesHandler(props: { children: any[]; hide?: boolean }) {
-    props.hide = props.hide ?? true;
+    const shouldHide = props.hide ?? true;
     const [currentPage, setCurrentPage] = useState(-1);
 
     const onPageChosen = (page: AppPage) => {
@@ -25,7 +25,7 @@ export function PagesHandler(props: { children: any[]; hide?: boolean }) {
             );
         }
 
-        if (props.hide)
+        if (shouldHide)
             return (
                 <div key={-1} style={{ display: 'none' }}>
                     <HomePage onPageChosen={onPageChosen} />
@@ -40,7 +40,7 @@ export function PagesHandler(props: { children: any[]; hide?: boolean }) {
             return <div key={index}>{child}</div>;
         }
 
-        if (props.hide)
+        if (shouldHide)
             return (
                 <div key={index} style={{ display: 'none' }}>
                     {child}
