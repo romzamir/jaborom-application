@@ -19,7 +19,7 @@ export function PagesHandler(props: { children: any[]; hide?: boolean }) {
     const createHomepage = () => {
         if (currentPage === -1) {
             return (
-                <div key={-1}>
+                <div key={-1} className="page-container">
                     <HomePage onPageChosen={onPageChosen} />
                 </div>
             );
@@ -27,7 +27,11 @@ export function PagesHandler(props: { children: any[]; hide?: boolean }) {
 
         if (shouldHide)
             return (
-                <div key={-1} style={{ display: 'none' }}>
+                <div
+                    key={-1}
+                    className="page-container"
+                    style={{ display: 'none' }}
+                >
                     <HomePage onPageChosen={onPageChosen} />
                 </div>
             );
@@ -37,12 +41,20 @@ export function PagesHandler(props: { children: any[]; hide?: boolean }) {
 
     const createChild = (child: any, index: number) => {
         if (index === currentPage) {
-            return <div key={index}>{child}</div>;
+            return (
+                <div key={index} className="page-container">
+                    {child}
+                </div>
+            );
         }
 
         if (shouldHide)
             return (
-                <div key={index} style={{ display: 'none' }}>
+                <div
+                    key={index}
+                    className="page-container"
+                    style={{ display: 'none' }}
+                >
                     {child}
                 </div>
             );
@@ -64,5 +76,5 @@ export function PagesHandler(props: { children: any[]; hide?: boolean }) {
         return newChildren;
     };
 
-    return <div>{createChildren()}</div>;
+    return <>{createChildren()}</>;
 }
