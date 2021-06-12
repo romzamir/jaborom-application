@@ -1,0 +1,50 @@
+.profiles-page-item-container {
+    font-family: 'Varela Round';
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    width: 12em;
+    height: 4em;
+    margin: 1%;
+    padding: 1%;
+    padding-bottom: 1.5%;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25),
+        -2px -2px 4px rgba(240, 240, 240, 0.25);
+    border-radius: 2em;
+}
+
+.profiles-page-item-name {
+    margin-right: 10%;
+}
+
+.profiles-page-item-id {
+    margin-right: 20%;
+    color: gray;
+}
+
+.profiles-page-item-tags {
+    width: 100%;
+    height: 30%;
+    margin-top: 0.6em;
+}
+
+.profiles-page-item-tag {
+    margin: 1% 3%;
+    color: white;
+    border-radius: 1%;
+    padding: 1% 4%;
+    border-radius: 0.5vw;
+    font-weight: 600;
+}
+
+.profiles-page-item-sex {
+    background-color: #60cf5d;
+}
+
+.profiles-page-item-grade {
+    background-color: #5d84cf;
+}
+
+.profiles-page-item-school {
+    background-color: #d14646;
+}
