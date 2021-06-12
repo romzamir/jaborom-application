@@ -4,6 +4,7 @@
     width: auto;
     height: auto;
     align-items: center;
+    user-select: none;
 }
 
 .home-page-clock {
