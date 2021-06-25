@@ -64,4 +64,13 @@ export default class ProfilesMySqlDbTable
         const result = await this.connection.query(sql);
         return result.affectedRows;
     }
+
+    async findProfiles(
+        nameToSearch: string,
+        includeGraduates: boolean = false
+    ): Promise<Profile> {
+        const sql = `SELECT * FROM \`${this._name}\` WHERE firstName + ' ' + lastName LIKE '%${nameToSearch}%'`;
+        const result = await this.connection.query(sql);
+        return result.affectedRows;
+    }
 }

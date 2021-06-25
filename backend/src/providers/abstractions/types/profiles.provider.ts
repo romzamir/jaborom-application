@@ -23,4 +23,9 @@ export default interface IProfilesProvider extends IDataProvider {
         profileId: number,
         siblings: Sibling[]
     ): Promise<Sibling[] | null>;
+
+    findProfiles(
+        nameToSearch: string,
+        includeGraduates?: boolean
+    ): Promise<Profile>;
 }

@@ -14,4 +14,9 @@ export default interface IProfilesDbTable {
     ): Promise<Profile>;
 
     deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number>;
+
+    findProfiles(
+        nameToSearch: string,
+        includeGraduates?: boolean
+    ): Promise<Profile>;
 }

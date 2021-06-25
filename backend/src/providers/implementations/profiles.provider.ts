@@ -132,4 +132,14 @@ export default class ProfilesProvider implements IProfilesProvider {
 
         return results;
     }
+
+    findProfiles(
+        nameToSearch: string,
+        includeGraduates?: boolean
+    ): Promise<Profile> {
+        return this._profilesDbTable.findProfiles(
+            nameToSearch,
+            includeGraduates
+        );
+    }
 }
