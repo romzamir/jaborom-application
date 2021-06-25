@@ -11,8 +11,7 @@ export default function ProfilesRouter(
     const router = Router();
 
     router.get('/', async (req, res) => {
-        const includeGraduates = (req.query.includeGraduate ||
-            false) as boolean;
+        const includeGraduates = req.query.includeGraduates === 'true';
         const searchQuery = req.query.query?.toString();
 
         let profiles;
