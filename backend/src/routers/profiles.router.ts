@@ -13,10 +13,17 @@ export default function ProfilesRouter(
     router.get('/', async (req, res) => {
         const includeGraduates = (req.query.includeGraduate ||
             false) as boolean;
+        const searchQuery = req.query.query?.toString();
 
-        const profiles = await profilesProvider.getAllProfiles(
-            includeGraduates
-        );
+        let profiles;
+        if (!!searchQuery) {
+            profiles = await profilesProvider.findProfiles(
+                searchQuery,
+                includeGraduates
+            );
+        } else {
+            profiles = await profilesProvider.getAllProfiles(includeGraduates);
+        }
         res.json(profiles);
     });
 
