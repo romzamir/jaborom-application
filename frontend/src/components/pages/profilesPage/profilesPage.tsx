@@ -1,4 +1,5 @@
 import { ProfilesPageItem } from './profilesPageItem/profilesPageItem';
+import { ProfilesPageSearchBar } from './profilesPageSearchBar/profilesPageSearchBar';
 
 import { AppPage } from '../../../types/page.type';
 
@@ -18,6 +19,7 @@ const exampleProfile: Profile = {
 export function ProfilesPage(props: { name: AppPage }) {
     return (
         <div className="profiles-page">
+            <ProfilesPageSearchBar />
             <div className="profiles-grid-container">
                 <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
             </div>
