@@ -23,6 +23,7 @@ export default function ProfilesRouter(
         } else {
             profiles = await profilesProvider.getAllProfiles(includeGraduates);
         }
+
         res.json(profiles);
     });
 
