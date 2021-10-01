@@ -12,12 +12,12 @@ export default function ProfilesRouter(
 
     router.get('/', async (req, res) => {
         const includeGraduates = req.query.includeGraduates === 'true';
-        const searchQuery = req.query.query?.toString();
+        const searchText = req.query.searchText?.toString();
 
         let profiles;
-        if (!!searchQuery) {
+        if (searchText) {
             profiles = await profilesProvider.findProfiles(
-                searchQuery,
+                searchText,
                 includeGraduates
             );
         } else {
