@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import {Request, Response, NextFunction} from 'express';
 import HttpStatus from 'http-status';
 
 import IAuthenticationValidator from './abstractions/authenticationValidator';

@@ -1,5 +1,5 @@
-import { SearchOptions } from '.';
-import { Profile } from '../profile.type';
+import {SearchOptions} from '.';
+import {Profile} from '../profile.type';
 
 export type ProfilesSearchOptions = {
     includeGraduates: boolean;

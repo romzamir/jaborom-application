@@ -1,5 +1,5 @@
-import { Profile } from '../../../core/types/profile.type';
-import { ProfilesSearchOptions } from '../../../core/types/searchOptions/profiles.type';
+import {Profile} from '../../../core/types/profile.type';
+import {ProfilesSearchOptions} from '../../../core/types/searchOptions/profiles.type';
 
 export default interface IProfilesDbTable {
     getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]>;

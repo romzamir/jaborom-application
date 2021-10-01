@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { HomePage } from './components/pages/homePage/homePage';
-import { AppPage } from './types/page.type';
+import {useState} from 'react';
+import {HomePage} from './components/pages/homePage/homePage';
+import {AppPage} from './types/page.type';
 
-export function PagesHandler(props: { children: any; hide?: boolean }) {
+export function PagesHandler(props: {children: any; hide?: boolean}) {
     const shouldHide = props.hide ?? true;
     const [currentPage, setCurrentPage] = useState(-1);
 
@@ -27,7 +27,7 @@ export function PagesHandler(props: { children: any; hide?: boolean }) {
 
         if (shouldHide)
             return (
-                <div key={-1} style={{ display: 'none' }}>
+                <div key={-1} style={{display: 'none'}}>
                     <HomePage onPageChosen={onPageChosen} />
                 </div>
             );
@@ -42,7 +42,7 @@ export function PagesHandler(props: { children: any; hide?: boolean }) {
 
         if (shouldHide)
             return (
-                <div key={index} style={{ display: 'none' }}>
+                <div key={index} style={{display: 'none'}}>
                     {child}
                 </div>
             );

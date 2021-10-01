@@ -1,4 +1,4 @@
-import { createConnection, Connection, ConnectionConfig } from 'mysql';
+import {createConnection, Connection, ConnectionConfig} from 'mysql';
 
 import IDbConnection from '../../abstractions/DbConnection';
 

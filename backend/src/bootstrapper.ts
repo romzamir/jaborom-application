@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 
 //#region Db
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';

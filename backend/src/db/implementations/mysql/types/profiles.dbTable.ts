@@ -1,5 +1,5 @@
-import { Profile } from '../../../../core/types/profile.type';
-import { ProfilesSearchOptions } from '../../../../core/types/searchOptions/profiles.type';
+import {Profile} from '../../../../core/types/profile.type';
+import {ProfilesSearchOptions} from '../../../../core/types/searchOptions/profiles.type';
 import IProfilesDbTable from '../../../abstractions/types/profiles.dbTable';
 import MySqlDbTable from '../DbTable';
 import MySqlDbConnection from '../DbConnection';
@@ -37,7 +37,7 @@ export default class ProfilesMySqlDbTable
     async insertProfile(profile: Profile): Promise<Profile> {
         const sql =
             `INSERT INTO \`${this._name}\` ` + this.ObjectToInsertSql(profile);
-        const newProfile = { ...profile };
+        const newProfile = {...profile};
         const result = await this.connection.query(sql);
         if (!!result.insertId) {
             newProfile.id = result.insertId;

@@ -1,7 +1,7 @@
-import { Request, Response, Router } from 'express';
+import {Request, Response, Router} from 'express';
 import HttpStatus from 'http-status';
 
-import { Profile } from '../core/types/profile.type';
+import {Profile} from '../core/types/profile.type';
 import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
 export default function ProfilesRouter(
