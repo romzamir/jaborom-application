@@ -6,7 +6,7 @@ import {ProfilesPage} from '../pages/profilesPage';
 
 import './pagesTransitions.css';
 
-export function PagesHandler() {
+export function PagesTransitions() {
     const location = useLocation();
     return (
         <TransitionGroup>
