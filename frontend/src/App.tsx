@@ -1,6 +1,6 @@
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import {PagesHandler} from './components/pagesTransitions/pagesTransitions';
+import {PagesHandler} from './components/pagesTransitions';
 
 import './App.css';
 
