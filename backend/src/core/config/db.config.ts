@@ -1,9 +1,9 @@
-export const HOSTNAME: string = 'panel.hostar.cloud';
+export const HOSTNAME: string = '195.133.95.109';
 
 export const PORT: number = 3306;
 
-export const USER: string = 'u47_EeZGIHvA9G';
+export const USER: string = 'root';
 
-export const PASSWORD: string = '4=dMPoi^.E.jd@8QuKkq3w0A';
+export const PASSWORD: string = 'Test1';
 
-export const DATABASE: string = 's47_romtotach';
+export const DATABASE: string = 'Jaborom';

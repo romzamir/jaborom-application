@@ -1,11 +1,11 @@
 import Express from 'express';
 import HttpStatus from 'http-status';
 
-import { PORT } from './core/config/app.config';
+import {PORT} from './core/config/app.config';
 
 import Bootstrap from './bootstrapper';
 
-require('dotenv').config({ path: './.env' });
+require('dotenv').config({path: './.env'});
 
 const app = Express();
 app.use(Express.json());

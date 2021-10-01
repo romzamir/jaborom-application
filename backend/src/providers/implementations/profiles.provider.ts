@@ -1,5 +1,5 @@
-import { Profile } from '../../core/types/profile.type';
-import { Sibling } from '../../core/types/sibling.type';
+import {Profile} from '../../core/types/profile.type';
+import {Sibling} from '../../core/types/sibling.type';
 import IProfilesDbTable from '../../db/abstractions/types/profiles.dbTable';
 import ISiblingsDbTable from '../../db/abstractions/types/siblings.dbTables';
 import IProfilesProvider from '../abstractions/types/profiles.provider';
@@ -18,7 +18,7 @@ export default class ProfilesProvider implements IProfilesProvider {
     }
 
     getAllProfiles(includeGraduates: boolean = false): Promise<Profile[]> {
-        return this._profilesDbTable.getProfiles({ includeGraduates });
+        return this._profilesDbTable.getProfiles({includeGraduates});
     }
 
     checkIsProfileExists(profileId: number): Promise<boolean> {
@@ -131,5 +131,15 @@ export default class ProfilesProvider implements IProfilesProvider {
         }
 
         return results;
+    }
+
+    findProfiles(
+        nameToSearch: string,
+        includeGraduates?: boolean
+    ): Promise<Profile[]> {
+        return this._profilesDbTable.findProfiles(
+            nameToSearch,
+            includeGraduates
+        );
     }
 }

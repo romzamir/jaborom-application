@@ -1,7 +1,7 @@
-import { Request, Response, Router } from 'express';
+import {Request, Response, Router} from 'express';
 import HttpStatus from 'http-status';
 
-import { Profile } from '../core/types/profile.type';
+import {Profile} from '../core/types/profile.type';
 import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
 export default function ProfilesRouter(
@@ -11,12 +11,19 @@ export default function ProfilesRouter(
     const router = Router();
 
     router.get('/', async (req, res) => {
-        const includeGraduates = (req.query.includeGraduate ||
-            false) as boolean;
+        const includeGraduates = req.query.includeGraduates === 'true';
+        const searchText = req.query.searchText?.toString();
 
-        const profiles = await profilesProvider.getAllProfiles(
-            includeGraduates
-        );
+        let profiles;
+        if (searchText) {
+            profiles = await profilesProvider.findProfiles(
+                searchText,
+                includeGraduates
+            );
+        } else {
+            profiles = await profilesProvider.getAllProfiles(includeGraduates);
+        }
+
         res.json(profiles);
     });
 

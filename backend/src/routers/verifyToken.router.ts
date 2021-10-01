@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 import HttpStatus from 'http-status';
 
 export default function VerifyTokenRouter(): Router {

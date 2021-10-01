@@ -1,9 +1,9 @@
 import './App.css';
-import { PagesHandler } from './pagesHandler';
+import {PagesHandler} from './pagesHandler';
 
 export default function App() {
     return (
-        <div className="App">
+        <div className='App'>
             <PagesHandler>
                 <div></div>
             </PagesHandler>
