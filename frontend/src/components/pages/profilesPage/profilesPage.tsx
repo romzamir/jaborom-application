@@ -1,10 +1,10 @@
 import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 
+import {Profile} from '../../../types/profile.type';
 import {AppPage} from '../../../types/page.type';
 
 import './profilesPage.css';
-import {Profile} from '../../../types/profile.type';
 
 const exampleProfile: Profile = {
     partial: true,
