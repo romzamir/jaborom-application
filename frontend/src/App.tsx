@@ -1,5 +1,5 @@
 import './App.css';
-import {PagesHandler} from './pagesHandler';
+import {HomePage} from './components/pages/homePage/homePage';
 import {ProfilesPage} from './components/pages/profilesPage';
 
 export default function App() {
