@@ -22,7 +22,11 @@ export function ProfilesPageSearchBar() {
                 placeholder='חיפוש'
             />
             <div className='profiles-page-search-bar-separator'></div>
-            <img className='profiles-page-search-bar-button' src={SearchSvg} />
+            <img
+                className='profiles-page-search-bar-button'
+                src={SearchSvg}
+                alt='חיפוש'
+            />
         </div>
     );
 }
