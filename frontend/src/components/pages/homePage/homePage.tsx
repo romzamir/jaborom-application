@@ -1,7 +1,5 @@
 import {useEffect, useState} from 'react';
 
-import {AppPage, OnPageChosenFunction} from '../../../types/page.type';
-
 import {HomePageButtons} from './homePageButtons/homePageButtons';
 
 import './homePage.css';

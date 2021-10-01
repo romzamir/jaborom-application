@@ -2,7 +2,6 @@ import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 
 import {Profile} from '../../../types/profile.type';
-import {AppPage} from '../../../types/page.type';
 
 import './profilesPage.css';
 
@@ -16,7 +15,7 @@ const exampleProfile: Profile = {
     sex: true,
 };
 
-export function ProfilesPage(props: {name: AppPage}) {
+export function ProfilesPage() {
     return (
         <div className='profiles-page'>
             <ProfilesPageSearchBar />
