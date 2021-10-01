@@ -11,6 +11,13 @@
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25),
         -2px -2px 4px rgba(240, 240, 240, 0.25);
     border-radius: 2em;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.profiles-page-item-container:hover {
+    background-color: lightblue;
+    transform: scale(1.2);
 }
 
 .profiles-page-item-name {
