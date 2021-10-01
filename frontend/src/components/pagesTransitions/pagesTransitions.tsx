@@ -1,8 +1,8 @@
 import {Switch, Route, useLocation} from 'react-router-dom';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
-import {HomePage} from './homePage/';
-import {ProfilesPage} from './profilesPage';
+import {HomePage} from '../pages/homePage';
+import {ProfilesPage} from '../pages/profilesPage';
 
 export function PagesHandler() {
     const location = useLocation();
