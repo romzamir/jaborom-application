@@ -1,7 +1,7 @@
-import { Request, Response, Router } from 'express';
+import {Request, Response, Router} from 'express';
 import HttpStatus from 'http-status';
 
-import { Sibling } from '../core/types/sibling.type';
+import {Sibling} from '../core/types/sibling.type';
 import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
 export default function SiblingsRouter(

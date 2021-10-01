@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 
 //#region Db
 import MySqlDbConnection from './db/implementations/mysql/DbConnection';
@@ -44,11 +44,11 @@ export default async function Boot(): Promise<Router> {
     }
 
     const profilesDbTable: IProfilesDbTable = new ProfilesMySqlDbTable(
-        'Profiles',
+        'profiles',
         dbConnection
     );
     const siblingsDbTable: ISiblingsDbTable = new SiblingsMySqlDbTable(
-        'Siblings',
+        'siblings',
         dbConnection
     );
     //#endregion

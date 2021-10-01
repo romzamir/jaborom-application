@@ -1,5 +1,5 @@
-import { Profile } from '../../../core/types/profile.type';
-import { Sibling } from '../../../core/types/sibling.type';
+import {Profile} from '../../../core/types/profile.type';
+import {Sibling} from '../../../core/types/sibling.type';
 import IDataProvider from '../provider';
 
 export default interface IProfilesProvider extends IDataProvider {
@@ -23,4 +23,9 @@ export default interface IProfilesProvider extends IDataProvider {
         profileId: number,
         siblings: Sibling[]
     ): Promise<Sibling[] | null>;
+
+    findProfiles(
+        nameToSearch: string,
+        includeGraduates?: boolean
+    ): Promise<Profile[]>;
 }

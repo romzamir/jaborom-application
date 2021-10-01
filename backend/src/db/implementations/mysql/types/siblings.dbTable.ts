@@ -1,5 +1,5 @@
-import { Sibling } from '../../../../core/types/sibling.type';
-import { SearchOptions } from '../../../../core/types/searchOptions';
+import {Sibling} from '../../../../core/types/sibling.type';
+import {SearchOptions} from '../../../../core/types/searchOptions';
 import ISiblingsDbTable from '../../../abstractions/types/siblings.dbTables';
 import MySqlDbTable from '../DbTable';
 import MySqlDbConnection from '../DbConnection';
@@ -25,7 +25,7 @@ export default class SiblingsMySqlDbTable
     async insertSibling(sibling: Sibling): Promise<Sibling> {
         const sql =
             `INSERT INTO \`${this._name}\` ` + this.ObjectToInsertSql(sibling);
-        const newSibling = { ...sibling };
+        const newSibling = {...sibling};
         const result = await this.connection.query(sql);
         if (!!result.insertId) {
             newSibling.id = result.insertId;

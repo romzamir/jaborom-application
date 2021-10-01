@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
-import { OnPageChosenFunction } from '../../../types/page.type';
+import {AppPage, OnPageChosenFunction} from '../../../types/page.type';
 
-import { HomePageButtons } from './homePageButtons/homePageButtons';
+import {HomePageButtons} from './homePageButtons/homePageButtons';
 
 import './homePage.css';
 
-export function HomePage(props: { onPageChosen: OnPageChosenFunction }) {
+export function HomePage(props: {onPageChosen: OnPageChosenFunction}) {
     const [clockText, setClockText] = useState(generateTimeText());
 
     function generateTimeText() {
@@ -35,12 +35,12 @@ export function HomePage(props: { onPageChosen: OnPageChosenFunction }) {
     }, []);
 
     return (
-        <div className="home-page">
-            <span className="home-page-clock">{clockText}</span>
-            <div className="home-page-text">
-                <div className="home-page-hello-container">
+        <div className='home-page'>
+            <span className='home-page-clock'>{clockText}</span>
+            <div className='home-page-text'>
+                <div className='home-page-hello-container'>
                     שלום,
-                    <span className="home-page-hello-name">רום</span>
+                    <span className='home-page-hello-name'>רום</span>
                 </div>
                 מה תרצה לעשות?
             </div>

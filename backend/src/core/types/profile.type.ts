@@ -1,11 +1,11 @@
 export type Profile = {
     id?: number;
     partial: boolean;
-    personId: number;
+    personId?: number;
     firstName: string;
     lastName: string;
-    dateOfBirth?: number;
-    dateOfSigning?: number;
+    dateOfBirth?: Date;
+    dateOfSigning: Date;
     address?: string;
     hobbies?: string;
     allergies?: string;

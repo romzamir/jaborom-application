@@ -1,5 +1,5 @@
-import { Profile } from '../../../core/types/profile.type';
-import { ProfilesSearchOptions } from '../../../core/types/searchOptions/profiles.type';
+import {Profile} from '../../../core/types/profile.type';
+import {ProfilesSearchOptions} from '../../../core/types/searchOptions/profiles.type';
 
 export default interface IProfilesDbTable {
     getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]>;
@@ -14,4 +14,9 @@ export default interface IProfilesDbTable {
     ): Promise<Profile>;
 
     deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number>;
+
+    findProfiles(
+        nameToSearch: string,
+        includeGraduates?: boolean
+    ): Promise<Profile[]>;
 }
