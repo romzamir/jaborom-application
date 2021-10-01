@@ -1,8 +1,8 @@
-import { Profile } from '../../../../types/profile.type';
+import {Profile} from '../../../../types/profile.type';
 
 import './profilesPageItem.css';
 
-export function ProfilesPageItem(props: { profile: Profile }) {
+export function ProfilesPageItem(props: {profile: Profile}) {
     const name = `${props.profile.firstName} ${props.profile.lastName}`;
     const id = props.profile.personId;
     const sex = props.profile.sex ? 'בן' : 'בת';
@@ -10,17 +10,17 @@ export function ProfilesPageItem(props: { profile: Profile }) {
     const school = "עמל ב'";
 
     return (
-        <div className="profiles-page-item-container">
-            <h2 className="profiles-page-item-name">{name}</h2>
-            <h4 className="profiles-page-item-id">{id}</h4>
-            <div className="profiles-page-item-tags">
-                <span className="profiles-page-item-tag profiles-page-item-sex">
+        <div className='profiles-page-item-container'>
+            <h2 className='profiles-page-item-name'>{name}</h2>
+            <h4 className='profiles-page-item-id'>{id}</h4>
+            <div className='profiles-page-item-tags'>
+                <span className='profiles-page-item-tag profiles-page-item-sex'>
                     {sex}
                 </span>
-                <span className="profiles-page-item-tag profiles-page-item-grade">
+                <span className='profiles-page-item-tag profiles-page-item-grade'>
                     {grade}
                 </span>
-                <span className="profiles-page-item-tag profiles-page-item-school">
+                <span className='profiles-page-item-tag profiles-page-item-school'>
                     {school}
                 </span>
             </div>

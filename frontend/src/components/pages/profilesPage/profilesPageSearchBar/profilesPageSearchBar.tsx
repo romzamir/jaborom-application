@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
 import SearchSvg from './search.svg';
 
@@ -14,15 +14,15 @@ export function ProfilesPageSearchBar() {
     };
 
     return (
-        <div className="profiles-page-search-bar">
+        <div className='profiles-page-search-bar'>
             <input
-                className="profiles-page-search-bar-input"
+                className='profiles-page-search-bar-input'
                 value={value}
                 onChange={onValueChanged}
-                placeholder="חיפוש"
+                placeholder='חיפוש'
             />
-            <div className="profiles-page-search-bar-separator"></div>
-            <img className="profiles-page-search-bar-button" src={SearchSvg} />
+            <div className='profiles-page-search-bar-separator'></div>
+            <img className='profiles-page-search-bar-button' src={SearchSvg} />
         </div>
     );
 }

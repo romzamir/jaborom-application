@@ -1,10 +1,10 @@
-import { ProfilesPageItem } from './profilesPageItem/profilesPageItem';
-import { ProfilesPageSearchBar } from './profilesPageSearchBar/profilesPageSearchBar';
+import {ProfilesPageItem} from './profilesPageItem/profilesPageItem';
+import {ProfilesPageSearchBar} from './profilesPageSearchBar/profilesPageSearchBar';
 
-import { AppPage } from '../../../types/page.type';
+import {AppPage} from '../../../types/page.type';
 
 import './profilesPage.css';
-import { Profile } from '../../../types/profile.type';
+import {Profile} from '../../../types/profile.type';
 
 const exampleProfile: Profile = {
     partial: true,
@@ -16,11 +16,11 @@ const exampleProfile: Profile = {
     sex: true,
 };
 
-export function ProfilesPage(props: { name: AppPage }) {
+export function ProfilesPage(props: {name: AppPage}) {
     return (
-        <div className="profiles-page">
+        <div className='profiles-page'>
             <ProfilesPageSearchBar />
-            <div className="profiles-grid-container">
+            <div className='profiles-grid-container'>
                 <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
             </div>
         </div>
