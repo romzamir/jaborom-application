@@ -1,5 +1,5 @@
-import {ProfilesPageItem} from './profilesPageItem/profilesPageItem';
-import {ProfilesPageSearchBar} from './profilesPageSearchBar/profilesPageSearchBar';
+import {ProfilesPageItem} from './profilesPageItem';
+import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 
 import {AppPage} from '../../../types/page.type';
 

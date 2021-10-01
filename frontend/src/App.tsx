@@ -1,6 +1,6 @@
 import './App.css';
 import {PagesHandler} from './pagesHandler';
-import {ProfilesPage} from './components/pages/profilesPage/profilesPage';
+import {ProfilesPage} from './components/pages/profilesPage';
 
 export default function App() {
     return (
