@@ -69,7 +69,7 @@ export default class ProfilesMySqlDbTable
         nameToSearch: string,
         includeGraduates: boolean = false
     ): Promise<Profile[]> {
-        const sql = `SELECT * FROM \`${this._name}\` WHERE firstName + ' ' + lastName LIKE '%${nameToSearch}%'`;
+        const sql = `SELECT * FROM \`${this._name}\` WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
         const result = await this.connection.query(sql);
         return result.affectedRows;
     }
