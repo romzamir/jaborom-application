@@ -1,6 +1,6 @@
 export type Sibling = {
     id?: number;
-    profileId: string;
+    profileId: number;
     siblingName: string;
     siblingProfileId?: string;
 };
