@@ -27,5 +27,5 @@ export default interface IProfilesProvider extends IDataProvider {
     findProfiles(
         nameToSearch: string,
         includeGraduates?: boolean
-    ): Promise<Profile>;
+    ): Promise<Profile[]>;
 }

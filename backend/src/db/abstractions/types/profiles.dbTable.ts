@@ -18,5 +18,5 @@ export default interface IProfilesDbTable {
     findProfiles(
         nameToSearch: string,
         includeGraduates?: boolean
-    ): Promise<Profile>;
+    ): Promise<Profile[]>;
 }

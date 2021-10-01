@@ -136,7 +136,7 @@ export default class ProfilesProvider implements IProfilesProvider {
     findProfiles(
         nameToSearch: string,
         includeGraduates?: boolean
-    ): Promise<Profile> {
+    ): Promise<Profile[]> {
         return this._profilesDbTable.findProfiles(
             nameToSearch,
             includeGraduates
