@@ -4,6 +4,8 @@ import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import {HomePage} from '../pages/homePage';
 import {ProfilesPage} from '../pages/profilesPage';
 
+import './pagesTransitions.css';
+
 export function PagesHandler() {
     const location = useLocation();
     return (
