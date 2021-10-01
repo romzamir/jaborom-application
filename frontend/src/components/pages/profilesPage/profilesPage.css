@@ -4,5 +4,8 @@
 }
 
 .profiles-grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     margin-top: 7em;
 }
