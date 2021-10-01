@@ -44,11 +44,11 @@ export default async function Boot(): Promise<Router> {
     }
 
     const profilesDbTable: IProfilesDbTable = new ProfilesMySqlDbTable(
-        'Profiles',
+        'profiles',
         dbConnection
     );
     const siblingsDbTable: ISiblingsDbTable = new SiblingsMySqlDbTable(
-        'Siblings',
+        'siblings',
         dbConnection
     );
     //#endregion
