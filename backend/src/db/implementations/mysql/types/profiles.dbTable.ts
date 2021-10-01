@@ -71,6 +71,6 @@ export default class ProfilesMySqlDbTable
     ): Promise<Profile[]> {
         const sql = `SELECT * FROM \`${this._name}\` WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
         const result = await this.connection.query(sql);
-        return result.affectedRows;
+        return result;
     }
 }
