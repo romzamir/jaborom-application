@@ -21,6 +21,48 @@ export function ProfilesPage(props: {name: AppPage}) {
         <div className='profiles-page'>
             <ProfilesPageSearchBar />
             <div className='profiles-grid-container'>
+                <ProfilesPageItem
+                    profile={{...exampleProfile, lastName: 'התותח'}}
+                ></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
+                <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
                 <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>
             </div>
         </div>
