@@ -5,8 +5,11 @@
 
 html,
 body,
-.App {
+#root,
+.App,
+.page-container {
     width: 100%;
     height: 100%;
     direction: rtl;
+    overflow: hidden;
 }

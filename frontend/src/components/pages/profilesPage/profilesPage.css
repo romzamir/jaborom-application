@@ -1,0 +1,13 @@
+.profiles-page {
+    width: 100%;
+    height: 100%;
+}
+
+.profiles-grid-container {
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin-top: 7em;
+    overflow-y: scroll;
+}

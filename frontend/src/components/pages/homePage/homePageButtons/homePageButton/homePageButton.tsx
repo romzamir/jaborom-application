@@ -14,7 +14,11 @@ export function HomePageButton(props: {
             className='home-page-button-container'
             style={style}
         >
-            <img src={props.icon} className='home-page-button-icon' />
+            <img
+                src={props.icon}
+                className='home-page-button-icon'
+                alt='מסך הבית'
+            />
             <h2 className='home-page-button-title'>{props.title}</h2>
         </div>
     );
