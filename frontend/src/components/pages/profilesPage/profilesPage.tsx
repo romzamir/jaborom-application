@@ -1,7 +1,7 @@
 import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 
-import {Profile} from '../../../types/profile.type';
+import {Profile} from 'types/profile.type';
 
 import './profilesPage.css';
 

@@ -1,4 +1,4 @@
-import {Profile} from '../../../../types/profile.type';
+import {Profile} from 'types/profile.type';
 
 import './profilesPageItem.css';
 
