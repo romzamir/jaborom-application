@@ -1,12 +1,10 @@
 import {useEffect, useState} from 'react';
 
-import {AppPage, OnPageChosenFunction} from '../../../types/page.type';
-
 import {HomePageButtons} from './homePageButtons/homePageButtons';
 
 import './homePage.css';
 
-export function HomePage(props: {onPageChosen: OnPageChosenFunction}) {
+export function HomePage() {
     const [clockText, setClockText] = useState(generateTimeText());
 
     function generateTimeText() {
@@ -44,7 +42,7 @@ export function HomePage(props: {onPageChosen: OnPageChosenFunction}) {
                 </div>
                 מה תרצה לעשות?
             </div>
-            <HomePageButtons onPageChosen={props.onPageChosen} />
+            <HomePageButtons />
         </div>
     );
 }

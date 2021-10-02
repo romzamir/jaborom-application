@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 
 import SearchSvg from './search.svg';
 
@@ -7,11 +7,11 @@ import './profilesPageSearchBar.css';
 export function ProfilesPageSearchBar() {
     const [value, setValue] = useState('');
 
-    const onValueChanged = (event: any) => {
+    const onValueChanged = useCallback((event: any) => {
         const newValue = event.target.value;
         setValue(newValue);
         console.log(newValue);
-    };
+    }, []);
 
     return (
         <div className='profiles-page-search-bar'>

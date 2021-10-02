@@ -1,14 +1,15 @@
+import {BrowserRouter as Router} from 'react-router-dom';
+
+import {PagesTransitions} from './components/pagesTransitions';
+
 import './App.css';
-import {PagesHandler} from './pagesHandler';
-import {ProfilesPage} from './components/pages/profilesPage';
 
 export default function App() {
     return (
         <div className='App'>
-            <PagesHandler>
-                <div></div>
-                <ProfilesPage name='PROFILES'></ProfilesPage>
-            </PagesHandler>
+            <Router>
+                <PagesTransitions />
+            </Router>
         </div>
     );
 }

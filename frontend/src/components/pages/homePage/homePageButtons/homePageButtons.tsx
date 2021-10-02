@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import {HomePageButton} from './homePageButton/homePageButton';
 
 import ProfilesSvg from './images/profiles.svg';
@@ -5,37 +6,39 @@ import FeedbackSvg from './images/feedback.svg';
 import BudgetSvg from './images/budget.svg';
 import ManagementSvg from './images/management.svg';
 
-import {OnPageChosenFunction} from '../../../../types/page.type';
-
 import './homePageButtons.css';
 
-export function HomePageButtons(props: {onPageChosen: OnPageChosenFunction}) {
+export function HomePageButtons() {
     return (
         <div className='home-page-buttons'>
-            <HomePageButton
-                color='#E88E3C'
-                icon={ProfilesSvg}
-                title='חניכים'
-                onPageChosen={() => props.onPageChosen('PROFILES')}
-            />
-            <HomePageButton
-                color='#3CAAE8'
-                icon={FeedbackSvg}
-                title='משוב'
-                onPageChosen={() => props.onPageChosen('FEEDBACKS')}
-            />
-            <HomePageButton
-                color='#E83C5B'
-                icon={BudgetSvg}
-                title='תקציב'
-                onPageChosen={() => props.onPageChosen('BUDGET')}
-            />
-            <HomePageButton
-                color='#3CE8BE'
-                icon={ManagementSvg}
-                title='ניהול'
-                onPageChosen={() => props.onPageChosen('MANAGEMENT')}
-            />
+            <Link to='profiles'>
+                <HomePageButton
+                    color='#E88E3C'
+                    icon={ProfilesSvg}
+                    title='חניכים'
+                />
+            </Link>
+            <Link to='feedback'>
+                <HomePageButton
+                    color='#3CAAE8'
+                    icon={FeedbackSvg}
+                    title='משוב'
+                />
+            </Link>
+            <Link to='financial'>
+                <HomePageButton
+                    color='#E83C5B'
+                    icon={BudgetSvg}
+                    title='תקציב'
+                />
+            </Link>
+            <Link to='admin'>
+                <HomePageButton
+                    color='#3CE8BE'
+                    icon={ManagementSvg}
+                    title='ניהול'
+                />
+            </Link>
         </div>
     );
 }
