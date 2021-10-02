@@ -1,3 +1,5 @@
+import {useState} from 'react';
+import {useLocation} from 'react-router-dom';
 import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 
@@ -16,9 +18,17 @@ const exampleProfile: Profile = {
 };
 
 export function ProfilesPage() {
+    const [isLoading, setIsLoading] = useState(false);
+    const location = useLocation();
+    console.log(location);
+
+    const getSearchText = () => {
+        return new URLSearchParams(location.search).get('search') || '';
+    };
+
     return (
         <div className='profiles-page'>
-            <ProfilesPageSearchBar />
+            <ProfilesPageSearchBar text={getSearchText()} />
             <div className='profiles-grid-container'>
                 <ProfilesPageItem profile={{...exampleProfile, lastName: 'התותח'}}></ProfilesPageItem>
                 <ProfilesPageItem profile={exampleProfile}></ProfilesPageItem>

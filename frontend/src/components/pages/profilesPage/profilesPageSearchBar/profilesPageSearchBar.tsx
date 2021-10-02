@@ -4,8 +4,8 @@ import SearchSvg from './search.svg';
 
 import './profilesPageSearchBar.css';
 
-export function ProfilesPageSearchBar() {
-    const [value, setValue] = useState('');
+export function ProfilesPageSearchBar(props: {text: string}) {
+    const [value, setValue] = useState(props.text);
 
     const onValueChanged = useCallback((event: any) => {
         const newValue = event.target.value;
