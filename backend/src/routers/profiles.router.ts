@@ -28,7 +28,7 @@ export default function ProfilesRouter(
     });
 
     router.get('/:id', async (req, res) => {
-        const {idString} = req.params;
+        const {id: idString} = req.params;
         const id = +idString;
         if (Number.isNaN(id)) {
             res.status(HttpStatus.BAD_REQUEST);
