@@ -1,9 +1,14 @@
-.fade-enter {
+.fade-enter,
+.fade-exit {
     opacity: 0;
     z-index: 1;
+    transition: opacity 250ms ease-in;
 }
 
 .fade-enter.fade-enter-active {
     opacity: 1;
-    transition: opacity 250ms ease-in;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
 }
