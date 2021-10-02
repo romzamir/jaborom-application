@@ -11,16 +11,6 @@ import {profilesProvider} from 'api/providers/profiles.provider';
 import './profilesPage.css';
 import {AxiosResponse} from 'axios';
 
-const exampleProfile: Profile = {
-    id: 1,
-    personId: 123456789,
-    firstName: 'רום',
-    lastName: 'זמיר',
-    school: 0,
-    grade: 12,
-    sex: true,
-};
-
 export function ProfilesPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [profiles, setProfiles] = useState<Profile[]>([]);
