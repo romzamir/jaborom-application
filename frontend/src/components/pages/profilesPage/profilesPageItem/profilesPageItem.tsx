@@ -1,4 +1,4 @@
-import {Redirect, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Profile} from 'core/types/profile.type';
 
 import './profilesPageItem.css';
