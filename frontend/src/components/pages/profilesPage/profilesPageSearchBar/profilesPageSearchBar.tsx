@@ -17,18 +17,23 @@ export function ProfilesPageSearchBar(props: {text: string}) {
         setValue(newValue);
     }, []);
 
-    if (value !== props.text) {
+    const abortPreviousDelay = () => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
+    };
 
-        timeoutRef.current = setTimeout(() => {
-            if (_.isEmpty(value)) {
-                history.push('/profiles');
-            } else {
-                history.push(`/profiles?search=${value}`);
-            }
-        }, searchConstants.searchDelay);
+    const performSearch = () => {
+        if (_.isEmpty(value)) {
+            history.push('/profiles');
+        } else {
+            history.push(`/profiles?search=${value}`);
+        }
+    };
+
+    if (value !== props.text) {
+        abortPreviousDelay();
+        timeoutRef.current = setTimeout(performSearch, searchConstants.searchDelay);
     }
 
     return (
