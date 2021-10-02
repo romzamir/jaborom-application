@@ -1,5 +1,5 @@
 export type Profile = {
-    id?: number;
+    id: number;
     partial: boolean;
     personId: number;
     firstName: string;
