@@ -10,7 +10,7 @@ export const restCommunicator = {
     post,
     put,
     delete: deleteMethod,
-});
+};
 
 function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
     return performCancellableAxiosRequest((config) => {
