@@ -17,6 +17,7 @@
         "jsx": "react-jsx",
         "paths": {
             "types/*": ["./src/core/types/*"],
+            "config/*": ["./src/core/config/*"],
         }
     },
     "include": ["src"]
