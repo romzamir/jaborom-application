@@ -1,16 +1,35 @@
-import {useCallback, useState} from 'react';
+import _ from 'lodash';
+import {useCallback, useRef, useState} from 'react';
+import {useHistory} from 'react-router-dom';
+
+import {searchConstants} from 'core/constants/search.constants';
 
 import SearchSvg from './search.svg';
-
 import './profilesPageSearchBar.css';
 
 export function ProfilesPageSearchBar(props: {text: string}) {
     const [value, setValue] = useState(props.text);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const history = useHistory();
 
     const onValueChanged = useCallback((event: any) => {
         const newValue = event.target.value;
         setValue(newValue);
     }, []);
+
+    if (value !== props.text) {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+
+        timeoutRef.current = setTimeout(() => {
+            if (_.isEmpty(value)) {
+                history.push('/profiles');
+            } else {
+                history.push(`/profiles?search=${value}`);
+            }
+        }, searchConstants.searchDelay);
+    }
 
     return (
         <div className='profiles-page-search-bar'>
