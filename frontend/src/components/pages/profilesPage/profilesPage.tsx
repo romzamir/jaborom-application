@@ -6,7 +6,7 @@ import {Profile} from '../../../types/profile.type';
 import './profilesPage.css';
 
 const exampleProfile: Profile = {
-    partial: true,
+    id: 1,
     personId: 123456789,
     firstName: 'רום',
     lastName: 'זמיר',
