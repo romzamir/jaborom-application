@@ -10,7 +10,6 @@ export function ProfilesPageSearchBar(props: {text: string}) {
     const onValueChanged = useCallback((event: any) => {
         const newValue = event.target.value;
         setValue(newValue);
-        console.log(newValue);
     }, []);
 
     return (
