@@ -17,14 +17,14 @@ export function ProfilesPage() {
     const location = useLocation();
 
     useEffect(() => {
-        const searchText = getSearchText();
+        const searchText = getSearchText(location.search);
         const searchPromise = performSearch(searchText);
         searchPromise.then(onSearchResponse);
         return searchPromise.cancel;
     }, [location]);
 
-    const getSearchText = () => {
-        return new URLSearchParams(location.search).get('search') || '';
+    const getSearchText = (search: string) => {
+        return new URLSearchParams(search).get('search') || '';
     };
 
     const performSearch = (searchText: string) => {
@@ -46,11 +46,15 @@ export function ProfilesPage() {
 
     return (
         <div className='profiles-page'>
-            <ProfilesPageSearchBar text={getSearchText()} />
+            <ProfilesPageSearchBar text={getSearchText(location.search)} />
             <div className='profiles-grid-container'>
-                {profiles.map((profile) => (
-                    <ProfilesPageItem profile={profile} />
-                ))}
+                {isLoading ? (
+                    <div>LOADING...</div>
+                ) : profiles.length === 0 ? (
+                    <div>לא נמצאו</div>
+                ) : (
+                    profiles.map((profile) => <ProfilesPageItem key={profile.id} profile={profile} />)
+                )}
             </div>
         </div>
     );
