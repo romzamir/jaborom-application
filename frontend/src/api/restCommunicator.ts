@@ -2,14 +2,15 @@ import Axios, {AxiosRequestConfig, AxiosResponse, CancelTokenSource} from 'axios
 import {backendConfig} from 'core/config/backend.config';
 
 const validateStatus = () => true;
-const axiosConfig = {validateStatus};
+const axiosConfig: AxiosRequestConfig = {validateStatus};
 
 export const restCommunicator = {
+    setToken,
     get,
     post,
     put,
     delete: deleteMethod,
-};
+});
 
 function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
     return performCancellableAxiosRequest((config) => {
@@ -33,6 +34,11 @@ function deleteMethod<TResponse>(route: string, queries: UrlQueriesObject = {}) 
     return performCancellableAxiosRequest((config) => {
         return Axios.delete<undefined, AxiosResponse<TResponse>>(concatParams(route, queries), config);
     });
+}
+
+function setToken(token: string) {
+    axiosConfig.headers = axiosConfig.headers || {};
+    axiosConfig.headers['Auth-Token'] = token;
 }
 
 function concatParams(route: string, queries: UrlQueriesObject = {}): string {
