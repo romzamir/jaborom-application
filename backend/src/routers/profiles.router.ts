@@ -27,6 +27,23 @@ export default function ProfilesRouter(
         res.json(profiles);
     });
 
+    router.get('/:id', async (req, res) => {
+        const {idString} = req.params;
+        const id = +idString;
+        if (Number.isNaN(id)) {
+            res.status(HttpStatus.BAD_REQUEST);
+        } else {
+            const profile = await profilesProvider.getProfileByID(id);
+            if (profile) {
+                res.json(profile);
+            } else {
+                res.status(HttpStatus.NOT_FOUND);
+            }
+        }
+
+        res.end();
+    });
+
     router.post('/', async (req, res) => {
         const profile: Profile = req.body;
         const result = await profilesProvider.insertProfile(profile);
