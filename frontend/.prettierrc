@@ -4,5 +4,6 @@
     "useTabs": false,
     "tabWidth": 4,
     "jsxSingleQuote": true,
-    "bracketSpacing": false
+    "bracketSpacing": false,
+    "printWidth": 120
 }
