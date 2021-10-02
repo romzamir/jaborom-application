@@ -1,4 +1,4 @@
-import Axios, {AxiosRequestConfig, AxiosResponse, CancelTokenSource} from 'axios';
+import Axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {backendConfig} from 'core/config/backend.config';
 
 const validateStatus = () => true;
