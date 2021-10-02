@@ -1,4 +1,4 @@
-import Axios, {AxiosRequestConfig, AxiosResponse, CancelTokenSource} from 'axios';
+import Axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {backendConfig} from 'core/config/backend.config';
 
 const validateStatus = () => true;
@@ -11,6 +11,8 @@ export const restCommunicator = {
     put,
     delete: deleteMethod,
 };
+
+setToken('abcd1234');
 
 function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
     return performCancellableAxiosRequest((config) => {
