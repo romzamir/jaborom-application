@@ -16,6 +16,7 @@ export function PagesTransitions() {
                         <ProfilesPage />
                     </Route>
                     <Route path='/'>
+                    <Route exact path='/'>
                         <HomePage></HomePage>
                     </Route>
                     <Route path='*'>
