@@ -13,7 +13,7 @@ function getAllProfiles(limit: number = 20) {
     return restCommunicator.get<Profile[]>(backendRoutes.profiles, {limit});
 }
 
-function getProfile(id: number) {
+function getProfile(id: number | string) {
     return restCommunicator.get<Profile>(`${backendRoutes.profiles}/${id}`);
 }
 
