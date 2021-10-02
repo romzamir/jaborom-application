@@ -1,4 +1,4 @@
-import Axios, {AxiosResponse, CancelTokenSource} from 'axios';
+import Axios, {AxiosRequestConfig, AxiosResponse, CancelTokenSource} from 'axios';
 import {backendConfig} from 'core/config/backend.config';
 
 const validateStatus = () => true;
@@ -12,38 +12,27 @@ export const restCommunicator = {
 };
 
 function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
-    const config = createCancellationConfig();
-    const originalPromise = Axios.get<undefined, AxiosResponse<TResponse>>(concatParams(route, queries), config.config);
-    return addCancelFunction(originalPromise, config.source);
+    return performCancellableAxiosRequest((config) => {
+        return Axios.get<undefined, AxiosResponse<TResponse>>(concatParams(route, queries), config);
+    });
 }
 
 function post<TRequest, TResponse>(route: string, queries: UrlQueriesObject, body: any) {
-    const config = createCancellationConfig();
-    const originalPromise = Axios.post<TRequest, AxiosResponse<TResponse>>(
-        concatParams(route, queries),
-        body,
-        axiosConfig
-    );
-    return addCancelFunction(originalPromise, config.source);
+    return performCancellableAxiosRequest((config) => {
+        return Axios.post<TRequest, AxiosResponse<TResponse>>(concatParams(route, queries), body, config);
+    });
 }
 
 function put<TResponse>(route: string, queries: UrlQueriesObject = {}, body: any) {
-    const config = createCancellationConfig();
-    const originalPromise = Axios.put<undefined, AxiosResponse<TResponse>>(
-        concatParams(route, queries),
-        body,
-        axiosConfig
-    );
-    return addCancelFunction(originalPromise, config.source);
+    return performCancellableAxiosRequest((config) => {
+        return Axios.put<undefined, AxiosResponse<TResponse>>(concatParams(route, queries), body, config);
+    });
 }
 
 function deleteMethod<TResponse>(route: string, queries: UrlQueriesObject = {}) {
-    const config = createCancellationConfig();
-    const originalPromise = Axios.delete<undefined, AxiosResponse<TResponse>>(
-        concatParams(route, queries),
-        axiosConfig
-    );
-    return addCancelFunction(originalPromise, config.source);
+    return performCancellableAxiosRequest((config) => {
+        return Axios.delete<undefined, AxiosResponse<TResponse>>(concatParams(route, queries), config);
+    });
 }
 
 function concatParams(route: string, queries: UrlQueriesObject = {}): string {
@@ -56,6 +45,14 @@ function concatParams(route: string, queries: UrlQueriesObject = {}): string {
     const joinedQueries = queriesNames.map((query) => `${query}=${queries[query]}`).join('&');
 
     return `${urlWithRoute}?${joinedQueries}`;
+}
+
+function performCancellableAxiosRequest<TResponse>(
+    perform: (config: AxiosRequestConfig) => Promise<AxiosResponse<TResponse>>
+) {
+    const config = createCancellationConfig();
+    const originalPromise = perform(config.config);
+    return addCancelFunction(originalPromise, config.source);
 }
 
 function createCancellationConfig() {
