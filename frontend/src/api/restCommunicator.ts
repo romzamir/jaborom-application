@@ -11,13 +11,13 @@ export const restCommunicator = {
     delete: deleteMethod,
 };
 
-function get<TResponse>(route: string, ...queries: UrlQuery[]) {
+function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
     return Axios.get<TResponse>(concatParams(route, queries), axiosConfig);
 }
 
 function post<TRequest, TResponse>(
     route: string,
-    queries: UrlQuery[],
+    queries: UrlQueriesObject,
     body: any
 ) {
     return Axios.post<TRequest, TResponse>(
@@ -27,7 +27,11 @@ function post<TRequest, TResponse>(
     );
 }
 
-function put<TResponse>(route: string, queries: UrlQuery[], body: any) {
+function put<TResponse>(
+    route: string,
+    queries: UrlQueriesObject = {},
+    body: any
+) {
     return Axios.put<TResponse>(
         concatParams(route, queries),
         body,
@@ -35,21 +39,27 @@ function put<TResponse>(route: string, queries: UrlQuery[], body: any) {
     );
 }
 
-function deleteMethod<TResponse>(route: string, ...queries: UrlQuery[]) {
+function deleteMethod<TResponse>(
+    route: string,
+    queries: UrlQueriesObject = {}
+) {
     return Axios.delete<TResponse>(concatParams(route, queries), axiosConfig);
 }
 
-function concatParams(route: string, queries: UrlQuery[]): string {
+function concatParams(route: string, queries: UrlQueriesObject = {}): string {
     const urlWithRoute = backendConfig.url + (route ? `/${route}` : '');
-    if (queries.length === 0) {
+    const queriesNames = Object.keys(queries);
+    if (queriesNames.length === 0) {
         return urlWithRoute;
     }
 
-    const joinedQueries = queries
-        .map((query) => `${query.name}=${query.value}`)
+    const joinedQueries = queriesNames
+        .map((query) => `${query}=${queries[query]}`)
         .join('&');
 
     return `${urlWithRoute}?${joinedQueries}`;
 }
 
-export type UrlQuery = {name: string; value: string};
+type UrlQueriesObject = {
+    [key: string]: string;
+};
