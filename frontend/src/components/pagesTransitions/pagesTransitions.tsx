@@ -1,4 +1,4 @@
-import {Switch, Route, useLocation} from 'react-router-dom';
+import {Switch, Route, Redirect, useLocation} from 'react-router-dom';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
 import {HomePage} from '../pages/homePage';
@@ -17,6 +17,9 @@ export function PagesTransitions() {
                     </Route>
                     <Route path='/'>
                         <HomePage></HomePage>
+                    </Route>
+                    <Route path='*'>
+                        <Redirect to='/' />
                     </Route>
                 </Switch>
             </CSSTransition>
