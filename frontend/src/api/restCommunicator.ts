@@ -61,5 +61,5 @@ function concatParams(route: string, queries: UrlQueriesObject = {}): string {
 }
 
 type UrlQueriesObject = {
-    [key: string]: string;
+    [key: string]: string | number;
 };
