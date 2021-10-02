@@ -12,7 +12,7 @@ export function ProfilesPageItem(props: {profile: Profile}) {
 
     return (
         <div className='profiles-page-item-container'>
-            <Link to={`/profile/${id}`} style={{textDecoration: 'none'}}>
+            <Link to={`/profile/${props.profile.id}`} style={{textDecoration: 'none'}}>
                 <h2 className='profiles-page-item-name'>{name}</h2>
                 <h4 className='profiles-page-item-id'>{id}</h4>
                 <div className='profiles-page-item-tags'>
