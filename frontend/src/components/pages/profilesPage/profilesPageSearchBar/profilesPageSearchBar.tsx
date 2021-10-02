@@ -19,6 +19,7 @@ export function ProfilesPageSearchBar(props: {text: string}) {
                 className='profiles-page-search-bar-input'
                 value={value}
                 onChange={onValueChanged}
+                autoFocus
                 placeholder='חיפוש'
             />
             <div className='profiles-page-search-bar-separator'></div>
