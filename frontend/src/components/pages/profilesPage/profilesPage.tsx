@@ -40,8 +40,6 @@ export function ProfilesPage() {
             setProfiles(response.data);
             setIsLoading(false);
         }
-
-        console.log('Response', response);
     };
 
     return (
