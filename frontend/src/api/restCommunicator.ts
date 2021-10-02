@@ -56,23 +56,26 @@ function concatParams(route: string, queries: UrlQueriesObject = {}): string {
 function performCancellableAxiosRequest<TResponse>(
     perform: (config: AxiosRequestConfig) => Promise<AxiosResponse<TResponse>>
 ) {
-    const config = createCancellationConfig();
-    const originalPromise = perform(config.config);
-    return addCancelFunction(originalPromise, config.source);
+    const cancellationConfig = createCancellationConfig();
+    const originalPromise = perform(cancellationConfig.config);
+    const promise = new Promise<AxiosResponse<TResponse>>(async (resolve, reject) => {
+        try {
+            resolve(await originalPromise);
+        } catch (err) {
+            if (err instanceof Axios.Cancel) {
+                resolve({status: 0, statusText: 'cancelled'} as any);
+            }
+
+            reject(err);
+        }
+    }) as CancellablePromise<AxiosResponse<TResponse>>;
+    promise.cancel = () => cancellationConfig.source.cancel();
+    return promise;
 }
 
 function createCancellationConfig() {
     const source = Axios.CancelToken.source();
     return {config: {...axiosConfig, cancelToken: source.token}, source};
-}
-
-function addCancelFunction<TResponse>(
-    originalPromise: Promise<AxiosResponse<TResponse>>,
-    cancelSource: CancelTokenSource
-) {
-    const promise = originalPromise as CancellablePromise<AxiosResponse<TResponse>>;
-    promise.cancel = cancelSource.cancel;
-    return promise;
 }
 
 type UrlQueriesObject = {
