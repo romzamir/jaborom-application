@@ -16,7 +16,7 @@
         "noEmit": true,
         "jsx": "react-jsx",
         "paths": {
-            "types/*": ["src/core/types/*"],
+            "types/*": ["./src/core/types/*"],
         }
     },
     "include": ["src"]
