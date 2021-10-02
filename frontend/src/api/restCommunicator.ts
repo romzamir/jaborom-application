@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import {backendConfig} from 'core/config/backend.config';
 
 const validateStatus = () => true;
 const axiosConfig = {validateStatus};
@@ -10,40 +11,45 @@ export const restCommunicator = {
     delete: deleteMethod,
 };
 
-function get<TResponse>(url: string, ...queries: UrlQuery[]) {
-    return Axios.get<TResponse>(concatParams(url, queries), axiosConfig);
+function get<TResponse>(route: string, ...queries: UrlQuery[]) {
+    return Axios.get<TResponse>(concatParams(route, queries), axiosConfig);
 }
 
 function post<TRequest, TResponse>(
-    url: string,
+    route: string,
     queries: UrlQuery[],
     body: any
 ) {
     return Axios.post<TRequest, TResponse>(
-        concatParams(url, queries),
+        concatParams(route, queries),
         body,
         axiosConfig
     );
 }
 
-function put<TResponse>(url: string, queries: UrlQuery[], body: any) {
-    return Axios.put<TResponse>(concatParams(url, queries), body, axiosConfig);
+function put<TResponse>(route: string, queries: UrlQuery[], body: any) {
+    return Axios.put<TResponse>(
+        concatParams(route, queries),
+        body,
+        axiosConfig
+    );
 }
 
-function deleteMethod<TResponse>(url: string, ...queries: UrlQuery[]) {
-    return Axios.delete<TResponse>(concatParams(url, queries), axiosConfig);
+function deleteMethod<TResponse>(route: string, ...queries: UrlQuery[]) {
+    return Axios.delete<TResponse>(concatParams(route, queries), axiosConfig);
 }
 
-export type UrlQuery = {name: string; value: string};
-
-function concatParams(url: string, queries: UrlQuery[]): string {
+function concatParams(route: string, queries: UrlQuery[]): string {
+    const urlWithRoute = backendConfig.url + (route ? `/${route}` : '');
     if (queries.length === 0) {
-        return url;
+        return urlWithRoute;
     }
 
     const joinedQueries = queries
         .map((query) => `${query.name}=${query.value}`)
         .join('&');
 
-    return `${url}?${joinedQueries}`;
+    return `${urlWithRoute}?${joinedQueries}`;
 }
+
+export type UrlQuery = {name: string; value: string};
