@@ -1,6 +1,8 @@
-import {BrowserRouter as Router} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 
-import {PagesTransitions} from './components/pagesTransitions';
+import {ProfilesPage} from 'components/pages/profilesPage';
+import {ProfilePage} from 'components/pages/profilePage';
+import {HomePage} from 'components/pages/homePage';
 
 import './App.css';
 
@@ -8,7 +10,20 @@ export default function App() {
     return (
         <div className='App'>
             <Router>
-                <PagesTransitions />
+                <Switch>
+                    <Route path='/profiles'>
+                        <ProfilesPage />
+                    </Route>
+                    <Route path='/profile/:id'>
+                        <ProfilePage />
+                    </Route>
+                    <Route exact path='/'>
+                        <HomePage />
+                    </Route>
+                    <Route path='*'>
+                        <Redirect to='/' />
+                    </Route>
+                </Switch>
             </Router>
         </div>
     );
