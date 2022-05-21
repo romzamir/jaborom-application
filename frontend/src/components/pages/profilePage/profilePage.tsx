@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import {AxiosResponse} from 'axios';
 
-import {Profile} from 'core/types/profile.type';
-import {profilesProvider} from 'api/providers/profiles.provider';
+import {Profile} from '../../../core/types/profile.type';
+import {profilesProvider} from '../../../api/providers/profiles.provider';
 
 import './profilePage.css';
 
@@ -24,7 +24,13 @@ export function ProfilePage() {
         setProfile(response.data ?? null);
     };
 
-    return isLoading ? <div>LOADING...</div> : <div className='profile-page'>{profile?.firstName}</div>;
+    return (
+        <div className='profile-page'>
+            <div className='profile-header'>
+                <div className='profile-image'></div>
+            </div>
+        </div>
+    );
 }
 
 type ProfileParams = {

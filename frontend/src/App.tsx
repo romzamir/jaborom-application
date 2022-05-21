@@ -1,8 +1,8 @@
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 
-import {ProfilesPage} from 'components/pages/profilesPage';
-import {ProfilePage} from 'components/pages/profilePage';
-import {HomePage} from 'components/pages/homePage';
+import {ProfilesPage} from './components/pages/profilesPage';
+import {ProfilePage} from './components/pages/profilePage';
+import {HomePage} from './components/pages/homePage';
 
 import './App.css';
 

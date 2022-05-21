@@ -1,5 +1,5 @@
 import Axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
-import {backendConfig} from 'core/config/backend.config';
+import {backendConfig} from '../core/config/backend.config';
 
 const validateStatus = () => true;
 const axiosConfig: AxiosRequestConfig = {validateStatus};

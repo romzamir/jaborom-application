@@ -4,9 +4,9 @@ import {useLocation} from 'react-router-dom';
 import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 
-import {Profile} from 'core/types/profile.type';
+import {Profile} from '../../../core/types/profile.type';
 
-import {profilesProvider} from 'api/providers/profiles.provider';
+import {profilesProvider} from '../../../api/providers/profiles.provider';
 
 import './profilesPage.css';
 import {AxiosResponse} from 'axios';

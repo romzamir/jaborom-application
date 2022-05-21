@@ -2,7 +2,7 @@ import _ from 'lodash';
 import {useCallback, useRef, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 
-import {searchConstants} from 'core/constants/search.constants';
+import {searchConstants} from '../../../../core/constants/search.constants';
 
 import SearchSvg from './search.svg';
 import './profilesPageSearchBar.css';

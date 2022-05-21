@@ -5,4 +5,37 @@
     height: auto;
     align-items: center;
     user-select: none;
+
+    border-color: gray;
+    border-radius: 2rem;
+    border-style: solid;
+
+    height: 50vh;
+    width: 50vw;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+.profile-header {
+    background-color: #71e549;
+    border-radius: 1rem;
+    height: 40%;
+    width: 100%;
+}
+
+.profile-image {
+    width: 4rem;
+    height: 4rem;
+    background-color: gray;
+    border-style: double;
+    border-width: 0.5rem;
+    border-radius: 1rem;
+    border-color: white;
+
+    position: relative;
+    float: right;
+    right: 2vw;
 }
