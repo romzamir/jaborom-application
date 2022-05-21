@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 
 import {ProfilesPage} from './components/pages/profilesPage';
 import {ProfilePage} from './components/pages/profilePage';
@@ -10,20 +10,12 @@ export default function App() {
     return (
         <div className='App'>
             <Router>
-                <Switch>
-                    <Route path='/profiles'>
-                        <ProfilesPage />
-                    </Route>
-                    <Route path='/profile/:id'>
-                        <ProfilePage />
-                    </Route>
-                    <Route exact path='/'>
-                        <HomePage />
-                    </Route>
-                    <Route path='*'>
-                        <Redirect to='/' />
-                    </Route>
-                </Switch>
+                <Routes>
+                    <Route path='/profiles' element={<ProfilesPage />} />
+                    <Route path='/profile/:id' element={<ProfilePage />} />
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='*' element={<Navigate to='/' />} />
+                </Routes>
             </Router>
         </div>
     );

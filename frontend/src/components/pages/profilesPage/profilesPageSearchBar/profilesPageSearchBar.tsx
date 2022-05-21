@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {useCallback, useRef, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import {searchConstants} from '../../../../core/constants/search.constants';
 
@@ -10,7 +10,7 @@ import './profilesPageSearchBar.css';
 export function ProfilesPageSearchBar(props: {text: string}) {
     const [value, setValue] = useState(props.text);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const onValueChanged = useCallback((event: any) => {
         const newValue = event.target.value;
@@ -25,9 +25,9 @@ export function ProfilesPageSearchBar(props: {text: string}) {
 
     const performSearch = () => {
         if (_.isEmpty(value)) {
-            history.push('/profiles');
+            navigate('/profiles');
         } else {
-            history.push(`/profiles?search=${value}`);
+            navigate(`/profiles?search=${value}`);
         }
     };
 
