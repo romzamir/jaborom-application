@@ -15,25 +15,19 @@
     top: 50%;
     transform: translate(-50%, -50%);
     overflow: hidden;
+    padding: 1em;
 }
 
-.profile-header {
-    background-color: #71e549;
-    border-radius: 1rem;
-    height: 40%;
+.profile-page-header {
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
-.profile-image {
-    width: 4rem;
-    height: 4rem;
-    background-color: gray;
-    border-style: double;
-    border-width: 0.5rem;
-    border-radius: 1rem;
-    border-color: white;
+.profile-name {
+    font-size: 1.7em;
+}
 
-    position: relative;
-    float: right;
-    right: 2vw;
+.profile-person-id {
+    margin-right: 1em;
 }
