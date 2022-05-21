@@ -14,7 +14,7 @@ export function ProfilePage() {
 
     useEffect(() => {
         setIsLoading(true);
-        const promise = profilesProvider.getProfile(id);
+        const promise = profilesProvider.getProfile(id || '');
         promise.then(profileReceived);
         return promise.cancel;
     }, [id]);
