@@ -3,6 +3,7 @@
         "baseUrl": "./src",
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
+        "types": ["vite/client", "vite-plugin-svgr/client"],
         "allowJs": true,
         "strictNullChecks": true,
         "skipLibCheck": true,
