@@ -1,8 +1,6 @@
 .profile-page {
     display: flex;
     flex-direction: column;
-    width: auto;
-    height: auto;
     align-items: center;
     user-select: none;
 
