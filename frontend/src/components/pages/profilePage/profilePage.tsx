@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {AxiosResponse} from 'axios';
 
 import {Profile} from '../../../core/types/profile.type';
