@@ -8,4 +8,8 @@ export default abstract class MySqlDbTable extends RelationalDbTableBase {
     ) {
         super(name);
     }
+
+    protected escapeName(name: string): string {
+        return `\`${name}\``;
+    }
 }

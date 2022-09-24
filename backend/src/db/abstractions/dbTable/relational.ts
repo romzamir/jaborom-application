@@ -20,6 +20,8 @@ export default abstract class RelationalDbTableBase extends DbTable {
         super(name);
     }
 
+    protected abstract escapeName(name: string): string;
+
     protected SearchOptionsToSqlCondition<T>(
         options: SearchOptions<T>
     ): string {
@@ -56,7 +58,7 @@ export default abstract class RelationalDbTableBase extends DbTable {
 
     protected ObjectToInsertSql(object: any): string {
         const keys = Object.keys(object)
-            .map((key) => `\`${key}\``)
+            .map((key) => this.escapeName(key))
             .join(',');
         const values = this.ObjectToValuesSql(object);
 

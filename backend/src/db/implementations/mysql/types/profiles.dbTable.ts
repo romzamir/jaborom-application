@@ -14,7 +14,7 @@ export default class ProfilesMySqlDbTable
 
     async getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
         const sql =
-            `SELECT * FROM \`${this._name}\`` +
+            `SELECT * FROM ${this.escapeName(this._name)}` +
             (options && options.additional
                 ? 'WHERE ' +
                   this.SearchOptionsToSqlCondition(options.additional)
@@ -27,7 +27,7 @@ export default class ProfilesMySqlDbTable
         options: Required<ProfilesSearchOptions>
     ): Promise<boolean> {
         const result = await this.connection.query(
-            `SELECT \`id\` FROM ${this._name} WHERE ` +
+            `SELECT ${this.escapeName('id')} FROM ${this._name} WHERE ` +
                 this.SearchOptionsToSqlCondition(options.additional)
         );
 
@@ -36,7 +36,8 @@ export default class ProfilesMySqlDbTable
 
     async insertProfile(profile: Profile): Promise<Profile> {
         const sql =
-            `INSERT INTO \`${this._name}\` ` + this.ObjectToInsertSql(profile);
+            `INSERT INTO ${this.escapeName(this._name)} ` +
+            this.ObjectToInsertSql(profile);
         const newProfile = {...profile};
         const result = await this.connection.query(sql);
         if (!!result.insertId) {
@@ -59,7 +60,7 @@ export default class ProfilesMySqlDbTable
         options: Required<ProfilesSearchOptions>
     ): Promise<number> {
         const sql =
-            `DELETE FROM \`${this._name}\` ` +
+            `DELETE FROM ${this.escapeName(this._name)} ` +
             ('WHERE ' + this.SearchOptionsToSqlCondition(options.additional));
         const result = await this.connection.query(sql);
         return result.affectedRows;
@@ -69,7 +70,9 @@ export default class ProfilesMySqlDbTable
         nameToSearch: string,
         includeGraduates: boolean = false
     ): Promise<Profile[]> {
-        const sql = `SELECT * FROM \`${this._name}\` WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
+        const sql = `SELECT * FROM ${this.escapeName(
+            this._name
+        )} WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
         const result = await this.connection.query(sql);
         return result;
     }
