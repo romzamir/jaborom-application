@@ -1,52 +1,52 @@
 import {Profile} from '../../../../core/types/profile.type';
 import {ProfilesSearchOptions} from '../../../../core/types/searchOptions/profiles.type';
 import IProfilesDbTable from '../../../abstractions/types/profiles.dbTable';
-import MySqlDbTable from '../DbTable';
-import MySqlDbConnection from '../DbConnection';
+import MSSqlDbConnection from '../DbConnection';
+import MSSqlDbTable from '../DbTable';
 
-export default class ProfilesMySqlDbTable
-    extends MySqlDbTable
+export default class ProfilesMSSqlDbTable
+    extends MSSqlDbTable
     implements IProfilesDbTable
 {
-    constructor(name: string, connection: MySqlDbConnection) {
+    constructor(name: string, connection: MSSqlDbConnection) {
         super(name, connection);
     }
 
     async getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
         const sql =
-            `SELECT * FROM ${this.escapeName(this._name)}` +
+            `SELECT * FROM [${this._name}]` +
             (options && options.additional
                 ? 'WHERE ' +
                   this.SearchOptionsToSqlCondition(options.additional)
                 : '');
         const result = await this.connection.query(sql);
-        return result ?? [];
+        return result.recordsets;
     }
 
     async checkIsProfileExists(
         options: Required<ProfilesSearchOptions>
     ): Promise<boolean> {
         const result = await this.connection.query(
-            `SELECT ${this.escapeName('id')} FROM ${this._name} WHERE ` +
+            `SELECT [id] FROM ${this._name} WHERE ` +
                 this.SearchOptionsToSqlCondition(options.additional)
         );
 
-        return !!result[0];
+        return result.recordsets.length > 0;
     }
 
     async insertProfile(profile: Profile): Promise<Profile> {
-        const sql =
-            `INSERT INTO ${this.escapeName(this._name)} ` +
-            this.ObjectToInsertSql(profile);
-        const newProfile = {...profile};
+        const insertSql = this.ObjectToInsertSql(profile);
+        const sql = `INSERT INTO [${this._name}] ${insertSql}; SELECT SCOPE_IDENTITY();`;
         const result = await this.connection.query(sql);
-        if (!!result.insertId) {
-            newProfile.id = result.insertId;
+        const insertedId = result.recordset?.[0]?.[''];
+        if (!!insertedId) {
+            return {
+                ...profile,
+                id: insertedId,
+            };
         } else {
             throw new Error('Failed creating profile');
         }
-
-        return newProfile;
     }
 
     updateProfile(
@@ -60,7 +60,7 @@ export default class ProfilesMySqlDbTable
         options: Required<ProfilesSearchOptions>
     ): Promise<number> {
         const sql =
-            `DELETE FROM ${this.escapeName(this._name)} ` +
+            `DELETE FROM [${this._name}] ` +
             ('WHERE ' + this.SearchOptionsToSqlCondition(options.additional));
         const result = await this.connection.query(sql);
         return result.affectedRows;
@@ -70,10 +70,8 @@ export default class ProfilesMySqlDbTable
         nameToSearch: string,
         includeGraduates: boolean = false
     ): Promise<Profile[]> {
-        const sql = `SELECT * FROM ${this.escapeName(
-            this._name
-        )} WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
+        const sql = `SELECT * FROM [${this._name}] WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
         const result = await this.connection.query(sql);
-        return result;
+        return result.recordset;
     }
 }
