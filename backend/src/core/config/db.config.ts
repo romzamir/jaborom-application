@@ -1,9 +1,9 @@
-export const HOSTNAME: string = '195.133.95.109';
+export const HOSTNAME: string = 'betarpt.database.windows.net';
 
-export const PORT: number = 3306;
+export const PORT: number | undefined = undefined;
 
-export const USER: string = 'root';
+export const USER: string = 'nati';
 
-export const PASSWORD: string = 'Test1';
+export const PASSWORD: string = 'Nat3121IC';
 
-export const DATABASE: string = 'Jaborom';
+export const DATABASE: string = 'jaborom-test';
