@@ -20,7 +20,7 @@ export default class ProfilesMSSqlDbTable
                   this.SearchOptionsToSqlCondition(options.additional)
                 : '');
         const result = await this.connection.query(sql);
-        return result.recordsets;
+        return result.recordset;
     }
 
     async checkIsProfileExists(
@@ -31,7 +31,7 @@ export default class ProfilesMSSqlDbTable
                 this.SearchOptionsToSqlCondition(options.additional)
         );
 
-        return result.recordsets.length > 0;
+        return result.recordset.length > 0;
     }
 
     async insertProfile(profile: Profile): Promise<Profile> {
