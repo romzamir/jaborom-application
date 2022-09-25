@@ -1,11 +1,11 @@
 import {Router} from 'express';
 
 //#region Db
-import MySqlDbConnection from './db/implementations/mysql/DbConnection';
+import MSSqlDbConnection from './db/implementations/mssql/DbConnection';
 import IProfilesDbTable from './db/abstractions/types/profiles.dbTable';
-import ProfilesMySqlDbTable from './db/implementations/mysql/types/profiles.dbTable';
+import ProfilesMSSqlDbTable from './db/implementations/mssql/types/profiles.dbTable';
 import ISiblingsDbTable from './db/abstractions/types/siblings.dbTables';
-import SiblingsMySqlDbTable from './db/implementations/mysql/types/siblings.dbTable';
+import SiblingsMSSqlDbTable from './db/implementations/mssql/types/siblings.dbTable';
 //#endregion
 //#region Providers
 import IProfilesProvider from './providers/abstractions/types/profiles.provider';
@@ -29,10 +29,10 @@ export default async function Boot(): Promise<Router> {
     const router = Router();
 
     //#region Db
-    const dbConnection = new MySqlDbConnection();
+    const dbConnection = new MSSqlDbConnection();
     try {
         await dbConnection.connect({
-            host: DbConfig.HOSTNAME,
+            server: DbConfig.HOSTNAME,
             port: DbConfig.PORT,
             user: DbConfig.USER,
             password: DbConfig.PASSWORD,
@@ -43,11 +43,11 @@ export default async function Boot(): Promise<Router> {
         console.error(err);
     }
 
-    const profilesDbTable: IProfilesDbTable = new ProfilesMySqlDbTable(
+    const profilesDbTable: IProfilesDbTable = new ProfilesMSSqlDbTable(
         'profiles',
         dbConnection
     );
-    const siblingsDbTable: ISiblingsDbTable = new SiblingsMySqlDbTable(
+    const siblingsDbTable: ISiblingsDbTable = new SiblingsMSSqlDbTable(
         'siblings',
         dbConnection
     );
