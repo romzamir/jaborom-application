@@ -1,6 +1,6 @@
 import {ProfileSex} from '../types/sex.type';
 
-import {sexNumberToProfileSex} from '../../utils/sex';
+import {profileSexToSexNumber, sexNumberToProfileSex} from '../../utils/sex';
 
 export class Profile {
     public id: number;
@@ -74,5 +74,14 @@ export class Profile {
 
     clone() {
         return new Profile(this);
+    }
+
+    static toJson(profile: Partial<Profile>) {
+        const clonedProfile = {...profile} as any;
+        if ('sex' in profile && profile.sex !== undefined) {
+            clonedProfile.sex = profileSexToSexNumber(profile.sex);
+        }
+
+        return clonedProfile;
     }
 }
