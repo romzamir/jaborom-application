@@ -9,6 +9,7 @@ export const profilesProvider = ((window as any).profilesProvider = {
     getAll,
     getById,
     search,
+    update,
 });
 
 function getAll(limit: number = 20) {
@@ -32,4 +33,11 @@ function search(searchText: string, limit: number = 20) {
         searchText,
         limit,
     });
+}
+
+function update(profileChanges: Partial<Profile>) {
+    return restCommunicator.put(
+        backendRoutes.profiles + `/${profileChanges.id}`,
+        Profile.toJson(profileChanges),
+    );
 }
