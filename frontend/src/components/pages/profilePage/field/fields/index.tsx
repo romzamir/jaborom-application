@@ -6,10 +6,54 @@ export type FieldType = 'Date' | 'Text' | 'Long Text' | 'Toggle';
 
 export const fieldsComponentsByNames: Record<
     FieldType,
-    (value: any) => JSX.Element
+    (
+        value: any,
+        setValue: (value: any) => void,
+        isEditMode: boolean,
+    ) => JSX.Element
 > = {
-    Date: (value: Date) => <ProfileDateField value={value} />,
-    Text: (value: string) => <ProfileTextField value={value} />,
-    'Long Text': (value: string) => <ProfileLongTextField value={value} />,
-    Toggle: (value: string) => <ProfileTextField value={value} />,
+    Date: (
+        value: Date,
+        setValue: (value: any) => void,
+        isEditMode: boolean,
+    ) => (
+        <ProfileDateField
+            value={value}
+            setValue={setValue}
+            isEditMode={isEditMode}
+        />
+    ),
+    Text: (
+        value: string,
+        setValue: (value: any) => void,
+        isEditMode: boolean,
+    ) => (
+        <ProfileTextField
+            value={value}
+            setValue={setValue}
+            isEditMode={isEditMode}
+        />
+    ),
+    'Long Text': (
+        value: string,
+        setValue: (value: any) => void,
+        isEditMode: boolean,
+    ) => (
+        <ProfileLongTextField
+            value={value}
+            setValue={setValue}
+            isEditMode={isEditMode}
+        />
+    ),
+    Toggle: (
+        value: string,
+        setValue: (value: any) => void,
+        isEditMode: boolean,
+    ) => (
+        <ProfileTextField
+            value={value}
+            setValue={setValue}
+            isEditMode={isEditMode}
+        />
+    ),
 };

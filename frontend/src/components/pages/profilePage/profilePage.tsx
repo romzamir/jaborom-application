@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import {useParams} from 'react-router-dom';
 
 import {ProfilePageHeader} from './header';
@@ -16,6 +16,7 @@ export function ProfilePage() {
         [id],
     );
 
+    const [isEditMode, setIsEditMode] = useState(false);
     const [isLoading, profileResult] = useFetch(fetchProfile);
     const profile = profileResult?.data;
 
@@ -28,7 +29,10 @@ export function ProfilePage() {
             ) : (
                 <div className='profile-page'>
                     <ProfilePageHeader profile={profile} />
-                    <ProfilePageBody profile={profile} />
+                    <ProfilePageBody
+                        profile={profile}
+                        isEditMode={isEditMode}
+                    />
                 </div>
             )}
         </>
