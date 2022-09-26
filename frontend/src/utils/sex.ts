@@ -1,6 +1,6 @@
 import {ProfileSex} from '../core/types/sex.type';
 
-export function sexToString(sex: ProfileSex): string {
+export function profileSexToString(sex: ProfileSex): string {
     switch (sex) {
         case 'Male':
             return 'זכר';

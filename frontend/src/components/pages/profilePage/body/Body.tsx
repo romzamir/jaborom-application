@@ -1,7 +1,7 @@
 import {Profile} from '../../../../core/models/profile';
 import {ProfileField} from '../field';
 
-import {sexToString} from '../../../../utils/sex';
+import {profileSexToString} from '../../../../utils/sex';
 
 import './body.css';
 
@@ -22,7 +22,7 @@ export function ProfilePageBody({profile, isEditMode}: ProfilePageBodyProps) {
             <ProfileField
                 title='מין'
                 type='Toggle'
-                value={sexToString(profile.sex)}
+                value={profileSexToString(profile.sex)}
                 isEditMode={isEditMode}
             />
             <ProfileField
