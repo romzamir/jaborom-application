@@ -17,6 +17,11 @@ export function ProfilePageBody({profile}: ProfilePageBodyProps) {
             />
             <ProfileField title='כתובת' type='Text' value={profile.address} />
             <ProfileField
+                title='תחביבים'
+                type='Long Text'
+                value={profile.hobbies}
+            />
+            <ProfileField
                 title='אלרגיות'
                 type='Long Text'
                 value={profile.allergies}
