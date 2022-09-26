@@ -1,7 +1,7 @@
 import {restCommunicator} from '../../api/restCommunicator';
 import {backendRoutes} from '../../core/constants/backendRoutes.constants';
 
-import {Profile} from 'core/types/profile.type';
+import {Profile} from '../../core/types/profile.type';
 
 export const profilesProvider = ((window as any).profilesProvider = {
     getAllProfiles,
