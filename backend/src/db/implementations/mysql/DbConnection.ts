@@ -44,8 +44,8 @@ export default class MySqlDbConnection implements IDbConnection {
         });
     }
 
-    isConnected(): Promise<boolean> {
-        return Promise.resolve(this.connected);
+    get isConnected(): boolean {
+        return this.connected;
     }
 
     query(sql: string): Promise<any> {
