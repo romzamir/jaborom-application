@@ -71,4 +71,8 @@ export class Profile {
                 ? dateOfSigning
                 : new Date(dateOfSigning);
     }
+
+    clone() {
+        return new Profile(this);
+    }
 }
