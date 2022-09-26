@@ -2,6 +2,11 @@ import './field.css';
 
 export * from './fields';
 
+type ProfileFieldProps = {
+    title: string;
+    children: (JSX.Element | string)[] | JSX.Element | string;
+};
+
 export function ProfileFieldContainer({title, children}: ProfileFieldProps) {
     return (
         <div className='profile-field-container'>
@@ -10,8 +15,3 @@ export function ProfileFieldContainer({title, children}: ProfileFieldProps) {
         </div>
     );
 }
-
-type ProfileFieldProps = {
-    title: string;
-    children: (JSX.Element | string)[] | JSX.Element | string;
-};
