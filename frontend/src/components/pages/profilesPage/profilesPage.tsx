@@ -18,10 +18,10 @@ export function ProfilesPage() {
 
     const performSearch = useCallback(() => {
         if (_.isEmpty(searchText)) {
-            return profilesProvider.getAllProfiles();
+            return profilesProvider.getAll();
         }
 
-        return profilesProvider.searchProfiles(searchText);
+        return profilesProvider.search(searchText);
     }, [location]);
 
     const [isLoading, profilesResult] =

@@ -13,7 +13,7 @@ import './profilePage.css';
 export function ProfilePage() {
     const {id} = useParams<ProfileParams>();
     const fetchProfile = useCallback(
-        () => profilesProvider.getProfile(id || ''),
+        () => profilesProvider.getById(id || ''),
         [id],
     );
 
