@@ -4,7 +4,7 @@ import MySqlDbConnection from './DbConnection';
 export default abstract class MySqlDbTable extends RelationalDbTableBase {
     constructor(
         name: string,
-        protected readonly connection: MySqlDbConnection
+        protected readonly connection: MySqlDbConnection,
     ) {
         super(name);
     }

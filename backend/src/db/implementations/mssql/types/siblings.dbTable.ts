@@ -47,7 +47,7 @@ export default class SiblingsMSSqlDbTable
 
     updateSibling(
         options: SearchOptions<Sibling>,
-        sibling: Sibling
+        sibling: Sibling,
     ): Promise<Sibling> {
         throw new Error('Method not implemented.');
     }

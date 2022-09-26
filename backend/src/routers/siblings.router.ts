@@ -5,7 +5,7 @@ import {Sibling} from '../core/types/sibling.type';
 import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
 export default function SiblingsRouter(
-    profilesProvider: IProfilesProvider
+    profilesProvider: IProfilesProvider,
 ): Router {
     const router = Router();
 
@@ -18,7 +18,7 @@ export default function SiblingsRouter(
 
         try {
             const result = await profilesProvider.getSiblingsByProfileId(
-                profileId
+                profileId,
             );
 
             if (!result) {
@@ -48,12 +48,12 @@ export default function SiblingsRouter(
             if (Array.isArray(siblings)) {
                 result = await profilesProvider.addSiblingsToProfileId(
                     profileId,
-                    siblings
+                    siblings,
                 );
             } else {
                 result = await profilesProvider.addSiblingToProfileId(
                     profileId,
-                    siblings
+                    siblings,
                 );
             }
 

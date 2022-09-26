@@ -45,17 +45,17 @@ export default async function Boot(): Promise<Router> {
 
     const profilesDbTable: IProfilesDbTable = new ProfilesMSSqlDbTable(
         'profiles',
-        dbConnection
+        dbConnection,
     );
     const siblingsDbTable: ISiblingsDbTable = new SiblingsMSSqlDbTable(
         'siblings',
-        dbConnection
+        dbConnection,
     );
     //#endregion
     //#region Providers
     const profilesProvider: IProfilesProvider = new ProfilesProvider(
         profilesDbTable,
-        siblingsDbTable
+        siblingsDbTable,
     );
     //#endregion
     //#region Routers
@@ -67,7 +67,7 @@ export default async function Boot(): Promise<Router> {
     const authenticationValidator: IAuthenticationValidator =
         new MockAuthenticationValidator();
     const checkAuthenticationRoute = FirebaseCheckAuthenticationRoute(
-        authenticationValidator
+        authenticationValidator,
     );
     //#endregion
 

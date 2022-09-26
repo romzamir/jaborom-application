@@ -24,11 +24,11 @@ export default class ProfilesMySqlDbTable
     }
 
     async checkIsProfileExists(
-        options: Required<ProfilesSearchOptions>
+        options: Required<ProfilesSearchOptions>,
     ): Promise<boolean> {
         const result = await this.connection.query(
             `SELECT ${this.escapeName('id')} FROM ${this._name} WHERE ` +
-                this.SearchOptionsToSqlCondition(options.additional)
+                this.SearchOptionsToSqlCondition(options.additional),
         );
 
         return !!result[0];
@@ -51,13 +51,13 @@ export default class ProfilesMySqlDbTable
 
     updateProfile(
         options: Required<ProfilesSearchOptions>,
-        profile: Profile
+        profile: Profile,
     ): Promise<Profile> {
         throw new Error('Method not implemented.');
     }
 
     async deleteProfile(
-        options: Required<ProfilesSearchOptions>
+        options: Required<ProfilesSearchOptions>,
     ): Promise<number> {
         const sql =
             `DELETE FROM ${this.escapeName(this._name)} ` +
@@ -68,10 +68,10 @@ export default class ProfilesMySqlDbTable
 
     async findProfiles(
         nameToSearch: string,
-        includeGraduates: boolean = false
+        includeGraduates: boolean = false,
     ): Promise<Profile[]> {
         const sql = `SELECT * FROM ${this.escapeName(
-            this._name
+            this._name,
         )} WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
         const result = await this.connection.query(sql);
         return result;

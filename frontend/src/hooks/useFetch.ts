@@ -4,15 +4,15 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import {CancellablePromise} from '../core/types/cancellablePromise.type';
 
 export function useFetch<T>(
-    fetchFunc: () => CancellablePromise<T>
+    fetchFunc: () => CancellablePromise<T>,
 ): UseFetchReturnType<T>;
 
 export function useFetch<
     T,
-    TFetchFunc extends (...args: any) => CancellablePromise<T>
+    TFetchFunc extends (...args: any) => CancellablePromise<T>,
 >(
     fetchFunc: TFetchFunc,
-    options: Partial<FetchOptions> = {}
+    options: Partial<FetchOptions> = {},
 ): UseFetchReturnType<T> {
     options = {...DEFAULT_FETCH_OPTIONS, ...options};
 
@@ -44,7 +44,7 @@ export function useFetch<
                 }
             })();
         },
-        [fetchFunc]
+        [fetchFunc],
     );
 
     useEffect(() => {
