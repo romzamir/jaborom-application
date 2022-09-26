@@ -1,15 +1,22 @@
+import classNames from 'classnames';
+
 import './field.css';
 
 export * from './fields';
 
 type ProfileFieldProps = {
     title: string;
+    className?: string;
     children: (JSX.Element | string)[] | JSX.Element | string;
 };
 
-export function ProfileFieldContainer({title, children}: ProfileFieldProps) {
+export function ProfileFieldContainer({
+    title,
+    className,
+    children,
+}: ProfileFieldProps) {
     return (
-        <div className='profile-field-container'>
+        <div className={classNames('profile-field-container', className)}>
             <div className='profile-field-title'>{title}:</div>
             <div className='profile-field-value'>{children}</div>
         </div>

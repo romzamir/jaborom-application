@@ -16,7 +16,7 @@ export function ProfileToggleField({
     isEditMode,
 }: ProfileToggleFieldProps) {
     return (
-        <ProfileFieldContainer title={title}>
+        <ProfileFieldContainer title={title} className='profile-toggle-field'>
             {isEditMode
                 ? options.map((option) => (
                       <label>
