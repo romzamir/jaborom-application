@@ -33,7 +33,10 @@ export function ProfilesPageSearchBar(props: {text: string}) {
 
     if (value !== props.text) {
         abortPreviousDelay();
-        timeoutRef.current = setTimeout(performSearch, searchConstants.searchDelay);
+        timeoutRef.current = setTimeout(
+            performSearch,
+            searchConstants.searchDelay,
+        );
     }
 
     return (
@@ -46,7 +49,11 @@ export function ProfilesPageSearchBar(props: {text: string}) {
                 placeholder='חיפוש'
             />
             <div className='profiles-page-search-bar-separator'></div>
-            <img className='profiles-page-search-bar-button' src={SearchSvg} alt='חיפוש' />
+            <img
+                className='profiles-page-search-bar-button'
+                src={SearchSvg}
+                alt='חיפוש'
+            />
         </div>
     );
 }

@@ -7,7 +7,7 @@ export default interface IProfilesProvider extends IDataProvider {
     checkIsProfileExists(profileId: number): Promise<boolean>;
     getProfileByID(
         id: number,
-        includeGraduates?: boolean
+        includeGraduates?: boolean,
     ): Promise<Profile | null>;
     insertProfile(profile: Profile): Promise<Profile | null>;
     deleteProfile(id: number): Promise<boolean>;
@@ -16,16 +16,16 @@ export default interface IProfilesProvider extends IDataProvider {
 
     addSiblingToProfileId(
         profileId: number,
-        siblings: Sibling
+        siblings: Sibling,
     ): Promise<Sibling | null>;
 
     addSiblingsToProfileId(
         profileId: number,
-        siblings: Sibling[]
+        siblings: Sibling[],
     ): Promise<Sibling[] | null>;
 
     findProfiles(
         nameToSearch: string,
-        includeGraduates?: boolean
+        includeGraduates?: boolean,
     ): Promise<Profile[]>;
 }

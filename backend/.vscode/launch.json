@@ -10,9 +10,7 @@
             "request": "launch",
             "command": "npm run start",
             "cwd": "${workspaceFolder}",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
+            "skipFiles": ["<node_internals>/**"]
         }
     ]
 }

@@ -48,7 +48,7 @@ export default class SiblingsMySqlDbTable
 
     updateSibling(
         options: SearchOptions<Sibling>,
-        sibling: Sibling
+        sibling: Sibling,
     ): Promise<Sibling> {
         throw new Error('Method not implemented.');
     }

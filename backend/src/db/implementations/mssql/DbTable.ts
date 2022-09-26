@@ -4,7 +4,7 @@ import MSSqlDbConnection from './DbConnection';
 export default abstract class MSSqlDbTable extends RelationalDbTableBase {
     constructor(
         name: string,
-        protected readonly connection: MSSqlDbConnection
+        protected readonly connection: MSSqlDbConnection,
     ) {
         super(name);
     }

@@ -18,5 +18,8 @@ function getProfile(id: number | string) {
 }
 
 function searchProfiles(searchText: string, limit: number = 20) {
-    return restCommunicator.get<Profile[]>(backendRoutes.profiles, {searchText, limit});
+    return restCommunicator.get<Profile[]>(backendRoutes.profiles, {
+        searchText,
+        limit,
+    });
 }

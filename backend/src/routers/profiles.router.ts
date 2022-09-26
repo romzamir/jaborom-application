@@ -6,7 +6,7 @@ import IProfilesProvider from '../providers/abstractions/types/profiles.provider
 
 export default function ProfilesRouter(
     profilesProvider: IProfilesProvider,
-    siblingsRouter: Router
+    siblingsRouter: Router,
 ): Router {
     const router = Router();
 
@@ -18,7 +18,7 @@ export default function ProfilesRouter(
         if (searchText) {
             profiles = await profilesProvider.findProfiles(
                 searchText,
-                includeGraduates
+                includeGraduates,
             );
         } else {
             profiles = await profilesProvider.getAllProfiles(includeGraduates);

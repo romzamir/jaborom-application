@@ -10,7 +10,7 @@ export default interface ISiblingsDbTable {
 
     updateSibling(
         options: SearchOptions<Sibling>,
-        sibling: Sibling
+        sibling: Sibling,
     ): Promise<Sibling>;
 
     deleteSiblings(options: SearchOptions<Sibling>): Promise<number>;

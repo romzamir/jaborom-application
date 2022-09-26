@@ -10,13 +10,13 @@ export default interface IProfilesDbTable {
 
     updateProfile(
         options: Required<ProfilesSearchOptions>,
-        profile: Profile
+        profile: Profile,
     ): Promise<Profile>;
 
     deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number>;
 
     findProfiles(
         nameToSearch: string,
-        includeGraduates?: boolean
+        includeGraduates?: boolean,
     ): Promise<Profile[]>;
 }
