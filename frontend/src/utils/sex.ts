@@ -10,7 +10,7 @@ export function profileSexToString(sex: ProfileSex): string {
 }
 
 export function sexStringToProfileSex(sex: string): ProfileSex {
-    const entry = Object.entries(profileSexToString).find(
+    const entry = Object.entries(profileSexToStringMap).find(
         ([_key, value]) => value === sex,
     );
     if (!entry) {
