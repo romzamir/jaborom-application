@@ -17,7 +17,7 @@ export class Profile {
     public allergies?: string;
     public notes?: string;
 
-    constructor(template: any) {
+    constructor(template: any = {}) {
         const {
             id,
             personId,
