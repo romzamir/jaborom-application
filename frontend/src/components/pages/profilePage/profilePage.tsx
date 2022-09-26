@@ -43,6 +43,11 @@ export function ProfilePage() {
         setIsEditMode(false);
     }, [draft]);
 
+    const discardDraft = useCallback(() => {
+        setDraft(profile);
+        setIsEditMode(false);
+    }, [profile]);
+
     return (
         <>
             {isLoading ? (
@@ -56,6 +61,7 @@ export function ProfilePage() {
                         isEditMode={isEditMode}
                         startEditMode={startEditMode}
                         saveDraft={saveDraft}
+                        discardDraft={discardDraft}
                     />
                     <ProfilePageBody
                         profile={draft ?? profile}

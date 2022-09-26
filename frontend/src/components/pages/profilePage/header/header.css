@@ -48,3 +48,12 @@
 .profile-page-header-save-draft-button:hover {
     --color: green;
 }
+
+.profile-page-header-discard-draft-button {
+    --color: gray;
+    margin-right: 0.5em;
+}
+
+.profile-page-header-discard-draft-button:hover {
+    --color: red;
+}

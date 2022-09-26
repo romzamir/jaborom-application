@@ -9,6 +9,7 @@ type ProfilePageHeaderProps = {
     isEditMode: boolean;
     startEditMode: () => void;
     saveDraft: () => void;
+    discardDraft: () => void;
 };
 
 export function ProfilePageHeader({
@@ -16,6 +17,7 @@ export function ProfilePageHeader({
     isEditMode,
     startEditMode,
     saveDraft,
+    discardDraft,
 }: ProfilePageHeaderProps) {
     return (
         <div className='profile-page-header'>
@@ -31,12 +33,20 @@ export function ProfilePageHeader({
                 </span>
                 <div className='profile-page-header-buttons'>
                     {isEditMode ? (
-                        <span
-                            className='profile-page-header-button profile-page-header-save-draft-button'
-                            onClick={saveDraft}
-                        >
-                            שמירה
-                        </span>
+                        <>
+                            <span
+                                className='profile-page-header-button profile-page-header-save-draft-button'
+                                onClick={saveDraft}
+                            >
+                                שמירה
+                            </span>
+                            <span
+                                className='profile-page-header-button profile-page-header-discard-draft-button'
+                                onClick={discardDraft}
+                            >
+                                ביטול
+                            </span>
+                        </>
                     ) : (
                         <span
                             className='profile-page-header-button profile-page-header-edit-button'
