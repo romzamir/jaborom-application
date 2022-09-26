@@ -6,6 +6,7 @@ import {
 } from '../field';
 
 import {profileSexToString, sexStringToProfileSex} from '../../../../utils/sex';
+import {SEX_OPTIONS} from '../../../../constants/profile';
 
 import './body.css';
 
@@ -34,6 +35,7 @@ export function ProfilePageBody({
                 setValue={(value) =>
                     setField('sex', sexStringToProfileSex(value))
                 }
+                options={SEX_OPTIONS}
                 isEditMode={isEditMode}
             />
             <ProfileLongTextField
