@@ -1,0 +1,8 @@
+.profile-field-container {
+    display: flex;
+}
+
+.profile-field-title {
+    margin-left: 1em;
+    width: 4em;
+}
