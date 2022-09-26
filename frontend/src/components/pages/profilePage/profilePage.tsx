@@ -24,19 +24,25 @@ export function ProfilePage() {
         setProfile(response.data ?? null);
     };
 
-    return isLoading ? (
-        'בטעינה...'
-    ) : !profile ? (
-        'הפרופיל לא נמצא'
-    ) : (
-        <div className='profile-page'>
-            <div className='profile-page-header'>
-                <span className='profile-name'>
-                    {profile.firstName} {profile?.lastName}
-                </span>
-                <span className='profile-person-id'>{profile.personId}</span>
-            </div>
-        </div>
+    return (
+        <>
+            {isLoading ? (
+                'בטעינה...'
+            ) : !profile ? (
+                'הפרופיל לא נמצא'
+            ) : (
+                <div className='profile-page'>
+                    <div className='profile-page-header'>
+                        <span className='profile-name'>
+                            {profile.firstName} {profile?.lastName}
+                        </span>
+                        <span className='profile-person-id'>
+                            {profile.personId}
+                        </span>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
 
