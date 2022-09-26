@@ -17,17 +17,3 @@
     overflow: hidden;
     padding: 1em;
 }
-
-.profile-page-header {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.profile-name {
-    font-size: 1.7em;
-}
-
-.profile-person-id {
-    margin-right: 1em;
-}

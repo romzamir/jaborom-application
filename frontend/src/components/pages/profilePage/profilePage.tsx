@@ -5,6 +5,7 @@ import {profilesProvider} from '../../../api/providers/profiles.provider';
 
 import './profilePage.css';
 import {useFetch} from '../../../hooks';
+import {ProfilePageHeader} from './header';
 
 export function ProfilePage() {
     const {id} = useParams<ProfileParams>();
@@ -24,14 +25,7 @@ export function ProfilePage() {
                 'הפרופיל לא נמצא'
             ) : (
                 <div className='profile-page'>
-                    <div className='profile-page-header'>
-                        <span className='profile-name'>
-                            {profile.firstName} {profile.lastName}
-                        </span>
-                        <span className='profile-person-id'>
-                            {profile.personId}
-                        </span>
-                    </div>
+                    <ProfilePageHeader profile={profile} />
                 </div>
             )}
         </>
