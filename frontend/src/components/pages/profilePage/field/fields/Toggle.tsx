@@ -22,6 +22,7 @@ export function ProfileToggleField({
                       <label>
                           <input
                               type='radio'
+                              checked={option === value}
                               onChange={(event) => {
                                   if (event.currentTarget.checked) {
                                       setValue(option);
