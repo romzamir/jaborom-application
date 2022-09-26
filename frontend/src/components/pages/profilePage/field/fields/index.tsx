@@ -1,6 +1,7 @@
 import {ProfileDateField} from './Date';
 import {ProfileLongTextField} from './LongText';
 import {ProfileTextField} from './Text';
+import {ProfileToggleField} from './Toggle';
 
 export type FieldType = 'Date' | 'Text' | 'Long Text' | 'Toggle';
 
@@ -50,7 +51,7 @@ export const fieldsComponentsByNames: Record<
         setValue: (value: any) => void,
         isEditMode: boolean,
     ) => (
-        <ProfileTextField
+        <ProfileToggleField
             value={value}
             setValue={setValue}
             isEditMode={isEditMode}
