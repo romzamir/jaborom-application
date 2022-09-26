@@ -39,9 +39,9 @@ export class Profile {
             lastName: string;
             school: number;
             grade: number;
-            sex: number;
-            dateOfBirth?: string;
-            dateOfSigning: string;
+            sex: any;
+            dateOfBirth: any;
+            dateOfSigning: any;
             address?: string;
             hobbies?: string;
             allergies?: string;
@@ -54,12 +54,21 @@ export class Profile {
         this.lastName = lastName;
         this.school = school;
         this.grade = grade;
-        this.sex = sexNumberToProfileSex(sex);
-        this.dateOfBirth = dateOfBirth ? new Date(dateOfBirth) : null;
-        this.dateOfSigning = new Date(dateOfSigning);
         this.address = address;
         this.hobbies = hobbies;
         this.allergies = allergies;
         this.notes = notes;
+
+        this.sex = typeof sex === 'number' ? sexNumberToProfileSex(sex) : sex;
+        this.dateOfBirth =
+            dateOfBirth instanceof Date
+                ? dateOfBirth
+                : !!dateOfBirth
+                ? new Date(dateOfBirth)
+                : null;
+        this.dateOfSigning =
+            dateOfSigning instanceof Date
+                ? dateOfSigning
+                : new Date(dateOfSigning);
     }
 }
