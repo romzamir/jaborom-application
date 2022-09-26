@@ -20,18 +20,18 @@ export default class ProfilesMSSqlDbTable
                   this.SearchOptionsToSqlCondition(options.additional)
                 : '');
         const result = await this.connection.query(sql);
-        return result.recordsets;
+        return result.recordset;
     }
 
     async checkIsProfileExists(
-        options: Required<ProfilesSearchOptions>
+        options: Required<ProfilesSearchOptions>,
     ): Promise<boolean> {
         const result = await this.connection.query(
             `SELECT [id] FROM ${this._name} WHERE ` +
-                this.SearchOptionsToSqlCondition(options.additional)
+                this.SearchOptionsToSqlCondition(options.additional),
         );
 
-        return result.recordsets.length > 0;
+        return result.recordset.length > 0;
     }
 
     async insertProfile(profile: Profile): Promise<Profile> {
@@ -51,13 +51,13 @@ export default class ProfilesMSSqlDbTable
 
     updateProfile(
         options: Required<ProfilesSearchOptions>,
-        profile: Profile
+        profile: Profile,
     ): Promise<Profile> {
         throw new Error('Method not implemented.');
     }
 
     async deleteProfile(
-        options: Required<ProfilesSearchOptions>
+        options: Required<ProfilesSearchOptions>,
     ): Promise<number> {
         const sql =
             `DELETE FROM [${this._name}] ` +
@@ -68,7 +68,7 @@ export default class ProfilesMSSqlDbTable
 
     async findProfiles(
         nameToSearch: string,
-        includeGraduates: boolean = false
+        includeGraduates: boolean = false,
     ): Promise<Profile[]> {
         const sql = `SELECT * FROM [${this._name}] WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
         const result = await this.connection.query(sql);

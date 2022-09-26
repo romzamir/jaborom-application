@@ -5,7 +5,7 @@ export type Profile = {
     lastName: string;
     school: number;
     grade: number;
-    sex: boolean;
+    sex: number;
     dateOfBirth?: Date;
     dateOfSigning: Date;
     address?: string;

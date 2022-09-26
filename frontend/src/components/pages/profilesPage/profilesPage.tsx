@@ -1,59 +1,44 @@
 import _ from 'lodash';
-import {useEffect, useState} from 'react';
+import {AxiosResponse} from 'axios';
+import {useCallback} from 'react';
 import {useLocation} from 'react-router-dom';
 import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
+import {useFetch} from '../../../hooks';
 
-import {Profile} from 'core/types/profile.type';
+import {ProfileDb} from '../../../core/types/profileDb.type';
 
-import {profilesProvider} from 'api/providers/profiles.provider';
+import {profilesProvider} from '../../../api/providers/profiles.provider';
 
 import './profilesPage.css';
-import {AxiosResponse} from 'axios';
 
 export function ProfilesPage() {
-    const [isLoading, setIsLoading] = useState(true);
-    const [profiles, setProfiles] = useState<Profile[]>([]);
     const location = useLocation();
+    const searchText = new URLSearchParams(location.search).get('search') || '';
 
-    useEffect(() => {
-        const searchText = getSearchText(location.search);
-        const searchPromise = performSearch(searchText);
-        searchPromise.then(onSearchResponse);
-        return searchPromise.cancel;
-    }, [location]);
-
-    const getSearchText = (search: string) => {
-        return new URLSearchParams(search).get('search') || '';
-    };
-
-    const performSearch = (searchText: string) => {
+    const performSearch = useCallback(() => {
         if (_.isEmpty(searchText)) {
             return profilesProvider.getAllProfiles();
         }
 
         return profilesProvider.searchProfiles(searchText);
-    };
+    }, [location]);
 
-    const onSearchResponse = (response: AxiosResponse<Profile[]>) => {
-        if (response.status === 200) {
-            setProfiles(response.data);
-            setIsLoading(false);
-        }
-
-        console.log('Response', response);
-    };
+    const [isLoading, profilesResult] =
+        useFetch<AxiosResponse<ProfileDb[]>>(performSearch);
 
     return (
         <div className='profiles-page'>
-            <ProfilesPageSearchBar text={getSearchText(location.search)} />
+            <ProfilesPageSearchBar text={searchText} />
             <div className='profiles-grid-container'>
                 {isLoading ? (
                     <div>LOADING...</div>
-                ) : profiles.length === 0 ? (
+                ) : _.isEmpty(profilesResult?.data) ? (
                     <div>לא נמצאו</div>
                 ) : (
-                    profiles.map((profile) => <ProfilesPageItem key={profile.id} profile={profile} />)
+                    profilesResult?.data.map((profile) => (
+                        <ProfilesPageItem key={profile.id} profile={profile} />
+                    ))
                 )}
             </div>
         </div>

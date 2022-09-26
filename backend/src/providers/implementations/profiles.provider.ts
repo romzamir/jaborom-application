@@ -11,7 +11,7 @@ export default class ProfilesProvider implements IProfilesProvider {
 
     constructor(
         profilesDbTable: IProfilesDbTable,
-        siblingsDbTable: ISiblingsDbTable
+        siblingsDbTable: ISiblingsDbTable,
     ) {
         this._profilesDbTable = profilesDbTable;
         this._siblingsDbTable = siblingsDbTable;
@@ -36,7 +36,7 @@ export default class ProfilesProvider implements IProfilesProvider {
 
     async getProfileByID(
         id: number,
-        includeGraduates: boolean = false
+        includeGraduates: boolean = false,
     ): Promise<Profile | null> {
         const result = await this._profilesDbTable.getProfiles({
             includeGraduates,
@@ -62,7 +62,7 @@ export default class ProfilesProvider implements IProfilesProvider {
 
     async deleteProfile(
         id: number,
-        includeGraduates: boolean = false
+        includeGraduates: boolean = false,
     ): Promise<boolean> {
         const result = await this._profilesDbTable.deleteProfile({
             includeGraduates,
@@ -97,7 +97,7 @@ export default class ProfilesProvider implements IProfilesProvider {
     private async insertSibling(
         profileId: number,
         sibling: Sibling,
-        checkIfProfileExists: boolean = true
+        checkIfProfileExists: boolean = true,
     ): Promise<Sibling | null> {
         if (checkIfProfileExists && !this.checkIsProfileExists(profileId)) {
             return null;
@@ -109,14 +109,14 @@ export default class ProfilesProvider implements IProfilesProvider {
 
     addSiblingToProfileId(
         profileId: number,
-        sibling: Sibling
+        sibling: Sibling,
     ): Promise<Sibling | null> {
         return this.insertSibling(profileId, sibling, true);
     }
 
     async addSiblingsToProfileId(
         profileId: number,
-        siblings: Sibling[]
+        siblings: Sibling[],
     ): Promise<Sibling[] | null> {
         const profileExists = await this.checkIsProfileExists(profileId);
         if (!profileExists) {
@@ -126,7 +126,7 @@ export default class ProfilesProvider implements IProfilesProvider {
         const results: Sibling[] = [];
         for (const sibling of siblings) {
             results.push(
-                (await this.insertSibling(profileId, sibling, false))!
+                (await this.insertSibling(profileId, sibling, false))!,
             );
         }
 
@@ -135,11 +135,11 @@ export default class ProfilesProvider implements IProfilesProvider {
 
     findProfiles(
         nameToSearch: string,
-        includeGraduates?: boolean
+        includeGraduates?: boolean,
     ): Promise<Profile[]> {
         return this._profilesDbTable.findProfiles(
             nameToSearch,
-            includeGraduates
+            includeGraduates,
         );
     }
 }

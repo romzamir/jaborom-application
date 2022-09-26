@@ -13,3 +13,7 @@ body,
     direction: rtl;
     overflow: hidden;
 }
+
+span {
+    font-family: 'Montserrat';
+}

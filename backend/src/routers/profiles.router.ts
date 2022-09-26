@@ -6,7 +6,7 @@ import IProfilesProvider from '../providers/abstractions/types/profiles.provider
 
 export default function ProfilesRouter(
     profilesProvider: IProfilesProvider,
-    siblingsRouter: Router
+    siblingsRouter: Router,
 ): Router {
     const router = Router();
 
@@ -18,13 +18,30 @@ export default function ProfilesRouter(
         if (searchText) {
             profiles = await profilesProvider.findProfiles(
                 searchText,
-                includeGraduates
+                includeGraduates,
             );
         } else {
             profiles = await profilesProvider.getAllProfiles(includeGraduates);
         }
 
         res.json(profiles);
+    });
+
+    router.get('/:id', async (req, res) => {
+        const {id: idString} = req.params;
+        const id = +idString;
+        if (Number.isNaN(id)) {
+            res.status(HttpStatus.BAD_REQUEST);
+        } else {
+            const profile = await profilesProvider.getProfileByID(id);
+            if (profile) {
+                res.json(profile);
+            } else {
+                res.status(HttpStatus.NOT_FOUND);
+            }
+        }
+
+        res.end();
     });
 
     router.post('/', async (req, res) => {

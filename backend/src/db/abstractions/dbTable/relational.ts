@@ -23,22 +23,22 @@ export default abstract class RelationalDbTableBase extends DbTable {
     protected abstract escapeName(name: string): string;
 
     protected SearchOptionsToSqlCondition<T>(
-        options: SearchOptions<T>
+        options: SearchOptions<T>,
     ): string {
         // SearchOptionsQuery<T>
         if (!!(options as any).$operator) {
             return this.SearchOptionsQueryToSqlCondition(
-                options as SearchOptionsQuery<T>
+                options as SearchOptionsQuery<T>,
             );
         } /* SearchOptionsProperty<T> */ else {
             return this.SearchOptionsPropertyToSqlCondition(
-                options as SearchOptionsProperty<T>
+                options as SearchOptionsProperty<T>,
             );
         }
     }
 
     protected SearchOptionsQueryToSqlCondition<T>(
-        query: SearchOptionsQuery<T>
+        query: SearchOptionsQuery<T>,
     ): string {
         const sql = query.$operands
             .map((operand) => this.SearchOptionsToSqlCondition(operand))
@@ -47,7 +47,7 @@ export default abstract class RelationalDbTableBase extends DbTable {
     }
 
     protected SearchOptionsPropertyToSqlCondition<T>(
-        property: SearchOptionsProperty<T>
+        property: SearchOptionsProperty<T>,
     ): string {
         const operator =
             mapConditionNameToSql.get(property.condition.name) ?? '=';
