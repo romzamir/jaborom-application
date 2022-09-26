@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import {useCallback, useEffect, useState} from 'react';
-import {Location, useLocation} from 'react-router-dom';
+import {AxiosResponse} from 'axios';
+import {useCallback} from 'react';
+import {useLocation} from 'react-router-dom';
 import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 import {useFetch} from '../../../hooks';
@@ -10,7 +11,6 @@ import {Profile} from '../../../core/types/profile.type';
 import {profilesProvider} from '../../../api/providers/profiles.provider';
 
 import './profilesPage.css';
-import {AxiosResponse} from 'axios';
 
 export function ProfilesPage() {
     const location = useLocation();
