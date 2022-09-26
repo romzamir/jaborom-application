@@ -12,10 +12,14 @@ export function ProfilePageBody({profile}: ProfilePageBodyProps) {
             <ProfileField title='כתובת' type='Text' value={profile.address} />
             <ProfileField
                 title='אלרגיות'
-                type='Text'
+                type='Long Text'
                 value={profile.allergies}
             />
-            <ProfileField title='הערות' type='Text' value={profile.notes} />
+            <ProfileField
+                title='הערות'
+                type='Long Text'
+                value={profile.notes}
+            />
         </div>
     );
 }
