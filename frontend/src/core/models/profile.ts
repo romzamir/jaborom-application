@@ -1,5 +1,7 @@
 import {ProfileSex} from '../types/sex.type';
 
+import {sexNumberToProfileSex} from '../../utils/sex';
+
 export class Profile {
     public id: number;
     public personId: string;
@@ -52,7 +54,7 @@ export class Profile {
         this.lastName = lastName;
         this.school = school;
         this.grade = grade;
-        this.sex = sex === 0 ? 'Male' : 'Female';
+        this.sex = sexNumberToProfileSex(sex);
         this.dateOfBirth = dateOfBirth ? new Date(dateOfBirth) : null;
         this.dateOfSigning = new Date(dateOfSigning);
         this.address = address;
