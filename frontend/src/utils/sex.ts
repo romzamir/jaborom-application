@@ -31,6 +31,17 @@ export function sexNumberToProfileSex(sex: number): ProfileSex {
     }
 }
 
+export function profileSexToSexNumber(sex: ProfileSex): number {
+    switch (sex) {
+        case 'Male':
+            return 0;
+        case 'Female':
+            return 1;
+        default:
+            throw new Error('Invalid profile sex: ' + sex);
+    }
+}
+
 const profileSexToStringMap: Record<ProfileSex, string> = {
     Male: 'זכר',
     Female: 'נקבה',
