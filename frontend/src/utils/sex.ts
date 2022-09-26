@@ -1,14 +1,23 @@
 import {ProfileSex} from '../core/types/sex.type';
 
 export function profileSexToString(sex: ProfileSex): string {
-    switch (sex) {
-        case 'Male':
-            return 'זכר';
-        case 'Female':
-            return 'נקבה';
-        default:
-            throw new Error('Invalid sex: ' + sex);
+    const str = profileSexToStringMap[sex];
+    if (str === undefined) {
+        throw new Error('Invalid sex: ' + sex);
     }
+
+    return str;
+}
+
+export function sexStringToProfileSex(sex: string): string {
+    const entry = Object.entries(profileSexToString).find(
+        ([_key, value]) => value === sex,
+    );
+    if (!entry) {
+        throw new Error('Invalid sex: ' + sex);
+    }
+
+    return entry[0];
 }
 
 export function sexNumberToProfileSex(sex: number): ProfileSex {
@@ -21,3 +30,8 @@ export function sexNumberToProfileSex(sex: number): ProfileSex {
             throw new Error('Invalid sex number: ' + sex);
     }
 }
+
+const profileSexToStringMap: Record<ProfileSex, string> = {
+    Male: 'זכר',
+    Female: 'נקבה',
+};
