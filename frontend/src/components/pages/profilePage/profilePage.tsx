@@ -37,6 +37,12 @@ export function ProfilePage() {
         [draft],
     );
 
+    const startEditMode = useCallback(() => setIsEditMode(true), []);
+
+    const saveDraft = useCallback(() => {
+        setIsEditMode(false);
+    }, [draft]);
+
     return (
         <>
             {isLoading ? (
@@ -45,7 +51,12 @@ export function ProfilePage() {
                 'הפרופיל לא נמצא'
             ) : (
                 <div className='profile-page'>
-                    <ProfilePageHeader profile={profile} />
+                    <ProfilePageHeader
+                        profile={profile}
+                        isEditMode={isEditMode}
+                        startEditMode={startEditMode}
+                        saveDraft={saveDraft}
+                    />
                     <ProfilePageBody
                         profile={draft ?? profile}
                         isEditMode={isEditMode}

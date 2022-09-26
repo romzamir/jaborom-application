@@ -6,9 +6,17 @@ import './header.css';
 
 type ProfilePageHeaderProps = {
     profile: Profile;
+    isEditMode: boolean;
+    startEditMode: () => void;
+    saveDraft: () => void;
 };
 
-export function ProfilePageHeader({profile}: ProfilePageHeaderProps) {
+export function ProfilePageHeader({
+    profile,
+    isEditMode,
+    startEditMode,
+    saveDraft,
+}: ProfilePageHeaderProps) {
     return (
         <div className='profile-page-header'>
             <div className='profile-page-header-main'>
@@ -21,6 +29,23 @@ export function ProfilePageHeader({profile}: ProfilePageHeaderProps) {
                 <span className='profile-sign-date'>
                     הפרופיל נוצר ב{dateToLongDateString(profile.dateOfSigning)}
                 </span>
+                <div className='profile-page-header-buttons'>
+                    {isEditMode ? (
+                        <span
+                            className='profile-page-header-button profile-page-header-save-draft-button'
+                            onClick={saveDraft}
+                        >
+                            שמירה
+                        </span>
+                    ) : (
+                        <span
+                            className='profile-page-header-button profile-page-header-edit-button'
+                            onClick={startEditMode}
+                        >
+                            עריכה
+                        </span>
+                    )}
+                </div>
             </div>
         </div>
     );

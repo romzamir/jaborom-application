@@ -16,3 +16,35 @@
 .profile-sign-date {
     margin-right: 1em;
 }
+
+.profile-page-header-buttons {
+    float: left;
+    margin-left: 1em;
+}
+
+.profile-page-header-button {
+    background: none;
+    border: none;
+    color: var(--color);
+    text-decoration-color: var(--color);
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.15em;
+    cursor: pointer;
+    transition: color 0.1s ease-out, text-decoration-color 0.1s ease-out;
+}
+
+.profile-page-header-edit-button {
+    --color: gray;
+}
+
+.profile-page-header-edit-button:hover {
+    --color: black;
+}
+
+.profile-page-header-save-draft-button {
+    --color: gray;
+}
+
+.profile-page-header-save-draft-button:hover {
+    --color: green;
+}
