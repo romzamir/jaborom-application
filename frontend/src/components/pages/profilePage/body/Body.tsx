@@ -1,4 +1,4 @@
-import {Profile} from '../../../../core/types/profile.type';
+import {Profile} from '../../../../core/models/profile';
 import {ProfileField} from '../field';
 
 import './body.css';
