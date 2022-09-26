@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react';
 import {Profile} from '../../../../core/types/profile.type';
 import {ProfileField} from '../field';
 
