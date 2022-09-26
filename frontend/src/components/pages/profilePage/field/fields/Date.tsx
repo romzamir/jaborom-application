@@ -1,13 +1,17 @@
 import {dateToLongDateString} from '../../../../../utils/date';
+import {ProfileFieldContainer} from '../field';
 
-type ProfileDateFieldProps = {
+export type ProfileDateFieldProps = {
+    title: string;
     value: Date;
     setValue: (value: Date) => void;
     isEditMode: boolean;
 };
 
-export function ProfileDateField({value}: ProfileDateFieldProps) {
+export function ProfileDateField({title, value}: ProfileDateFieldProps) {
     return (
-        <div className='profile-field-value'>{dateToLongDateString(value)}</div>
+        <ProfileFieldContainer title={title}>
+            {dateToLongDateString(value)}
+        </ProfileFieldContainer>
     );
 }

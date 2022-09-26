@@ -1,9 +1,17 @@
-type ProfileToggleFieldProps = {
+import {ProfileFieldContainer} from '../field';
+
+export type ProfileToggleFieldProps = {
+    title: string;
     value: string;
     setValue: (value: string) => void;
     isEditMode: boolean;
 };
 
-export function ProfileToggleField({value}: ProfileToggleFieldProps) {
-    return <div className='profile-field-value'>{value}</div>;
+export function ProfileToggleField({
+    title,
+    value,
+    setValue,
+    isEditMode,
+}: ProfileToggleFieldProps) {
+    return <ProfileFieldContainer title={title}>{value}</ProfileFieldContainer>;
 }

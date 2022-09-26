@@ -1,5 +1,9 @@
 import {Profile} from '../../../../core/models/profile';
-import {ProfileField} from '../field';
+import {
+    ProfileDateField,
+    ProfileLongTextField,
+    ProfileToggleField,
+} from '../field';
 
 import {profileSexToString, sexStringToProfileSex} from '../../../../utils/sex';
 
@@ -18,46 +22,40 @@ export function ProfilePageBody({
 }: ProfilePageBodyProps) {
     return (
         <div className='profile-page-body'>
-            <ProfileField
+            <ProfileDateField
                 title='תאריך לידה'
-                type='Date'
-                value={profile.dateOfBirth}
+                value={profile.dateOfBirth ?? new Date()}
                 setValue={(value) => setField('dateOfBirth', value)}
                 isEditMode={isEditMode}
             />
-            <ProfileField
+            <ProfileToggleField
                 title='מין'
-                type='Toggle'
                 value={profileSexToString(profile.sex)}
                 setValue={(value) =>
                     setField('sex', sexStringToProfileSex(value))
                 }
                 isEditMode={isEditMode}
             />
-            <ProfileField
+            <ProfileLongTextField
                 title='כתובת'
-                type='Text'
                 value={profile.address}
                 setValue={(value) => setField('address', value)}
                 isEditMode={isEditMode}
             />
-            <ProfileField
+            <ProfileLongTextField
                 title='תחביבים'
-                type='Long Text'
                 value={profile.hobbies}
                 setValue={(value) => setField('hobbies', value)}
                 isEditMode={isEditMode}
             />
-            <ProfileField
+            <ProfileLongTextField
                 title='אלרגיות'
-                type='Long Text'
                 value={profile.allergies}
                 setValue={(value) => setField('allergies', value)}
                 isEditMode={isEditMode}
             />
-            <ProfileField
+            <ProfileLongTextField
                 title='הערות'
-                type='Long Text'
                 value={profile.notes}
                 setValue={(value) => setField('notes', value)}
                 isEditMode={isEditMode}

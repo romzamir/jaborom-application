@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-type ProfileTextFieldProps = {
+export type ProfileTextFieldProps = {
     value: string;
     setValue: (value: string) => void;
     isEditMode: boolean;
