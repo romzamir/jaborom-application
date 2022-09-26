@@ -3,7 +3,12 @@ import {fieldsComponentsByNames, FieldType} from './fields';
 import './field.css';
 
 export function ProfileField<T>({title, type, value}: ProfileFieldProps<T>) {
-    return fieldsComponentsByNames[type](title, value);
+    return (
+        <div className='profile-field-container'>
+            <div className='profile-field-title'>{title}</div>
+            {fieldsComponentsByNames[type](value)}
+        </div>
+    );
 }
 
 type ProfileFieldProps<T> = {
