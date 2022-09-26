@@ -5,7 +5,7 @@ import './field.css';
 export function ProfileField<T>({title, type, value}: ProfileFieldProps<T>) {
     return (
         <div className='profile-field-container'>
-            <div className='profile-field-title'>{title}</div>
+            <div className='profile-field-title'>{title}:</div>
             {fieldsComponentsByNames[type](value)}
         </div>
     );
