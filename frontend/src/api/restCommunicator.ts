@@ -1,5 +1,6 @@
 import Axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {backendConfig} from '../core/config/backend.config';
+import {CancellablePromise} from '../core/types/cancellablePromise.type';
 
 const validateStatus = () => true;
 const axiosConfig: AxiosRequestConfig = {validateStatus};
@@ -84,4 +85,4 @@ type UrlQueriesObject = {
     [key: string]: string | number;
 };
 
-type CancellablePromise<T> = Promise<T> & {cancel: () => void};
+
