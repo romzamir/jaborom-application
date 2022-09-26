@@ -1,3 +1,5 @@
+import {ProfileSex} from '../types/sex.type';
+
 export class Profile {
     public id: number;
     public personId: string;
@@ -5,7 +7,7 @@ export class Profile {
     public lastName: string;
     public school: number;
     public grade: number;
-    public sex: boolean;
+    public sex: ProfileSex;
     public dateOfBirth: Date | null;
     public dateOfSigning: Date;
     public address?: string;
@@ -35,7 +37,7 @@ export class Profile {
             lastName: string;
             school: number;
             grade: number;
-            sex: boolean;
+            sex: number;
             dateOfBirth?: string;
             dateOfSigning: string;
             address?: string;
@@ -50,7 +52,7 @@ export class Profile {
         this.lastName = lastName;
         this.school = school;
         this.grade = grade;
-        this.sex = sex;
+        this.sex = sex === 0 ? 'Male' : 'Female';
         this.dateOfBirth = dateOfBirth ? new Date(dateOfBirth) : null;
         this.dateOfSigning = new Date(dateOfSigning);
         this.address = address;

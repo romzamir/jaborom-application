@@ -5,7 +5,7 @@ export type ProfileDb = {
     lastName: string;
     school: number;
     grade: number;
-    sex: boolean;
+    sex: number;
     dateOfBirth?: string;
     dateOfSigning: string;
     address?: string;
