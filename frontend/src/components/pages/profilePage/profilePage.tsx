@@ -6,6 +6,7 @@ import {ProfilePageBody} from './body';
 import {useFetch} from '../../../hooks';
 
 import {profilesProvider} from '../../../api/providers/profiles.provider';
+import {differenceObjects} from '../../../utils/difference';
 import {Profile} from '../../../core/models/profile';
 
 import './profilePage.css';
@@ -40,8 +41,15 @@ export function ProfilePage() {
     const startEditMode = useCallback(() => setIsEditMode(true), []);
 
     const saveDraft = useCallback(() => {
+        if (!draft) return;
         setIsEditMode(false);
-    }, [draft]);
+
+        const changes = differenceObjects<Profile>(
+            profile ?? new Profile(),
+            draft,
+        );
+        profilesProvider.update(changes);
+    }, [draft, profile]);
 
     const discardDraft = useCallback(() => {
         setDraft(profile);
