@@ -9,7 +9,7 @@ export function profileSexToString(sex: ProfileSex): string {
     return str;
 }
 
-export function sexStringToProfileSex(sex: string): string {
+export function sexStringToProfileSex(sex: string): ProfileSex {
     const entry = Object.entries(profileSexToString).find(
         ([_key, value]) => value === sex,
     );
@@ -17,7 +17,7 @@ export function sexStringToProfileSex(sex: string): string {
         throw new Error('Invalid sex: ' + sex);
     }
 
-    return entry[0];
+    return entry[0] as ProfileSex;
 }
 
 export function sexNumberToProfileSex(sex: number): ProfileSex {
