@@ -1,12 +1,13 @@
 import {useCallback} from 'react';
 import {useParams} from 'react-router-dom';
 
+import {ProfilePageHeader} from './header';
+import {ProfilePageBody} from './body';
+import {useFetch} from '../../../hooks';
+
 import {profilesProvider} from '../../../api/providers/profiles.provider';
 
 import './profilePage.css';
-import {useFetch} from '../../../hooks';
-import {ProfilePageHeader} from './header';
-import {ProfilePageBody} from './body';
 
 export function ProfilePage() {
     const {id} = useParams<ProfileParams>();
