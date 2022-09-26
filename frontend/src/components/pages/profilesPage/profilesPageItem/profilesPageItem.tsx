@@ -1,9 +1,9 @@
 import {Link} from 'react-router-dom';
-import {Profile} from '../../../../core/types/profile.type';
+import {ProfileDb} from '../../../../core/types/profileDb.type';
 
 import './profilesPageItem.css';
 
-export function ProfilesPageItem(props: {profile: Profile}) {
+export function ProfilesPageItem(props: {profile: ProfileDb}) {
     const name = `${props.profile.firstName} ${props.profile.lastName}`;
     const id = props.profile.personId;
     const sex = props.profile.sex ? 'בן' : 'בת';

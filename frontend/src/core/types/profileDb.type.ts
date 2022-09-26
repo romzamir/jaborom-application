@@ -1,4 +1,4 @@
-export type Profile = {
+export type ProfileDb = {
     id: number;
     personId: number;
     firstName: string;
@@ -6,8 +6,8 @@ export type Profile = {
     school: number;
     grade: number;
     sex: boolean;
-    dateOfBirth?: number;
-    dateOfSigning?: number;
+    dateOfBirth?: string;
+    dateOfSigning: string;
     address?: string;
     hobbies?: string;
     allergies?: string;

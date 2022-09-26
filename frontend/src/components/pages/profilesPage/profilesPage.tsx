@@ -6,7 +6,7 @@ import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 import {useFetch} from '../../../hooks';
 
-import {Profile} from '../../../core/types/profile.type';
+import {ProfileDb} from '../../../core/types/profileDb.type';
 
 import {profilesProvider} from '../../../api/providers/profiles.provider';
 
@@ -25,7 +25,7 @@ export function ProfilesPage() {
     }, [location]);
 
     const [isLoading, profilesResult] =
-        useFetch<AxiosResponse<Profile[]>>(performSearch);
+        useFetch<AxiosResponse<ProfileDb[]>>(performSearch);
 
     return (
         <div className='profiles-page'>

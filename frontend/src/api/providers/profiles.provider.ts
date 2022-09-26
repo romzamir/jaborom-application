@@ -2,6 +2,7 @@ import {restCommunicator} from '../../api/restCommunicator';
 import {backendRoutes} from '../../core/constants/backendRoutes.constants';
 
 import {Profile} from '../../core/types/profile.type';
+import {ProfileDb} from '../../core/types/profileDb.type';
 
 export const profilesProvider = ((window as any).profilesProvider = {
     getAllProfiles,
@@ -10,7 +11,7 @@ export const profilesProvider = ((window as any).profilesProvider = {
 });
 
 function getAllProfiles(limit: number = 20) {
-    return restCommunicator.get<Profile[]>(backendRoutes.profiles, {limit});
+    return restCommunicator.get<ProfileDb[]>(backendRoutes.profiles, {limit});
 }
 
 function getProfile(id: number | string) {
@@ -18,7 +19,7 @@ function getProfile(id: number | string) {
 }
 
 function searchProfiles(searchText: string, limit: number = 20) {
-    return restCommunicator.get<Profile[]>(backendRoutes.profiles, {
+    return restCommunicator.get<ProfileDb[]>(backendRoutes.profiles, {
         searchText,
         limit,
     });
