@@ -6,6 +6,7 @@ import {profilesProvider} from '../../../api/providers/profiles.provider';
 import './profilePage.css';
 import {useFetch} from '../../../hooks';
 import {ProfilePageHeader} from './header';
+import {ProfilePageBody} from './body';
 
 export function ProfilePage() {
     const {id} = useParams<ProfileParams>();
@@ -26,6 +27,7 @@ export function ProfilePage() {
             ) : (
                 <div className='profile-page'>
                     <ProfilePageHeader profile={profile} />
+                    <ProfilePageBody profile={profile} />
                 </div>
             )}
         </>
