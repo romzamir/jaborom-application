@@ -10,6 +10,11 @@ type ProfilePageBodyProps = {
 export function ProfilePageBody({profile}: ProfilePageBodyProps) {
     return (
         <div className='profile-page-body'>
+            <ProfileField
+                title='תאריך לידה'
+                type='Date'
+                value={profile.dateOfBirth}
+            />
             <ProfileField title='כתובת' type='Text' value={profile.address} />
             <ProfileField
                 title='אלרגיות'
