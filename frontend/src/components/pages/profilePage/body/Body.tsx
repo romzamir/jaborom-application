@@ -1,6 +1,8 @@
 import {Profile} from '../../../../core/models/profile';
 import {ProfileField} from '../field';
 
+import {sexToString} from '../../../../utils/sex';
+
 import './body.css';
 
 type ProfilePageBodyProps = {
@@ -14,6 +16,11 @@ export function ProfilePageBody({profile}: ProfilePageBodyProps) {
                 title='תאריך לידה'
                 type='Date'
                 value={profile.dateOfBirth}
+            />
+            <ProfileField
+                title='מין'
+                type='Toggle'
+                value={sexToString(profile.sex)}
             />
             <ProfileField title='כתובת' type='Text' value={profile.address} />
             <ProfileField
