@@ -27,7 +27,7 @@ export function ProfilePage() {
     }, [profile]);
 
     const setDraftField = useCallback(
-        <T extends keyof Profile>(key: T, value: Profile[T]) => {
+        function <T extends keyof Profile>(key: T, value: Profile[T]) {
             if (draft) {
                 const clonedDraft = draft.clone();
                 clonedDraft[key] = value;
