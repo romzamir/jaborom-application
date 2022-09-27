@@ -16,7 +16,7 @@ export default class SiblingsMySqlDbTable
         const sql =
             `SELECT * FROM ${this.escapeName(this._name)}` +
             (options
-                ? 'WHERE ' + this.SearchOptionsToSqlCondition(options)
+                ? 'WHERE ' + this.searchOptionsToSqlCondition(options)
                 : '');
         const result = await this.connection.query(sql);
         return result ?? [];
@@ -25,7 +25,7 @@ export default class SiblingsMySqlDbTable
     async insertSibling(sibling: Sibling): Promise<Sibling> {
         const sql =
             `INSERT INTO ${this.escapeName(this._name)} ` +
-            this.ObjectToInsertSql(sibling);
+            this.objectToInsertSql(sibling);
         const newSibling = {...sibling};
         const result = await this.connection.query(sql);
         if (!!result.insertId) {
@@ -56,7 +56,7 @@ export default class SiblingsMySqlDbTable
     async deleteSiblings(options: SearchOptions<Sibling>): Promise<number> {
         const sql =
             `DELETE FROM ${this.escapeName(this._name)} ` +
-            ('WHERE ' + this.SearchOptionsToSqlCondition(options));
+            ('WHERE ' + this.searchOptionsToSqlCondition(options));
         const result = await this.connection.query(sql);
         return result.affectedRows;
     }

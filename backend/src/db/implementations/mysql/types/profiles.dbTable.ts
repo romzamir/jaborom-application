@@ -12,32 +12,30 @@ export default class ProfilesMySqlDbTable
         super(name, connection);
     }
 
-    async getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
+    async get(options?: ProfilesSearchOptions): Promise<Profile[]> {
         const sql =
             `SELECT * FROM ${this.escapeName(this._name)}` +
             (options && options.additional
                 ? 'WHERE ' +
-                  this.SearchOptionsToSqlCondition(options.additional)
+                  this.searchOptionsToSqlCondition(options.additional)
                 : '');
         const result = await this.connection.query(sql);
         return result ?? [];
     }
 
-    async checkIsProfileExists(
-        options: Required<ProfilesSearchOptions>,
-    ): Promise<boolean> {
+    async isExists(options: Required<ProfilesSearchOptions>): Promise<boolean> {
         const result = await this.connection.query(
             `SELECT ${this.escapeName('id')} FROM ${this._name} WHERE ` +
-                this.SearchOptionsToSqlCondition(options.additional),
+                this.searchOptionsToSqlCondition(options.additional),
         );
 
         return !!result[0];
     }
 
-    async insertProfile(profile: Profile): Promise<Profile> {
+    async insert(profile: Profile): Promise<Profile> {
         const sql =
             `INSERT INTO ${this.escapeName(this._name)} ` +
-            this.ObjectToInsertSql(profile);
+            this.objectToInsertSql(profile);
         const newProfile = {...profile};
         const result = await this.connection.query(sql);
         if (!!result.insertId) {
@@ -49,24 +47,22 @@ export default class ProfilesMySqlDbTable
         return newProfile;
     }
 
-    updateProfile(
+    update(
         options: Required<ProfilesSearchOptions>,
-        profile: Profile,
-    ): Promise<Profile> {
+        profile: Partial<Profile>,
+    ): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
-    async deleteProfile(
-        options: Required<ProfilesSearchOptions>,
-    ): Promise<number> {
+    async delete(options: Required<ProfilesSearchOptions>): Promise<number> {
         const sql =
             `DELETE FROM ${this.escapeName(this._name)} ` +
-            ('WHERE ' + this.SearchOptionsToSqlCondition(options.additional));
+            ('WHERE ' + this.searchOptionsToSqlCondition(options.additional));
         const result = await this.connection.query(sql);
         return result.affectedRows;
     }
 
-    async findProfiles(
+    async findByFullName(
         nameToSearch: string,
         includeGraduates: boolean = false,
     ): Promise<Profile[]> {
