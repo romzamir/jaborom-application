@@ -1,3 +1,7 @@
+.profile-date-field-input {
+    text-align: center;
+}
+
 .profile-long-text-field textarea {
     resize: none;
     height: 5em;
