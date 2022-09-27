@@ -61,7 +61,7 @@ export default class ProfilesProvider implements IProfilesProvider {
     }
 
     async updateProfile(id: number, profile: Partial<Profile>): Promise<void> {
-        this._profilesDbTable.updateProfile(
+        await this._profilesDbTable.updateProfile(
             {
                 includeGraduates: true,
                 additional: {
