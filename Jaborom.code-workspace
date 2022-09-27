@@ -1,22 +1,23 @@
 {
-	"folders": [
-		{
-			"path": "frontend"
-		},
-		{
-			"path": "backend"
-		}
-	],
-    "settings": {
-        "cSpell.words": [
-            "APIKEY",
-            "AUTHDOMAIN",
-            "MESSAGINGSENDERID",
-            "PROJECTID",
-            "STORAGEBUCKET",
-            "appspot",
-            "firebaseapp",
-            "jaborom"
-        ]
+  "folders": [
+    {
+      "path": "frontend"
+    },
+    {
+      "path": "backend"
     }
+  ],
+  "settings": {
+    "cSpell.words": [
+      "APIKEY",
+      "appspot",
+      "AUTHDOMAIN",
+      "datepicker",
+      "firebaseapp",
+      "jaborom",
+      "MESSAGINGSENDERID",
+      "PROJECTID",
+      "STORAGEBUCKET"
+    ]
+  }
 }
