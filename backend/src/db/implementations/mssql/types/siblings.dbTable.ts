@@ -16,7 +16,7 @@ export default class SiblingsMSSqlDbTable
         const sql =
             `SELECT * FROM [${this._name}]` +
             (options
-                ? 'WHERE ' + this.SearchOptionsToSqlCondition(options)
+                ? 'WHERE ' + this.searchOptionsToSqlCondition(options)
                 : '');
         const result = await this.connection.query(sql);
         return result ?? [];
@@ -24,7 +24,7 @@ export default class SiblingsMSSqlDbTable
 
     async insertSibling(sibling: Sibling): Promise<Sibling> {
         const sql =
-            `INSERT INTO [${this._name}] ` + this.ObjectToInsertSql(sibling);
+            `INSERT INTO [${this._name}] ` + this.objectToInsertSql(sibling);
         const newSibling = {...sibling};
         const result = await this.connection.query(sql);
         if (!!result.insertId) {
@@ -55,7 +55,7 @@ export default class SiblingsMSSqlDbTable
     async deleteSiblings(options: SearchOptions<Sibling>): Promise<number> {
         const sql =
             `DELETE FROM [${this._name}] ` +
-            ('WHERE ' + this.SearchOptionsToSqlCondition(options));
+            ('WHERE ' + this.searchOptionsToSqlCondition(options));
         const result = await this.connection.query(sql);
         return result.affectedRows;
     }

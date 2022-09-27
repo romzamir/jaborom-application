@@ -17,7 +17,7 @@ export default class ProfilesMSSqlDbTable
             `SELECT * FROM [${this._name}]` +
             (options && options.additional
                 ? 'WHERE ' +
-                  this.SearchOptionsToSqlCondition(options.additional)
+                  this.searchOptionsToSqlCondition(options.additional)
                 : '');
         const result = await this.connection.query(sql);
         return result.recordset;
@@ -28,14 +28,14 @@ export default class ProfilesMSSqlDbTable
     ): Promise<boolean> {
         const result = await this.connection.query(
             `SELECT [id] FROM ${this._name} WHERE ` +
-                this.SearchOptionsToSqlCondition(options.additional),
+                this.searchOptionsToSqlCondition(options.additional),
         );
 
         return result.recordset.length > 0;
     }
 
     async insertProfile(profile: Profile): Promise<Profile> {
-        const insertSql = this.ObjectToInsertSql(profile);
+        const insertSql = this.objectToInsertSql(profile);
         const sql = `INSERT INTO [${this._name}] ${insertSql}; SELECT SCOPE_IDENTITY();`;
         const result = await this.connection.query(sql);
         const insertedId = result.recordset?.[0]?.[''];
@@ -53,8 +53,8 @@ export default class ProfilesMSSqlDbTable
         options: Required<ProfilesSearchOptions>,
         profile: Partial<Profile>,
     ): Promise<boolean> {
-        const setSql = this.ObjectToSetSql(profile);
-        const whereSql = this.SearchOptionsToSqlCondition(options.additional);
+        const setSql = this.objectToSetSql(profile);
+        const whereSql = this.searchOptionsToSqlCondition(options.additional);
         const sql = `UPDATE [${this._name}] SET ${setSql} WHERE ${whereSql}`;
         const result = await this.connection.query(sql);
         return result.rowsAffected[0] > 0;
@@ -65,7 +65,7 @@ export default class ProfilesMSSqlDbTable
     ): Promise<number> {
         const sql =
             `DELETE FROM [${this._name}] ` +
-            ('WHERE ' + this.SearchOptionsToSqlCondition(options.additional));
+            ('WHERE ' + this.searchOptionsToSqlCondition(options.additional));
         const result = await this.connection.query(sql);
         return result.affectedRows;
     }

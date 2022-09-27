@@ -17,7 +17,7 @@ export default class ProfilesMySqlDbTable
             `SELECT * FROM ${this.escapeName(this._name)}` +
             (options && options.additional
                 ? 'WHERE ' +
-                  this.SearchOptionsToSqlCondition(options.additional)
+                  this.searchOptionsToSqlCondition(options.additional)
                 : '');
         const result = await this.connection.query(sql);
         return result ?? [];
@@ -28,7 +28,7 @@ export default class ProfilesMySqlDbTable
     ): Promise<boolean> {
         const result = await this.connection.query(
             `SELECT ${this.escapeName('id')} FROM ${this._name} WHERE ` +
-                this.SearchOptionsToSqlCondition(options.additional),
+                this.searchOptionsToSqlCondition(options.additional),
         );
 
         return !!result[0];
@@ -37,7 +37,7 @@ export default class ProfilesMySqlDbTable
     async insertProfile(profile: Profile): Promise<Profile> {
         const sql =
             `INSERT INTO ${this.escapeName(this._name)} ` +
-            this.ObjectToInsertSql(profile);
+            this.objectToInsertSql(profile);
         const newProfile = {...profile};
         const result = await this.connection.query(sql);
         if (!!result.insertId) {
@@ -61,7 +61,7 @@ export default class ProfilesMySqlDbTable
     ): Promise<number> {
         const sql =
             `DELETE FROM ${this.escapeName(this._name)} ` +
-            ('WHERE ' + this.SearchOptionsToSqlCondition(options.additional));
+            ('WHERE ' + this.searchOptionsToSqlCondition(options.additional));
         const result = await this.connection.query(sql);
         return result.affectedRows;
     }
