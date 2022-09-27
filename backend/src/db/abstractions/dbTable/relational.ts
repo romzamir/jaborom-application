@@ -70,4 +70,25 @@ export default abstract class RelationalDbTableBase extends DbTable {
             .map((value) => `'${value}'`)
             .join(',');
     }
+
+    protected ObjectToSetSql(object: any): string {
+        return Object.entries(object)
+            .filter(([_key, value]) => value !== undefined)
+            .map(
+                ([key, value]) =>
+                    `${this.escapeName(key)}='${this.ValueToSqlString(value)}'`,
+            )
+            .join(',');
+    }
+
+    protected ValueToSqlString(value: any): string {
+        if (typeof value === 'string') return `'${value}'`;
+        if (typeof value === 'number') return `'${value}'`;
+        if (value instanceof Date) return `'${value.toISOString()}'`;
+        if (value === null) return 'NULL';
+        if (typeof value === 'object' && value !== null)
+            throw new Error('Value cannot be an object');
+
+        throw new Error('Invalid value: ' + value);
+    }
 }
