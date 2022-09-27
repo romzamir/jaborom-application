@@ -1,16 +1,22 @@
-import Admin from 'firebase-admin';
-import IAuthenticationValidator from '../abstractions/authenticationValidator';
+import {credential} from 'firebase-admin';
+import {initializeApp} from 'firebase-admin/app';
+import {Auth, getAuth} from 'firebase-admin/auth';
 
-const serviceAccount = require('./firebase-admin-authentication.json');
+import IAuthenticationValidator from '../abstractions/authenticationValidator';
 
 export default class FirebaseAuthenticationValidator
     implements IAuthenticationValidator
 {
-    private readonly _app: Admin.app.App;
+    private readonly _auth: Auth;
     constructor() {
-        this._app = Admin.initializeApp({
-            credential: Admin.credential.cert(serviceAccount),
+        const firebaseAdminConfig = JSON.parse(
+            process.env.FIREBASE_ADMIN_SDK_CONFIG as string,
+        );
+
+        const app = initializeApp({
+            credential: credential.cert(firebaseAdminConfig),
         });
+        this._auth = getAuth(app);
     }
 
     verifyToken(token: string | undefined): Promise<boolean> {
@@ -19,8 +25,7 @@ export default class FirebaseAuthenticationValidator
         }
 
         return new Promise<boolean>((resolve) => {
-            this._app
-                .auth()
+            this._auth
                 .verifyIdToken(token)
                 .then(() => resolve(true))
                 .catch(() => resolve(false));
