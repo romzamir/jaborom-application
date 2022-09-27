@@ -1,3 +1,4 @@
+import React from 'react';
 import {ProfileFieldContainer} from '../field';
 
 export type ProfileLongTextFieldProps = {
@@ -24,7 +25,20 @@ export function ProfileLongTextField({
                     onInput={(event) => setValue(event.currentTarget.value)}
                 />
             ) : (
-                value
+                // Make '\n' characters actually break the lines
+                value.split('\n').map((line, index) => {
+                    if (index === 0) {
+                        return (
+                            <React.Fragment key={index}>{line}</React.Fragment>
+                        );
+                    }
+
+                    return (
+                        <React.Fragment key={index}>
+                            <br /> {line}
+                        </React.Fragment>
+                    );
+                })
             )}
         </ProfileFieldContainer>
     );
