@@ -26,6 +26,7 @@ export function ProfileDateField({
                     className='profile-date-field-input'
                     selected={value}
                     onChange={setValue}
+                    dateFormat='dd/MM/yyyy'
                 />
             ) : (
                 dateToLongDateString(value)
