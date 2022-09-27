@@ -2,6 +2,7 @@ import {Profile} from '../../../../core/models/profile';
 import {
     ProfileDateField,
     ProfileLongTextField,
+    ProfileTextField,
     ProfileToggleField,
 } from '../field';
 
@@ -38,7 +39,7 @@ export function ProfilePageBody({
                 options={SEX_OPTIONS}
                 isEditMode={isEditMode}
             />
-            <ProfileLongTextField
+            <ProfileTextField
                 title='כתובת'
                 value={profile.address}
                 setValue={(value) => setField('address', value)}
