@@ -35,9 +35,9 @@ function search(searchText: string, limit: number = 20) {
     });
 }
 
-function update(profileChanges: Partial<Profile>) {
+function update(id: string | number, profileChanges: Partial<Profile>) {
     return restCommunicator.put(
-        backendRoutes.profiles + `/${profileChanges.id}`,
+        backendRoutes.profiles + `/${id}`,
         Profile.toJson(profileChanges),
     );
 }

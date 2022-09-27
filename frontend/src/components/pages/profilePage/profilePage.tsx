@@ -50,7 +50,7 @@ export function ProfilePage() {
             profile ?? new Profile(),
             draft,
         );
-        profilesProvider.update(changes);
+        profilesProvider.update(id ?? '', changes);
     }, [draft, profile]);
 
     const discardDraft = useCallback(() => {
