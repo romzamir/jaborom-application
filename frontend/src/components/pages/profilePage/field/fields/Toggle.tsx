@@ -19,7 +19,7 @@ export function ProfileToggleField({
         <ProfileFieldContainer title={title} className='profile-toggle-field'>
             {isEditMode
                 ? options.map((option) => (
-                      <label>
+                      <label key={option}>
                           <input
                               type='radio'
                               checked={option === value}
