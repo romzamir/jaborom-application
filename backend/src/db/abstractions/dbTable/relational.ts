@@ -76,7 +76,7 @@ export default abstract class RelationalDbTableBase extends DbTable {
             .filter(([_key, value]) => value !== undefined)
             .map(
                 ([key, value]) =>
-                    `${this.escapeName(key)}='${this.ValueToSqlString(value)}'`,
+                    `${this.escapeName(key)}=${this.ValueToSqlString(value)}`,
             )
             .join(',');
     }
