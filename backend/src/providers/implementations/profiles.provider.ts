@@ -60,6 +60,10 @@ export default class ProfilesProvider implements IProfilesProvider {
         }
     }
 
+    async updateProfile(id: number, profile: Partial<Profile>): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
     async deleteProfile(
         id: number,
         includeGraduates: boolean = false,

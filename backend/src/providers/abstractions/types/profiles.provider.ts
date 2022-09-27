@@ -10,6 +10,7 @@ export default interface IProfilesProvider extends IDataProvider {
         includeGraduates?: boolean,
     ): Promise<Profile | null>;
     insertProfile(profile: Profile): Promise<Profile | null>;
+    updateProfile(id: number, profile: Partial<Profile>): Promise<void>;
     deleteProfile(id: number): Promise<boolean>;
 
     getSiblingsByProfileId(profileId: number): Promise<Sibling[] | null>;
