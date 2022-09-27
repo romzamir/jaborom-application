@@ -56,7 +56,7 @@ export default function ProfilesRouter(
         res.end();
     });
 
-    router.post('/:id', async (req, res) => {
+    router.put('/:id', async (req, res) => {
         const {id} = req.params;
         const profileChanges: Partial<Profile> = req.body;
         await profilesProvider.updateProfile(+id, profileChanges);
