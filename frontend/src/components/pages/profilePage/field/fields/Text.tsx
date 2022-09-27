@@ -23,7 +23,7 @@ export function ProfileTextField({
                     onInput={(event) => setValue(event.currentTarget.value)}
                 />
             ) : (
-                <div className='profile-field-value'>{value}</div>
+                value
             )}
         </ProfileFieldContainer>
     );
