@@ -10,7 +10,7 @@ export default interface IProfilesDbTable {
 
     updateProfile(
         options: Required<ProfilesSearchOptions>,
-        profile: Profile,
+        profile: Partial<Profile>,
     ): Promise<Profile>;
 
     deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number>;
