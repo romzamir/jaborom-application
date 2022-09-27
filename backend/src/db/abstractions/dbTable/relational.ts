@@ -49,11 +49,11 @@ export default abstract class RelationalDbTableBase extends DbTable {
     protected searchOptionsPropertyToSqlCondition<T>(
         property: SearchOptionsProperty<T>,
     ): string {
+        const key = String(property.key);
         const operator =
             mapConditionNameToSql.get(property.condition.name) ?? '=';
-        return `(${String(property.key)}${operator}${
-            property.condition.value
-        })`;
+        const value = property.condition.value;
+        return `(${key}${operator}${value})`;
     }
 
     protected objectToInsertSql(object: any): string {
