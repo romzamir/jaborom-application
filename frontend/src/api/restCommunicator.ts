@@ -26,8 +26,8 @@ function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
 
 function post<TRequest, TResponse>(
     route: string,
-    queries: UrlQueriesObject,
     body: any,
+    queries: UrlQueriesObject,
 ) {
     return performCancellableAxiosRequest((config) => {
         return Axios.post<TRequest, AxiosResponse<TResponse>>(
@@ -40,8 +40,8 @@ function post<TRequest, TResponse>(
 
 function put<TResponse>(
     route: string,
-    queries: UrlQueriesObject = {},
     body: any,
+    queries: UrlQueriesObject = {},
 ) {
     return performCancellableAxiosRequest((config) => {
         return Axios.put<undefined, AxiosResponse<TResponse>>(

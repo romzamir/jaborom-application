@@ -1,11 +1,40 @@
-import {dateToLongDateString} from '../../../../../utils/date';
+import DatePicker, {registerLocale} from 'react-datepicker';
+import heLocale from 'date-fns/locale/he';
 
-type ProfileDateFieldProps = {
+import {dateToLongDateString} from '../../../../../utils/date';
+import {ProfileFieldContainer} from '../field';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
+registerLocale('he', heLocale);
+
+export type ProfileDateFieldProps = {
+    title: string;
     value: Date;
+    setValue: (value: Date) => void;
+    isEditMode: boolean;
 };
 
-export function ProfileDateField({value}: ProfileDateFieldProps) {
+export function ProfileDateField({
+    title,
+    value,
+    setValue,
+    isEditMode,
+}: ProfileDateFieldProps) {
     return (
-        <div className='profile-field-value'>{dateToLongDateString(value)}</div>
+        <ProfileFieldContainer title={title}>
+            {isEditMode ? (
+                <DatePicker
+                    wrapperClassName='profile-date-field'
+                    className='profile-date-field-input'
+                    locale='he'
+                    selected={value}
+                    onChange={setValue}
+                    dateFormat='dd/MM/yyyy'
+                />
+            ) : (
+                dateToLongDateString(value)
+            )}
+        </ProfileFieldContainer>
     );
 }

@@ -1,6 +1,6 @@
 import {ProfileSex} from '../types/sex.type';
 
-import {sexNumberToProfileSex} from '../../utils/sex';
+import {profileSexToSexNumber, sexNumberToProfileSex} from '../../utils/sex';
 
 export class Profile {
     public id: number;
@@ -12,12 +12,12 @@ export class Profile {
     public sex: ProfileSex;
     public dateOfBirth: Date | null;
     public dateOfSigning: Date;
-    public address?: string;
-    public hobbies?: string;
-    public allergies?: string;
-    public notes?: string;
+    public address: string;
+    public hobbies: string;
+    public allergies: string;
+    public notes: string;
 
-    constructor(template: any) {
+    constructor(template: any = {}) {
         const {
             id,
             personId,
@@ -39,9 +39,9 @@ export class Profile {
             lastName: string;
             school: number;
             grade: number;
-            sex: number;
-            dateOfBirth?: string;
-            dateOfSigning: string;
+            sex: any;
+            dateOfBirth: any;
+            dateOfSigning: any;
             address?: string;
             hobbies?: string;
             allergies?: string;
@@ -54,12 +54,34 @@ export class Profile {
         this.lastName = lastName;
         this.school = school;
         this.grade = grade;
-        this.sex = sexNumberToProfileSex(sex);
-        this.dateOfBirth = dateOfBirth ? new Date(dateOfBirth) : null;
-        this.dateOfSigning = new Date(dateOfSigning);
-        this.address = address;
-        this.hobbies = hobbies;
-        this.allergies = allergies;
-        this.notes = notes;
+        this.address = address ?? '';
+        this.hobbies = hobbies ?? '';
+        this.allergies = allergies ?? '';
+        this.notes = notes ?? '';
+
+        this.sex = typeof sex === 'number' ? sexNumberToProfileSex(sex) : sex;
+        this.dateOfBirth =
+            dateOfBirth instanceof Date
+                ? dateOfBirth
+                : !!dateOfBirth
+                ? new Date(dateOfBirth)
+                : null;
+        this.dateOfSigning =
+            dateOfSigning instanceof Date
+                ? dateOfSigning
+                : new Date(dateOfSigning);
+    }
+
+    clone() {
+        return new Profile(this);
+    }
+
+    static toJson(profile: Partial<Profile>) {
+        const clonedProfile = {...profile} as any;
+        if ('sex' in profile && profile.sex !== undefined) {
+            clonedProfile.sex = profileSexToSexNumber(profile.sex);
+        }
+
+        return clonedProfile;
     }
 }

@@ -6,16 +6,17 @@ import {ProfileDb} from '../../core/types/profileDb.type';
 import {wrapCancelablePromise} from '../../utils/cancelablePromise';
 
 export const profilesProvider = ((window as any).profilesProvider = {
-    getAllProfiles,
-    getProfile,
-    searchProfiles,
+    getAll,
+    getById,
+    search,
+    update,
 });
 
-function getAllProfiles(limit: number = 20) {
+function getAll(limit: number = 20) {
     return restCommunicator.get<ProfileDb[]>(backendRoutes.profiles, {limit});
 }
 
-function getProfile(id: number | string) {
+function getById(id: number | string) {
     return wrapCancelablePromise(
         restCommunicator.get<Profile>(`${backendRoutes.profiles}/${id}`),
         async (promise) => {
@@ -27,9 +28,16 @@ function getProfile(id: number | string) {
     );
 }
 
-function searchProfiles(searchText: string, limit: number = 20) {
+function search(searchText: string, limit: number = 20) {
     return restCommunicator.get<ProfileDb[]>(backendRoutes.profiles, {
         searchText,
         limit,
     });
+}
+
+function update(id: string | number, profileChanges: Partial<Profile>) {
+    return restCommunicator.put(
+        backendRoutes.profiles + `/${id}`,
+        Profile.toJson(profileChanges),
+    );
 }
