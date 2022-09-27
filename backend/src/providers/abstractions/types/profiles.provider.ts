@@ -3,15 +3,12 @@ import {Sibling} from '../../../core/types/sibling.type';
 import IDataProvider from '../provider';
 
 export default interface IProfilesProvider extends IDataProvider {
-    getAllProfiles(includeGraduates?: boolean): Promise<Profile[]>;
+    getAll(includeGraduates?: boolean): Promise<Profile[]>;
     checkIsProfileExists(profileId: number): Promise<boolean>;
-    getProfileByID(
-        id: number,
-        includeGraduates?: boolean,
-    ): Promise<Profile | null>;
-    insertProfile(profile: Profile): Promise<Profile | null>;
-    updateProfile(id: number, profile: Partial<Profile>): Promise<void>;
-    deleteProfile(id: number): Promise<boolean>;
+    getById(id: number, includeGraduates?: boolean): Promise<Profile | null>;
+    insert(profile: Profile): Promise<Profile | null>;
+    update(id: number, profile: Partial<Profile>): Promise<void>;
+    delete(id: number): Promise<boolean>;
 
     getSiblingsByProfileId(profileId: number): Promise<Sibling[] | null>;
 

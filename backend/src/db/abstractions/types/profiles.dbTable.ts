@@ -2,20 +2,20 @@ import {Profile} from '../../../core/types/profile.type';
 import {ProfilesSearchOptions} from '../../../core/types/searchOptions/profiles.type';
 
 export default interface IProfilesDbTable {
-    getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]>;
+    get(options?: ProfilesSearchOptions): Promise<Profile[]>;
 
-    checkIsProfileExists(options: ProfilesSearchOptions): Promise<boolean>;
+    isExists(options: ProfilesSearchOptions): Promise<boolean>;
 
-    insertProfile(profile: Profile): Promise<Profile>;
+    insert(profile: Profile): Promise<Profile>;
 
-    updateProfile(
+    update(
         options: Required<ProfilesSearchOptions>,
         profile: Partial<Profile>,
     ): Promise<boolean>;
 
-    deleteProfile(options: Required<ProfilesSearchOptions>): Promise<number>;
+    delete(options: Required<ProfilesSearchOptions>): Promise<number>;
 
-    findProfiles(
+    findByFullName(
         nameToSearch: string,
         includeGraduates?: boolean,
     ): Promise<Profile[]>;

@@ -12,7 +12,7 @@ export default class ProfilesMySqlDbTable
         super(name, connection);
     }
 
-    async getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
+    async get(options?: ProfilesSearchOptions): Promise<Profile[]> {
         const sql =
             `SELECT * FROM ${this.escapeName(this._name)}` +
             (options && options.additional
@@ -23,9 +23,7 @@ export default class ProfilesMySqlDbTable
         return result ?? [];
     }
 
-    async checkIsProfileExists(
-        options: Required<ProfilesSearchOptions>,
-    ): Promise<boolean> {
+    async isExists(options: Required<ProfilesSearchOptions>): Promise<boolean> {
         const result = await this.connection.query(
             `SELECT ${this.escapeName('id')} FROM ${this._name} WHERE ` +
                 this.searchOptionsToSqlCondition(options.additional),
@@ -34,7 +32,7 @@ export default class ProfilesMySqlDbTable
         return !!result[0];
     }
 
-    async insertProfile(profile: Profile): Promise<Profile> {
+    async insert(profile: Profile): Promise<Profile> {
         const sql =
             `INSERT INTO ${this.escapeName(this._name)} ` +
             this.objectToInsertSql(profile);
@@ -49,16 +47,14 @@ export default class ProfilesMySqlDbTable
         return newProfile;
     }
 
-    updateProfile(
+    update(
         options: Required<ProfilesSearchOptions>,
         profile: Partial<Profile>,
     ): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
-    async deleteProfile(
-        options: Required<ProfilesSearchOptions>,
-    ): Promise<number> {
+    async delete(options: Required<ProfilesSearchOptions>): Promise<number> {
         const sql =
             `DELETE FROM ${this.escapeName(this._name)} ` +
             ('WHERE ' + this.searchOptionsToSqlCondition(options.additional));
@@ -66,7 +62,7 @@ export default class ProfilesMySqlDbTable
         return result.affectedRows;
     }
 
-    async findProfiles(
+    async findByFullName(
         nameToSearch: string,
         includeGraduates: boolean = false,
     ): Promise<Profile[]> {

@@ -12,7 +12,7 @@ export default class ProfilesMSSqlDbTable
         super(name, connection);
     }
 
-    async getProfiles(options?: ProfilesSearchOptions): Promise<Profile[]> {
+    async get(options?: ProfilesSearchOptions): Promise<Profile[]> {
         const sql =
             `SELECT * FROM [${this._name}]` +
             (options && options.additional
@@ -23,9 +23,7 @@ export default class ProfilesMSSqlDbTable
         return result.recordset;
     }
 
-    async checkIsProfileExists(
-        options: Required<ProfilesSearchOptions>,
-    ): Promise<boolean> {
+    async isExists(options: Required<ProfilesSearchOptions>): Promise<boolean> {
         const result = await this.connection.query(
             `SELECT [id] FROM ${this._name} WHERE ` +
                 this.searchOptionsToSqlCondition(options.additional),
@@ -34,7 +32,7 @@ export default class ProfilesMSSqlDbTable
         return result.recordset.length > 0;
     }
 
-    async insertProfile(profile: Profile): Promise<Profile> {
+    async insert(profile: Profile): Promise<Profile> {
         const insertSql = this.objectToInsertSql(profile);
         const sql = `INSERT INTO [${this._name}] ${insertSql}; SELECT SCOPE_IDENTITY();`;
         const result = await this.connection.query(sql);
@@ -49,7 +47,7 @@ export default class ProfilesMSSqlDbTable
         }
     }
 
-    async updateProfile(
+    async update(
         options: Required<ProfilesSearchOptions>,
         profile: Partial<Profile>,
     ): Promise<boolean> {
@@ -60,9 +58,7 @@ export default class ProfilesMSSqlDbTable
         return result.rowsAffected[0] > 0;
     }
 
-    async deleteProfile(
-        options: Required<ProfilesSearchOptions>,
-    ): Promise<number> {
+    async delete(options: Required<ProfilesSearchOptions>): Promise<number> {
         const sql =
             `DELETE FROM [${this._name}] ` +
             ('WHERE ' + this.searchOptionsToSqlCondition(options.additional));
@@ -70,7 +66,7 @@ export default class ProfilesMSSqlDbTable
         return result.affectedRows;
     }
 
-    async findProfiles(
+    async findByFullName(
         nameToSearch: string,
         includeGraduates: boolean = false,
     ): Promise<Profile[]> {
