@@ -1,7 +1,9 @@
 export function differenceObjects<T extends {}>(
     original: T,
     changed: T,
+    options: Partial<DifferenceObjectsOptions> = {},
 ): Partial<T> {
+    options = {...DEFAULT_DIFFERENCE_OBJECTS_OPTIONS, ...options};
     const difference: Partial<T> = {};
     const originalKeys = Object.keys(original) as (keyof T)[];
     for (const key of originalKeys) {
@@ -11,10 +13,27 @@ export function differenceObjects<T extends {}>(
         const originalValue = original[key];
         const newValue = changed[key];
 
-        if (originalValue !== newValue) {
-            difference[key] = newValue;
+        const parsedOriginalValue =
+            typeof originalValue === 'string' && options.trimStrings
+                ? originalValue.trim()
+                : originalValue;
+        const parsedNewValue =
+            typeof newValue === 'string' && options.trimStrings
+                ? newValue.trim()
+                : newValue;
+
+        if (parsedOriginalValue !== parsedNewValue) {
+            difference[key] = parsedNewValue as T[keyof T];
         }
     }
 
     return difference;
 }
+
+type DifferenceObjectsOptions = {
+    trimStrings: boolean;
+};
+
+const DEFAULT_DIFFERENCE_OBJECTS_OPTIONS: DifferenceObjectsOptions = {
+    trimStrings: false,
+};
