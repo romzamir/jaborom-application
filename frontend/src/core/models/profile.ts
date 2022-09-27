@@ -12,10 +12,10 @@ export class Profile {
     public sex: ProfileSex;
     public dateOfBirth: Date | null;
     public dateOfSigning: Date;
-    public address?: string;
-    public hobbies?: string;
-    public allergies?: string;
-    public notes?: string;
+    public address: string;
+    public hobbies: string;
+    public allergies: string;
+    public notes: string;
 
     constructor(template: any = {}) {
         const {
@@ -54,10 +54,10 @@ export class Profile {
         this.lastName = lastName;
         this.school = school;
         this.grade = grade;
-        this.address = address;
-        this.hobbies = hobbies;
-        this.allergies = allergies;
-        this.notes = notes;
+        this.address = address ?? '';
+        this.hobbies = hobbies ?? '';
+        this.allergies = allergies ?? '';
+        this.notes = notes ?? '';
 
         this.sex = typeof sex === 'number' ? sexNumberToProfileSex(sex) : sex;
         this.dateOfBirth =
