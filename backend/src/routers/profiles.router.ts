@@ -21,7 +21,7 @@ export default function ProfilesRouter(
                 includeGraduates,
             );
         } else {
-            profiles = await profilesProvider.getAllProfiles(includeGraduates);
+            profiles = await profilesProvider.getAll(includeGraduates);
         }
 
         res.json(profiles);
@@ -33,7 +33,7 @@ export default function ProfilesRouter(
         if (Number.isNaN(id)) {
             res.status(HttpStatus.BAD_REQUEST);
         } else {
-            const profile = await profilesProvider.getProfileByID(id);
+            const profile = await profilesProvider.getById(id);
             if (profile) {
                 res.json(profile);
             } else {
@@ -46,7 +46,7 @@ export default function ProfilesRouter(
 
     router.post('/', async (req, res) => {
         const profile: Profile = req.body;
-        const result = await profilesProvider.insertProfile(profile);
+        const result = await profilesProvider.insert(profile);
         if (result !== null) {
             res.json(result);
         } else {
@@ -56,12 +56,19 @@ export default function ProfilesRouter(
         res.end();
     });
 
+    router.put('/:id', async (req, res) => {
+        const {id} = req.params;
+        const profileChanges: Partial<Profile> = req.body;
+        await profilesProvider.update(+id, profileChanges);
+        res.status(HttpStatus.OK).end();
+    });
+
     router.delete('/:id', async (req, res) => {
         const id: number = parseInt(req.params.id?.toString() || '');
         if (id === NaN) {
             res.status(HttpStatus.BAD_REQUEST);
         } else {
-            const didDelete = await profilesProvider.deleteProfile(id);
+            const didDelete = await profilesProvider.delete(id);
 
             if (didDelete) {
                 res.status(HttpStatus.NOT_FOUND);

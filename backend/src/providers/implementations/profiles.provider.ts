@@ -17,12 +17,12 @@ export default class ProfilesProvider implements IProfilesProvider {
         this._siblingsDbTable = siblingsDbTable;
     }
 
-    getAllProfiles(includeGraduates: boolean = false): Promise<Profile[]> {
-        return this._profilesDbTable.getProfiles({includeGraduates});
+    getAll(includeGraduates: boolean = false): Promise<Profile[]> {
+        return this._profilesDbTable.get({includeGraduates});
     }
 
     checkIsProfileExists(profileId: number): Promise<boolean> {
-        return this._profilesDbTable.checkIsProfileExists({
+        return this._profilesDbTable.isExists({
             includeGraduates: true,
             additional: {
                 key: 'id',
@@ -34,11 +34,11 @@ export default class ProfilesProvider implements IProfilesProvider {
         });
     }
 
-    async getProfileByID(
+    async getById(
         id: number,
         includeGraduates: boolean = false,
     ): Promise<Profile | null> {
-        const result = await this._profilesDbTable.getProfiles({
+        const result = await this._profilesDbTable.get({
             includeGraduates,
             additional: {
                 key: 'id',
@@ -52,19 +52,35 @@ export default class ProfilesProvider implements IProfilesProvider {
         return result[0] ?? null;
     }
 
-    async insertProfile(profile: Profile): Promise<Profile | null> {
+    async insert(profile: Profile): Promise<Profile | null> {
         try {
-            return await this._profilesDbTable.insertProfile(profile);
+            return await this._profilesDbTable.insert(profile);
         } catch {
             return null;
         }
     }
 
-    async deleteProfile(
+    async update(id: number, profile: Partial<Profile>): Promise<void> {
+        await this._profilesDbTable.update(
+            {
+                includeGraduates: true,
+                additional: {
+                    key: 'id',
+                    condition: {
+                        name: 'equals',
+                        value: id,
+                    },
+                },
+            },
+            profile,
+        );
+    }
+
+    async delete(
         id: number,
         includeGraduates: boolean = false,
     ): Promise<boolean> {
-        const result = await this._profilesDbTable.deleteProfile({
+        const result = await this._profilesDbTable.delete({
             includeGraduates,
             additional: {
                 key: 'id',
@@ -137,7 +153,7 @@ export default class ProfilesProvider implements IProfilesProvider {
         nameToSearch: string,
         includeGraduates?: boolean,
     ): Promise<Profile[]> {
-        return this._profilesDbTable.findProfiles(
+        return this._profilesDbTable.findByFullName(
             nameToSearch,
             includeGraduates,
         );

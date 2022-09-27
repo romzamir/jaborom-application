@@ -22,52 +22,73 @@ export default abstract class RelationalDbTableBase extends DbTable {
 
     protected abstract escapeName(name: string): string;
 
-    protected SearchOptionsToSqlCondition<T>(
+    protected searchOptionsToSqlCondition<T>(
         options: SearchOptions<T>,
     ): string {
         // SearchOptionsQuery<T>
         if (!!(options as any).$operator) {
-            return this.SearchOptionsQueryToSqlCondition(
+            return this.searchOptionsQueryToSqlCondition(
                 options as SearchOptionsQuery<T>,
             );
         } /* SearchOptionsProperty<T> */ else {
-            return this.SearchOptionsPropertyToSqlCondition(
+            return this.searchOptionsPropertyToSqlCondition(
                 options as SearchOptionsProperty<T>,
             );
         }
     }
 
-    protected SearchOptionsQueryToSqlCondition<T>(
+    protected searchOptionsQueryToSqlCondition<T>(
         query: SearchOptionsQuery<T>,
     ): string {
         const sql = query.$operands
-            .map((operand) => this.SearchOptionsToSqlCondition(operand))
+            .map((operand) => this.searchOptionsToSqlCondition(operand))
             .join(` ${query.$operator} `);
         return `(${sql})`;
     }
 
-    protected SearchOptionsPropertyToSqlCondition<T>(
+    protected searchOptionsPropertyToSqlCondition<T>(
         property: SearchOptionsProperty<T>,
     ): string {
+        const key = String(property.key);
         const operator =
             mapConditionNameToSql.get(property.condition.name) ?? '=';
-        return `(${String(property.key)}${operator}${
-            property.condition.value
-        })`;
+        const value = this.valueToSqlString(property.condition.value);
+        return `(${key}${operator}${value})`;
     }
 
-    protected ObjectToInsertSql(object: any): string {
+    protected objectToInsertSql(object: any): string {
         const keys = Object.keys(object)
             .map((key) => this.escapeName(key))
             .join(',');
-        const values = this.ObjectToValuesSql(object);
+        const values = this.objectToValuesSql(object);
 
         return `(${keys}) VALUES (${values})`;
     }
 
-    protected ObjectToValuesSql(object: any): string {
+    protected objectToValuesSql(object: any): string {
         return Object.values(object)
             .map((value) => `'${value}'`)
             .join(',');
+    }
+
+    protected objectToSetSql(object: any): string {
+        return Object.entries(object)
+            .filter(([_key, value]) => value !== undefined)
+            .map(
+                ([key, value]) =>
+                    `${this.escapeName(key)}=${this.valueToSqlString(value)}`,
+            )
+            .join(',');
+    }
+
+    protected valueToSqlString(value: any): string {
+        if (typeof value === 'string') return `'${value}'`;
+        if (typeof value === 'number') return `'${value}'`;
+        if (value instanceof Date) return `'${value.toISOString()}'`;
+        if (value === null) return 'NULL';
+        if (typeof value === 'object' && value !== null)
+            throw new Error('Value cannot be an object');
+
+        throw new Error('Invalid value: ' + value);
     }
 }
