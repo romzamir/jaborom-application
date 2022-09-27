@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {useCallback, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 
@@ -22,6 +23,7 @@ export function ProfilePage() {
     const [isLoading, profileResult] = useFetch(fetchProfile);
     const profile = profileResult?.data;
     const [draft, setDraft] = useState(profile);
+    const hasChanges = !_.isEqual(draft, profile);
 
     useEffect(() => {
         setDraft(profile);
@@ -67,6 +69,7 @@ export function ProfilePage() {
                     <ProfilePageHeader
                         profile={profile}
                         isEditMode={isEditMode}
+                        hasChanges={hasChanges}
                         startEditMode={startEditMode}
                         saveDraft={saveDraft}
                         discardDraft={discardDraft}

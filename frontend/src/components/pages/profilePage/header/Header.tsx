@@ -7,6 +7,7 @@ import './header.css';
 type ProfilePageHeaderProps = {
     profile: Profile;
     isEditMode: boolean;
+    hasChanges: boolean;
     startEditMode: () => void;
     saveDraft: () => void;
     discardDraft: () => void;
@@ -15,6 +16,7 @@ type ProfilePageHeaderProps = {
 export function ProfilePageHeader({
     profile,
     isEditMode,
+    hasChanges,
     startEditMode,
     saveDraft,
     discardDraft,
@@ -37,6 +39,7 @@ export function ProfilePageHeader({
                             <span
                                 className='profile-page-header-button profile-page-header-save-draft-button'
                                 onClick={saveDraft}
+                                data-disabled={!hasChanges}
                             >
                                 שמירה
                             </span>
