@@ -52,7 +52,7 @@ export default abstract class RelationalDbTableBase extends DbTable {
         const key = String(property.key);
         const operator =
             mapConditionNameToSql.get(property.condition.name) ?? '=';
-        const value = property.condition.value;
+        const value = this.valueToSqlString(property.condition.value);
         return `(${key}${operator}${value})`;
     }
 
