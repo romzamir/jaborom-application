@@ -52,7 +52,7 @@ export default class ProfilesMSSqlDbTable
     updateProfile(
         options: Required<ProfilesSearchOptions>,
         profile: Partial<Profile>,
-    ): Promise<Profile> {
+    ): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
