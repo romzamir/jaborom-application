@@ -49,11 +49,15 @@ export default class ProfilesMSSqlDbTable
         }
     }
 
-    updateProfile(
+    async updateProfile(
         options: Required<ProfilesSearchOptions>,
         profile: Partial<Profile>,
     ): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        const setSql = this.ObjectToSetSql(profile);
+        const whereSql = this.SearchOptionsToSqlCondition(options.additional);
+        const sql = `UPDATE [${this._name}] SET ${setSql} WHERE ${whereSql}`;
+        const result = await this.connection.query(sql);
+        return result.rowsAffected[0] > 0;
     }
 
     async deleteProfile(
