@@ -65,7 +65,7 @@ export default async function Boot(): Promise<Router> {
     //#endregion
     //#region Authentication
     const authenticationValidator: IAuthenticationValidator =
-        new MockAuthenticationValidator();
+        new FirebaseAuthenticationValidator();
     const checkAuthenticationRoute = FirebaseCheckAuthenticationRoute(
         authenticationValidator,
     );
