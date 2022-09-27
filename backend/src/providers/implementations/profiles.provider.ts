@@ -61,7 +61,19 @@ export default class ProfilesProvider implements IProfilesProvider {
     }
 
     async updateProfile(id: number, profile: Partial<Profile>): Promise<void> {
-        throw new Error('Method not implemented.');
+        this._profilesDbTable.updateProfile(
+            {
+                includeGraduates: true,
+                additional: {
+                    key: 'id',
+                    condition: {
+                        name: 'equals',
+                        value: id,
+                    },
+                },
+            },
+            profile,
+        );
     }
 
     async deleteProfile(
