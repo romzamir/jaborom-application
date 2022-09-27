@@ -1,9 +1,12 @@
-import DatePicker from 'react-datepicker';
+import DatePicker, {registerLocale} from 'react-datepicker';
+import heLocale from 'date-fns/locale/he';
 
 import {dateToLongDateString} from '../../../../../utils/date';
 import {ProfileFieldContainer} from '../field';
 
 import 'react-datepicker/dist/react-datepicker.css';
+
+registerLocale('he', heLocale);
 
 export type ProfileDateFieldProps = {
     title: string;
@@ -24,6 +27,7 @@ export function ProfileDateField({
                 <DatePicker
                     wrapperClassName='profile-date-field'
                     className='profile-date-field-input'
+                    locale='he'
                     selected={value}
                     onChange={setValue}
                     dateFormat='dd/MM/yyyy'
