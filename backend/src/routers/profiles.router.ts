@@ -56,6 +56,13 @@ export default function ProfilesRouter(
         res.end();
     });
 
+    router.post('/:id', async (req, res) => {
+        const {id} = req.params;
+        const profileChanges: Partial<Profile> = req.body;
+        await profilesProvider.updateProfile(+id, profileChanges);
+        res.status(HttpStatus.OK).end();
+    });
+
     router.delete('/:id', async (req, res) => {
         const id: number = parseInt(req.params.id?.toString() || '');
         if (id === NaN) {
