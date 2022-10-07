@@ -7,6 +7,7 @@ import './header.css';
 type ProfilePageHeaderProps = {
     profile: Profile;
     isEditMode: boolean;
+    isNew: boolean;
     hasChanges: boolean;
     startEditMode: () => void;
     saveDraft: () => void;
@@ -16,11 +17,14 @@ type ProfilePageHeaderProps = {
 export function ProfilePageHeader({
     profile,
     isEditMode,
+    isNew,
     hasChanges,
     startEditMode,
     saveDraft,
     discardDraft,
 }: ProfilePageHeaderProps) {
+    const dateOfSigning = isNew ? new Date() : profile.dateOfSigning;
+
     return (
         <div className='profile-page-header'>
             <div className='profile-page-header-main'>
@@ -31,7 +35,7 @@ export function ProfilePageHeader({
             </div>
             <div className='profile-page-header-extras'>
                 <span className='profile-sign-date'>
-                    הפרופיל נוצר ב{dateToLongDateString(profile.dateOfSigning)}
+                    הפרופיל נוצר ב{dateToLongDateString(dateOfSigning)}
                 </span>
                 <div className='profile-page-header-buttons'>
                     {isEditMode ? (

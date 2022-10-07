@@ -77,6 +77,7 @@ export function ProfilePage() {
                 <div className='profile-page'>
                     <ProfilePageHeader
                         profile={draft ?? profile}
+                        isNew={isNew}
                         isEditMode={isEditMode}
                         hasChanges={hasChanges}
                         startEditMode={startEditMode}
