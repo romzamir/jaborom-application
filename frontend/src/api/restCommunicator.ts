@@ -5,7 +5,7 @@ import Axios, {
     AxiosResponse,
 } from 'axios';
 
-import {getUserToken} from '../auth';
+import {authenticator} from '../auth';
 
 import {backendConfig} from '../core/config/backend.config';
 import {CancellablePromise} from '../core/types/cancellablePromise.type';
@@ -97,7 +97,7 @@ function wrapAxiosPromise<TResponse>(
     const promise = new Promise<AxiosResponse<TResponse>>(
         async (resolve, reject) => {
             try {
-                const token = await getUserToken();
+                const token = await authenticator.getUserToken();
                 addHeader(cancellationConfig.config, 'Auth-Token', token);
                 if (isCanceled) return resolveAsCanceled();
                 const originalPromise = perform(cancellationConfig.config);
