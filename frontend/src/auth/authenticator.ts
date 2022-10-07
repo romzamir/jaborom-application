@@ -12,6 +12,7 @@ export const authenticator = {
     getUserToken,
     isAuthenticated,
     signInWithGoogle,
+    onUserChanged,
 };
 
 const firebaseConfig = getConfig('Test');
@@ -23,13 +24,32 @@ const provider = new GoogleAuthProvider();
 provider.setDefaultLanguage('he');
 
 let userCredential: UserCredential | null = null;
+const userChangedListeners: ((user: User | null) => void)[] = [];
 
 async function signInWithGoogle() {
     try {
-        userCredential = await signInWithPopup(auth, provider);
+        const userCredential = await signInWithPopup(auth, provider);
+        setUserCredential(userCredential);
     } catch (err) {
         console.log('auth error', err);
     }
+}
+
+function onUserChanged(callback: (user: User | null) => void) {
+    userChangedListeners.push(callback);
+
+    return () => {
+        const index = userChangedListeners.indexOf(callback);
+        if (index === -1) return;
+
+        userChangedListeners.splice(index, 1);
+    };
+}
+
+function setUserCredential(newUserCredential: UserCredential | null) {
+    userCredential = newUserCredential;
+    const user = userCredential?.user ?? null;
+    userChangedListeners.forEach((listener) => listener?.(user));
 }
 
 function getUser(): User | null {
