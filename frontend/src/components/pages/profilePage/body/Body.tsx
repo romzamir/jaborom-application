@@ -24,6 +24,28 @@ export function ProfilePageBody({
 }: ProfilePageBodyProps) {
     return (
         <div className='profile-page-body'>
+            {isEditMode && (
+                <>
+                    <ProfileTextField
+                        title='שם פרטי'
+                        value={profile.firstName}
+                        setValue={(value) => setField('firstName', value)}
+                        isEditMode={isEditMode}
+                    />
+                    <ProfileTextField
+                        title='שם משפחה'
+                        value={profile.lastName}
+                        setValue={(value) => setField('lastName', value)}
+                        isEditMode={isEditMode}
+                    />
+                    <ProfileTextField
+                        title='תעודת זהות'
+                        value={profile.personId}
+                        setValue={(value) => setField('personId', value)}
+                        isEditMode={isEditMode}
+                    />
+                </>
+            )}
             <ProfileDateField
                 title='תאריך לידה'
                 value={profile.dateOfBirth ?? new Date()}
