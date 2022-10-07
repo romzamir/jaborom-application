@@ -43,7 +43,9 @@ export function HomePage() {
             <div className='home-page-text'>
                 <div className='home-page-hello-container'>
                     שלום,
-                    <span className='home-page-hello-name'>רום</span>
+                    <span className='home-page-hello-name'>
+                        {user.displayName}
+                    </span>
                 </div>
                 מה תרצה לעשות?
             </div>
