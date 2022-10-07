@@ -28,8 +28,6 @@ export function ProfilePageHeader({
     saveDraft,
     discardDraft,
 }: ProfilePageHeaderProps) {
-    const dateOfSigning = isNew ? new Date() : profile.dateOfSigning;
-
     return (
         <div className='profile-page-header'>
             <div className='profile-page-header-main'>
@@ -40,7 +38,7 @@ export function ProfilePageHeader({
             </div>
             <div className='profile-page-header-extras'>
                 <span className='profile-sign-date'>
-                    הפרופיל נוצר ב{dateToLongDateString(dateOfSigning)}
+                    הפרופיל נוצר ב{dateToLongDateString(profile.dateOfSigning)}
                 </span>
                 <div className='profile-page-header-buttons'>
                     {isEditMode ? (
