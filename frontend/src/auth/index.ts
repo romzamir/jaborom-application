@@ -1,6 +1,10 @@
 import {initializeApp} from 'firebase/app';
-import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
-import {restCommunicator} from '../api/restCommunicator';
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    UserCredential,
+} from 'firebase/auth';
 import {getConfig} from './configs';
 
 const firebaseConfig = getConfig('Test');
@@ -10,12 +14,16 @@ const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider();
 
+let userCredential: UserCredential;
+
 export async function signInWithGoogle() {
     try {
-        const result = await signInWithPopup(auth, provider);
-        const token = await result.user.getIdToken();
-        restCommunicator.setToken(token);
+        userCredential = await signInWithPopup(auth, provider);
     } catch (err) {
         console.log('auth error', err);
     }
+}
+
+export async function getUserToken(): Promise<string | null> {
+    return (await userCredential.user.getIdToken()) ?? null;
 }
