@@ -1,26 +1,18 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {User} from 'firebase/auth';
 
-import {authenticator} from '../auth';
-
-export function useAuthorize() {
+export function useAuthorize(user: User | null): user is User {
     const navigate = useNavigate();
-    const [isOk, setIsOk] = useState(false);
 
-    useEffect(() => {
-        (async () => {
-            await assertAuthenticated();
-        })();
-    }, []);
+    const assertAuthenticated = () => {
+        if (user) return true;
 
-    const assertAuthenticated = async () => {
-        const isAuthenticated = await authenticator.isAuthenticated();
-        if (!isAuthenticated) {
-            return navigate('/login');
-        }
-
-        setIsOk(true);
+        navigate('/login');
+        return false;
     };
 
-    return isOk;
+    if (!assertAuthenticated()) return false;
+
+    return true;
 }

@@ -4,7 +4,7 @@ import {useCallback} from 'react';
 import {useLocation} from 'react-router-dom';
 import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
-import {useAuthorize, useFetch} from '../../../hooks';
+import {useAuthorize, useFetch, useUser} from '../../../hooks';
 
 import {ProfileDb} from '../../../core/types/profileDb.type';
 
@@ -13,7 +13,8 @@ import {profilesProvider} from '../../../api/providers/profiles.provider';
 import './profilesPage.css';
 
 export function ProfilesPage() {
-    const isAuthorized = useAuthorize();
+    const user = useUser();
+    const isAuthorized = useAuthorize(user);
     const location = useLocation();
     const searchText = new URLSearchParams(location.search).get('search') || '';
 

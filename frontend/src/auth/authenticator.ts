@@ -11,7 +11,6 @@ import {getConfig} from './configs';
 export const authenticator = {
     getUser,
     getUserToken,
-    isAuthenticated,
     signInWithGoogle,
     onUserChanged,
 };
@@ -59,10 +58,4 @@ function getUser(): User | null {
 
 async function getUserToken(): Promise<string | null> {
     return (await getUser()?.getIdToken()) ?? null;
-}
-
-async function isAuthenticated(): Promise<boolean> {
-    if (!getUser()) return false;
-
-    return true;
 }

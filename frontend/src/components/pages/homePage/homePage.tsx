@@ -1,12 +1,13 @@
 import {useEffect, useState} from 'react';
 
 import {HomePageButtons} from './homePageButtons/homePageButtons';
-import {useAuthorize} from '../../../hooks';
+import {useAuthorize, useUser} from '../../../hooks';
 
 import './homePage.css';
 
 export function HomePage() {
-    const isAuthorized = useAuthorize();
+    const user = useUser();
+    const isAuthorized = useAuthorize(user);
     const [clockText, setClockText] = useState(generateTimeText());
 
     function generateTimeText() {
