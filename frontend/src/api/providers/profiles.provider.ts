@@ -9,6 +9,7 @@ export const profilesProvider = ((window as any).profilesProvider = {
     getAll,
     getById,
     search,
+    insert,
     update,
 });
 
@@ -33,6 +34,13 @@ function search(searchText: string, limit: number = 20) {
         searchText,
         limit,
     });
+}
+
+function insert(profile: Profile) {
+    return restCommunicator.post(
+        backendRoutes.profiles,
+        Profile.toJson(profile),
+    );
 }
 
 function update(id: string | number, profileChanges: Partial<Profile>) {
