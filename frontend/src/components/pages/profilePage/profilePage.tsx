@@ -53,16 +53,24 @@ export function ProfilePage() {
         if (!draft) return;
         setIsEditMode(false);
 
-        const changes = differenceObjects<Profile>(
-            profile ?? new Profile(),
-            draft,
-        );
-        profilesProvider.update(id ?? '', changes);
+        if (isNew) {
+            profilesProvider.insert(draft);
+        } else {
+            const changes = differenceObjects<Profile>(
+                profile ?? new Profile(),
+                draft,
+            );
+            profilesProvider.update(id ?? '', changes);
+        }
     }, [draft, profile]);
 
     const discardDraft = useCallback(() => {
-        setDraft(profile);
-        setIsEditMode(false);
+        if (isNew) {
+            setDraft(new Profile());
+        } else {
+            setDraft(profile);
+            setIsEditMode(false);
+        }
     }, [profile]);
 
     if (!isAuthorized) return null;
@@ -86,6 +94,7 @@ export function ProfilePage() {
                     />
                     <ProfilePageBody
                         profile={draft ?? profile}
+                        isNew={isNew}
                         isEditMode={isEditMode}
                         setField={setDraftField}
                     />
