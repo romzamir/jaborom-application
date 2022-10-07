@@ -16,18 +16,23 @@ export function ProfilePage() {
     const user = useUser();
     const isAuthorized = useAuthorize(user);
     const {id} = useParams<ProfileParams>();
+    const isNew = id === 'new';
     const fetchProfile = useCallback(
         () => profilesProvider.getById(id || ''),
         [id],
     );
 
-    const [isEditMode, setIsEditMode] = useState(false);
-    const [isLoading, profileResult] = useFetch(fetchProfile);
+    const [isEditMode, setIsEditMode] = useState(isNew);
+    const [isLoading, profileResult] = useFetch(fetchProfile, {
+        immediate: !isNew,
+    });
     const profile = profileResult?.data;
-    const [draft, setDraft] = useState(profile);
+    const [draft, setDraft] = useState(!isNew ? profile : new Profile());
     const hasChanges = !_.isEqual(draft, profile);
 
     useEffect(() => {
+        if (isNew) return;
+
         setDraft(profile);
     }, [profile]);
 
@@ -66,12 +71,12 @@ export function ProfilePage() {
         <>
             {isLoading ? (
                 'בטעינה...'
-            ) : !profile ? (
+            ) : !draft ? (
                 'הפרופיל לא נמצא'
             ) : (
                 <div className='profile-page'>
                     <ProfilePageHeader
-                        profile={profile}
+                        profile={draft ?? profile}
                         isEditMode={isEditMode}
                         hasChanges={hasChanges}
                         startEditMode={startEditMode}
