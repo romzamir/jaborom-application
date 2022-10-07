@@ -33,7 +33,7 @@ function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
 function post<TRequest, TResponse>(
     route: string,
     body: any,
-    queries: UrlQueriesObject,
+    queries: UrlQueriesObject = {},
 ) {
     return wrapAxiosPromise((config) => {
         return Axios.post<TRequest, AxiosResponse<TResponse>>(
