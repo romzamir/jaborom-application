@@ -4,6 +4,11 @@ import {dateToLongDateString} from '../../../../utils/date';
 
 import './header.css';
 
+const CREATE_BUTTON_TEXT = 'יצירה';
+const UPDATE_BUTTON_TEXT = 'שמירה';
+const RESET_BUTTON_TEXT = 'איפוס';
+const CANCEL_EDIT_BUTTON_TEXT = 'ביטול';
+
 type ProfilePageHeaderProps = {
     profile: Profile;
     isNew: boolean;
@@ -45,13 +50,17 @@ export function ProfilePageHeader({
                                 onClick={saveDraft}
                                 data-disabled={!hasChanges}
                             >
-                                שמירה
+                                {isNew
+                                    ? CREATE_BUTTON_TEXT
+                                    : UPDATE_BUTTON_TEXT}
                             </span>
                             <span
                                 className='profile-page-header-button profile-page-header-discard-draft-button'
                                 onClick={discardDraft}
                             >
-                                ביטול
+                                {isNew
+                                    ? RESET_BUTTON_TEXT
+                                    : CANCEL_EDIT_BUTTON_TEXT}
                             </span>
                         </>
                     ) : (
