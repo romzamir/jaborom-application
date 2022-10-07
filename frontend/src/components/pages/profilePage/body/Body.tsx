@@ -26,6 +26,12 @@ export function ProfilePageBody({
         <div className='profile-page-body'>
             {isEditMode && (
                 <>
+                    <ProfileDateField
+                        title='תאריך קליטה'
+                        value={profile.dateOfSigning}
+                        setValue={(value) => setField('dateOfSigning', value)}
+                        isEditMode={isEditMode}
+                    />
                     <ProfileTextField
                         title='שם פרטי'
                         value={profile.firstName}
