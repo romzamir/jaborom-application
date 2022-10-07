@@ -1,17 +1,18 @@
-import {useNavigate} from 'react-router-dom';
+import {useEffect} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {User} from 'firebase/auth';
 
 export function useAuthorize(user: User | null): user is User {
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const assertAuthenticated = () => {
-        if (user) return true;
+    const isOk = !!user;
 
-        navigate('/login');
-        return false;
-    };
+    useEffect(() => {
+        if (isOk) return;
 
-    if (!assertAuthenticated()) return false;
+        if (!user) return navigate(`/login?returnTo=${location.pathname}`);
+    }, [isOk]);
 
-    return true;
+    return isOk;
 }

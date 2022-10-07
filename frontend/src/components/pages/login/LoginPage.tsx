@@ -21,7 +21,9 @@ export function LoginPage() {
     const onUserChanged = (user: User | null) => {
         if (!user) return;
 
-        navigate('/homepage');
+        const returnTo =
+            new URLSearchParams(location.search).get('returnTo') || '/homepage';
+        navigate(returnTo);
     };
 
     return (
