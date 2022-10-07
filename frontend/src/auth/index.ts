@@ -15,7 +15,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 provider.setDefaultLanguage('he');
 
-let userCredential: UserCredential;
+let userCredential: UserCredential | null = null;
 
 export async function signInWithGoogle() {
     try {
@@ -26,5 +26,5 @@ export async function signInWithGoogle() {
 }
 
 export async function getUserToken(): Promise<string | null> {
-    return (await userCredential.user.getIdToken()) ?? null;
+    return (await userCredential?.user.getIdToken()) ?? null;
 }
