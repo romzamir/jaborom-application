@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom';
 
 import {ProfilePageHeader} from './header';
 import {ProfilePageBody} from './body';
-import {useFetch} from '../../../hooks';
+import {useAuthorize, useFetch} from '../../../hooks';
 
 import {profilesProvider} from '../../../api/providers/profiles.provider';
 import {differenceObjects} from '../../../utils/difference';
@@ -13,6 +13,9 @@ import {Profile} from '../../../core/models/profile';
 import './profilePage.css';
 
 export function ProfilePage() {
+    const isAuthorized = useAuthorize();
+    if (!isAuthorized) return null;
+
     const {id} = useParams<ProfileParams>();
     const fetchProfile = useCallback(
         () => profilesProvider.getById(id || ''),
