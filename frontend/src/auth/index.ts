@@ -13,6 +13,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider();
+provider.setDefaultLanguage('he');
 
 let userCredential: UserCredential;
 
