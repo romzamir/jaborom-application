@@ -13,8 +13,6 @@ export const restCommunicator = {
     delete: deleteMethod,
 };
 
-setToken('abcd1234');
-
 function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
     return performCancellableAxiosRequest((config) => {
         return Axios.get<undefined, AxiosResponse<TResponse>>(
