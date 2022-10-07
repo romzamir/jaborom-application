@@ -1,10 +1,13 @@
 import {useEffect, useState} from 'react';
 
 import {HomePageButtons} from './homePageButtons/homePageButtons';
+import {useAuthorize, useUser} from '../../../hooks';
 
 import './homePage.css';
 
 export function HomePage() {
+    const user = useUser();
+    const isAuthorized = useAuthorize(user);
     const [clockText, setClockText] = useState(generateTimeText());
 
     function generateTimeText() {
@@ -32,13 +35,17 @@ export function HomePage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    if (!isAuthorized) return null;
+
     return (
         <div className='home-page'>
             <span className='home-page-clock'>{clockText}</span>
             <div className='home-page-text'>
                 <div className='home-page-hello-container'>
                     שלום,
-                    <span className='home-page-hello-name'>רום</span>
+                    <span className='home-page-hello-name'>
+                        {user.displayName}
+                    </span>
                 </div>
                 מה תרצה לעשות?
             </div>

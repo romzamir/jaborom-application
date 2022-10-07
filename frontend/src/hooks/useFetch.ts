@@ -5,6 +5,7 @@ import {CancellablePromise} from '../core/types/cancellablePromise.type';
 
 export function useFetch<T>(
     fetchFunc: () => CancellablePromise<T>,
+    options?: Partial<FetchOptions>,
 ): UseFetchReturnType<T>;
 
 export function useFetch<

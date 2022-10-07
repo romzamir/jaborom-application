@@ -4,7 +4,7 @@ import {useCallback} from 'react';
 import {useLocation} from 'react-router-dom';
 import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
-import {useFetch} from '../../../hooks';
+import {useAuthorize, useFetch, useUser} from '../../../hooks';
 
 import {ProfileDb} from '../../../core/types/profileDb.type';
 
@@ -13,6 +13,8 @@ import {profilesProvider} from '../../../api/providers/profiles.provider';
 import './profilesPage.css';
 
 export function ProfilesPage() {
+    const user = useUser();
+    const isAuthorized = useAuthorize(user);
     const location = useLocation();
     const searchText = new URLSearchParams(location.search).get('search') || '';
 
@@ -26,6 +28,8 @@ export function ProfilesPage() {
 
     const [isLoading, profilesResult] =
         useFetch<AxiosResponse<ProfileDb[]>>(performSearch);
+
+    if (!isAuthorized) return null;
 
     return (
         <div className='profiles-page'>

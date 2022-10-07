@@ -1,4 +1,12 @@
-import Axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import _ from 'lodash';
+import Axios, {
+    AxiosRequestConfig,
+    AxiosRequestHeaders,
+    AxiosResponse,
+} from 'axios';
+
+import {authenticator} from '../auth';
+
 import {backendConfig} from '../core/config/backend.config';
 import {CancellablePromise} from '../core/types/cancellablePromise.type';
 
@@ -13,10 +21,8 @@ export const restCommunicator = {
     delete: deleteMethod,
 };
 
-setToken('abcd1234');
-
 function get<TResponse>(route: string, queries: UrlQueriesObject = {}) {
-    return performCancellableAxiosRequest((config) => {
+    return wrapAxiosPromise((config) => {
         return Axios.get<undefined, AxiosResponse<TResponse>>(
             concatParams(route, queries),
             config,
@@ -29,7 +35,7 @@ function post<TRequest, TResponse>(
     body: any,
     queries: UrlQueriesObject,
 ) {
-    return performCancellableAxiosRequest((config) => {
+    return wrapAxiosPromise((config) => {
         return Axios.post<TRequest, AxiosResponse<TResponse>>(
             concatParams(route, queries),
             body,
@@ -43,7 +49,7 @@ function put<TResponse>(
     body: any,
     queries: UrlQueriesObject = {},
 ) {
-    return performCancellableAxiosRequest((config) => {
+    return wrapAxiosPromise((config) => {
         return Axios.put<undefined, AxiosResponse<TResponse>>(
             concatParams(route, queries),
             body,
@@ -56,7 +62,7 @@ function deleteMethod<TResponse>(
     route: string,
     queries: UrlQueriesObject = {},
 ) {
-    return performCancellableAxiosRequest((config) => {
+    return wrapAxiosPromise((config) => {
         return Axios.delete<undefined, AxiosResponse<TResponse>>(
             concatParams(route, queries),
             config,
@@ -83,31 +89,53 @@ function concatParams(route: string, queries: UrlQueriesObject = {}): string {
     return `${urlWithRoute}?${joinedQueries}`;
 }
 
-function performCancellableAxiosRequest<TResponse>(
+function wrapAxiosPromise<TResponse>(
     perform: (config: AxiosRequestConfig) => Promise<AxiosResponse<TResponse>>,
 ) {
+    let isCanceled = false;
     const cancellationConfig = createCancellationConfig();
-    const originalPromise = perform(cancellationConfig.config);
     const promise = new Promise<AxiosResponse<TResponse>>(
         async (resolve, reject) => {
             try {
+                const token = await authenticator.getUserToken();
+                addHeader(cancellationConfig.config, 'Auth-Token', token);
+                if (isCanceled) return resolveAsCanceled();
+                const originalPromise = perform(cancellationConfig.config);
                 resolve(await originalPromise);
             } catch (err) {
                 if (err instanceof Axios.Cancel) {
-                    resolve({status: 0, statusText: 'cancelled'} as any);
+                    return resolveAsCanceled();
                 }
 
                 reject(err);
             }
+
+            function resolveAsCanceled() {
+                resolve({status: 0, statusText: 'cancelled'} as any);
+            }
         },
     ) as CancellablePromise<AxiosResponse<TResponse>>;
-    promise.cancel = () => cancellationConfig.source.cancel();
+    promise.cancel = () => {
+        cancellationConfig.source.cancel();
+        isCanceled = true;
+    };
     return promise;
 }
 
 function createCancellationConfig() {
     const source = Axios.CancelToken.source();
     return {config: {...axiosConfig, cancelToken: source.token}, source};
+}
+
+async function addHeader<TKey extends keyof AxiosRequestHeaders>(
+    config: AxiosRequestConfig,
+    name: TKey,
+    value: AxiosRequestHeaders[TKey] | null,
+) {
+    if (_.isNil(value)) return;
+
+    config.headers = config.headers || {};
+    config.headers[name] = value;
 }
 
 type UrlQueriesObject = {
