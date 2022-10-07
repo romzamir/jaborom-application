@@ -9,6 +9,7 @@ import {
 import {getConfig} from './configs';
 
 export const authenticator = {
+    getUser,
     getUserToken,
     isAuthenticated,
     signInWithGoogle,
