@@ -21,7 +21,7 @@ export function ProfileLongTextField({
         >
             {isEditMode ? (
                 <textarea
-                    value={value}
+                    value={value ?? ''}
                     onInput={(event) => setValue(event.currentTarget.value)}
                 />
             ) : (

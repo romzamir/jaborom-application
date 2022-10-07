@@ -19,7 +19,7 @@ export function ProfileTextField({
             {isEditMode ? (
                 <input
                     type='text'
-                    value={value}
+                    value={value ?? ''}
                     onInput={(event) => setValue(event.currentTarget.value)}
                 />
             ) : (
