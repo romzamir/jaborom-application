@@ -6,8 +6,8 @@ import './header.css';
 
 type ProfilePageHeaderProps = {
     profile: Profile;
-    isEditMode: boolean;
     isNew: boolean;
+    isEditMode: boolean;
     hasChanges: boolean;
     startEditMode: () => void;
     saveDraft: () => void;
@@ -16,8 +16,8 @@ type ProfilePageHeaderProps = {
 
 export function ProfilePageHeader({
     profile,
-    isEditMode,
     isNew,
+    isEditMode,
     hasChanges,
     startEditMode,
     saveDraft,
