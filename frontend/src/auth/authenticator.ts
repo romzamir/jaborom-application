@@ -3,12 +3,14 @@ import {
     getAuth,
     GoogleAuthProvider,
     signInWithPopup,
+    User,
     UserCredential,
 } from 'firebase/auth';
 import {getConfig} from './configs';
 
 export const authenticator = {
     getUserToken,
+    isAuthenticated,
     signInWithGoogle,
 };
 
@@ -30,6 +32,16 @@ async function signInWithGoogle() {
     }
 }
 
+function getUser(): User | null {
+    return userCredential?.user ?? null;
+}
+
 async function getUserToken(): Promise<string | null> {
-    return (await userCredential?.user.getIdToken()) ?? null;
+    return (await getUser()?.getIdToken()) ?? null;
+}
+
+async function isAuthenticated(): Promise<boolean> {
+    if (!getUser()) return false;
+
+    return true;
 }
