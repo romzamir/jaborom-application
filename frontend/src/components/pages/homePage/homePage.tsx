@@ -7,8 +7,6 @@ import './homePage.css';
 
 export function HomePage() {
     const isAuthorized = useAuthorize();
-    if (!isAuthorized) return null;
-
     const [clockText, setClockText] = useState(generateTimeText());
 
     function generateTimeText() {
@@ -35,6 +33,8 @@ export function HomePage() {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    if (!isAuthorized) return null;
 
     return (
         <div className='home-page'>

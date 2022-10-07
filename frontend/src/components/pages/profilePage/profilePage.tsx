@@ -14,8 +14,6 @@ import './profilePage.css';
 
 export function ProfilePage() {
     const isAuthorized = useAuthorize();
-    if (!isAuthorized) return null;
-
     const {id} = useParams<ProfileParams>();
     const fetchProfile = useCallback(
         () => profilesProvider.getById(id || ''),
@@ -60,6 +58,8 @@ export function ProfilePage() {
         setDraft(profile);
         setIsEditMode(false);
     }, [profile]);
+
+    if (!isAuthorized) return null;
 
     return (
         <>

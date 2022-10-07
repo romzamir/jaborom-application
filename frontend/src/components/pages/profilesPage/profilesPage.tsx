@@ -14,8 +14,6 @@ import './profilesPage.css';
 
 export function ProfilesPage() {
     const isAuthorized = useAuthorize();
-    if (!isAuthorized) return null;
-
     const location = useLocation();
     const searchText = new URLSearchParams(location.search).get('search') || '';
 
@@ -29,6 +27,8 @@ export function ProfilesPage() {
 
     const [isLoading, profilesResult] =
         useFetch<AxiosResponse<ProfileDb[]>>(performSearch);
+
+    if (!isAuthorized) return null;
 
     return (
         <div className='profiles-page'>
