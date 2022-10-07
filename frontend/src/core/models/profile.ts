@@ -65,16 +65,18 @@ export class Profile {
                 : typeof sex === 'number'
                 ? sexNumberToProfileSex(sex)
                 : sex;
-        this.dateOfBirth =
-            dateOfBirth instanceof Date
-                ? dateOfBirth
-                : !!dateOfBirth
-                ? new Date(dateOfBirth)
-                : null;
-        this.dateOfSigning =
-            dateOfSigning instanceof Date
-                ? dateOfSigning
-                : new Date(dateOfSigning);
+        this.dateOfBirth = !dateOfBirth
+            ? new Date()
+            : dateOfBirth instanceof Date
+            ? dateOfBirth
+            : !!dateOfBirth
+            ? new Date(dateOfBirth)
+            : null;
+        this.dateOfSigning = !dateOfSigning
+            ? new Date()
+            : dateOfSigning instanceof Date
+            ? dateOfSigning
+            : new Date(dateOfSigning);
     }
 
     clone() {
