@@ -59,7 +59,12 @@ export class Profile {
         this.allergies = allergies ?? '';
         this.notes = notes ?? '';
 
-        this.sex = typeof sex === 'number' ? sexNumberToProfileSex(sex) : sex;
+        this.sex =
+            sex === undefined
+                ? 'Male'
+                : typeof sex === 'number'
+                ? sexNumberToProfileSex(sex)
+                : sex;
         this.dateOfBirth =
             dateOfBirth instanceof Date
                 ? dateOfBirth
