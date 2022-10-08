@@ -12,11 +12,11 @@ export function HomePage() {
 
     function generateTimeText() {
         const now = new Date();
-        const hours = now.getHours();
-        const hoursText = (hours < 10 ? '0' : '') + hours;
-        const minutes = now.getMinutes();
-        const minutesText = (minutes < 10 ? '0' : '') + minutes;
-        return `${hoursText}:${minutesText}`;
+        return now.toLocaleTimeString('he', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        });
     }
 
     function updateClockText() {
