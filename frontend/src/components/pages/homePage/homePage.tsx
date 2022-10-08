@@ -27,7 +27,7 @@ export function HomePage() {
     }
 
     useEffect(() => {
-        const intervalId = setInterval(updateClockText, 1000);
+        const intervalId = setInterval(updateClockText, 100);
 
         return function () {
             clearInterval(intervalId);
@@ -44,7 +44,7 @@ export function HomePage() {
                 <div className='home-page-hello-container'>
                     שלום,
                     <span className='home-page-hello-name'>
-                        {user.displayName}
+                        {user?.displayName}
                     </span>
                 </div>
                 מה תרצה לעשות?
