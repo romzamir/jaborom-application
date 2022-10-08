@@ -1,5 +1,7 @@
 .profile-page-body {
+    display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     border: lightgray 1px solid;
     height: 88%;
     width: 98%;
