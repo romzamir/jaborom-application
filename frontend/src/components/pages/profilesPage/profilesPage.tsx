@@ -24,7 +24,7 @@ export function ProfilesPage() {
         }
 
         return profilesProvider.search(searchText);
-    }, [location]);
+    }, [searchText]);
 
     const [isLoading, profilesResult] =
         useFetch<AxiosResponse<ProfileDb[]>>(performSearch);
