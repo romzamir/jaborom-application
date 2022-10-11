@@ -1,12 +1,16 @@
 import {Link} from 'react-router-dom';
+
 import {ProfileDb} from '../../../../core/types/profileDb.type';
+
+import {sexNumberToProfileSex} from '../../../../utils/sex';
 
 import './profilesPageItem.css';
 
 export function ProfilesPageItem(props: {profile: ProfileDb}) {
     const name = `${props.profile.firstName} ${props.profile.lastName}`;
     const id = props.profile.personId;
-    const sex = props.profile.sex ? 'בן' : 'בת';
+    const sex =
+        sexNumberToProfileSex(props.profile.sex) === 'Male' ? 'בן' : 'בת';
     const grade = props.profile.grade;
     const school = "עמל ב'";
 
