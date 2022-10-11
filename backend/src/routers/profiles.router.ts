@@ -1,4 +1,4 @@
-import {Request, Response, Router} from 'express';
+import {Router} from 'express';
 import HttpStatus from 'http-status';
 
 import {Profile} from '../core/types/profile.type';
