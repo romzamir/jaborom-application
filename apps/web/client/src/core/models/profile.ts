@@ -1,8 +1,13 @@
 import {ProfileSex} from '../types/sex.type';
 
 import {profileSexToSexNumber, sexNumberToProfileSex} from '../../utils/sex';
+import {uuidv4} from '@firebase/util';
+import {randomInt} from 'crypto';
 
 export class Profile {
+    public dateOfSigning: Date;
+    public dateOfBirth: Date | null = null;
+
     constructor(
         public id: number,
         public personId: string,
@@ -11,36 +16,51 @@ export class Profile {
         public school: number,
         public grade: number,
         public sex: ProfileSex,
-        public dateOfBirth: Date | null,
-        public dateOfSigning: Date,
+        dateOfBirth: Date | string,
+        dateOfSigning: Date | string,
         public address: string = '',
         public hobbies: string = '',
         public allergies: string = '',
         public notes: string = '',
     ) {
         this.sex = typeof sex === 'number' ? sexNumberToProfileSex(sex) : sex;
-        this.dateOfBirth =
-            dateOfBirth instanceof Date
-                ? dateOfBirth
-                : !!dateOfBirth
-                ? new Date(dateOfBirth)
-                : null;
-        this.dateOfSigning =
-            dateOfSigning instanceof Date
-                ? dateOfSigning
-                : new Date(dateOfSigning);
+        this.dateOfBirth = Profile.formatDate(dateOfBirth);
+        this.dateOfSigning = Profile.formatDate(dateOfSigning)!;
     }
 
-    clone(): Profile {
+    public clone(): Profile {
+        return Profile.from(this);
+    }
+
+    public static default() {
+        return new Profile(
+            randomInt(Number.MAX_VALUE),
+            uuidv4(),
+            '',
+            '',
+            0,
+            0,
+            'Male',
+            new Date(),
+            new Date(),
+        );
+    }
+
+    public static from(profile: Profile): Profile {
         return Object.assign(Object.create(Object.getPrototypeOf(this)), this);
     }
 
-    static toJson(profile: Partial<Profile>) {
+    public static toJson(profile: Partial<Profile>) {
         const clonedProfile = {...profile} as any;
         if ('sex' in profile && profile.sex !== undefined) {
             clonedProfile.sex = profileSexToSexNumber(profile.sex);
         }
 
         return clonedProfile;
+    }
+
+    private static formatDate(maybeDate: Date | string | null): Date | null {
+        if (!maybeDate) return null;
+        return new Date(maybeDate);
     }
 }

@@ -49,7 +49,7 @@ export function ProfilePage() {
         setIsEditMode(false);
 
         const changes = differenceObjects<Profile>(
-            profile ?? new Profile(),
+            profile ?? Profile.default(),
             draft,
         );
         profilesProvider.update(id ?? '', changes);
