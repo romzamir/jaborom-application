@@ -1,3 +1,4 @@
+import {ReactNode} from 'react';
 import classNames from 'classnames';
 
 import './field.css';
@@ -7,7 +8,7 @@ export * from './fields';
 type ProfileFieldProps = {
     title: string;
     className?: string;
-    children: (JSX.Element | string)[] | JSX.Element | string;
+    children?: ReactNode;
 };
 
 export function ProfileFieldContainer({
