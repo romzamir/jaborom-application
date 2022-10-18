@@ -10,7 +10,7 @@
     "services/**"
   ],
   "scripts": {
-    "dev:client": "yarn @jaborom/web-client dev",
-    "dev:server": "yarn @jaborom/backedn dev"
+    "dev:client": "yarn workspace @jaborom/web-client dev",
+    "dev:server": "yarn workspace @jaborom/backend dev"
   }
 }
