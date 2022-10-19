@@ -1,8 +1,7 @@
 import {ProfileSex} from '../types/sex.type';
-
 import {profileSexToSexNumber, sexNumberToProfileSex} from '../../utils/sex';
 import {uuidv4} from '@firebase/util';
-import {randomInt} from 'crypto';
+
 
 export class Profile {
     public dateOfSigning: Date;
@@ -32,9 +31,9 @@ export class Profile {
         return Profile.from(this);
     }
 
-    public static default() {
+    public static empty() {
         return new Profile(
-            randomInt(Number.MAX_VALUE),
+            null,
             uuidv4(),
             '',
             '',
