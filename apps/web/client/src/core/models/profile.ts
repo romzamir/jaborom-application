@@ -7,7 +7,7 @@ export class Profile {
     public dateOfBirth: Date | null = null;
 
     constructor(
-        public id: number,
+        public id: number | null,
         public personId: string,
         public firstName: string,
         public lastName: string,
