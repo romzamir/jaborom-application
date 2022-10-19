@@ -1,7 +1,7 @@
 import {ProfileSex} from '../types/sex.type';
 import {profileSexToSexNumber, sexNumberToProfileSex} from '../../utils/sex';
 import {v4 as uuidv4} from 'uuid';
-
+import {formatDate} from '../../utils/date';
 export class Profile {
     public dateOfSigning: Date;
     public dateOfBirth: Date | null = null;
@@ -22,8 +22,8 @@ export class Profile {
         public notes: string = '',
     ) {
         this.sex = typeof sex === 'number' ? sexNumberToProfileSex(sex) : sex;
-        this.dateOfBirth = Profile.formatDate(dateOfBirth);
-        this.dateOfSigning = Profile.formatDate(dateOfSigning)!;
+        this.dateOfBirth = formatDate(dateOfBirth);
+        this.dateOfSigning = formatDate(dateOfSigning)!;
     }
 
     public clone(): Profile {
@@ -58,10 +58,5 @@ export class Profile {
         }
 
         return clonedProfile;
-    }
-
-    private static formatDate(maybeDate: Date | string | null): Date | null {
-        if (!maybeDate) return null;
-        return new Date(maybeDate);
     }
 }
