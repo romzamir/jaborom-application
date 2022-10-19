@@ -1,6 +1,6 @@
 import {ProfileSex} from '../types/sex.type';
 import {profileSexToSexNumber, sexNumberToProfileSex} from '../../utils/sex';
-import {uuidv4} from '@firebase/util';
+import {v4 as uuidv4} from 'uuid';
 
 export class Profile {
     public dateOfSigning: Date;
