@@ -2,7 +2,6 @@ import {ProfileSex} from '../types/sex.type';
 import {profileSexToSexNumber, sexNumberToProfileSex} from '../../utils/sex';
 import {uuidv4} from '@firebase/util';
 
-
 export class Profile {
     public dateOfSigning: Date;
     public dateOfBirth: Date | null = null;
@@ -46,7 +45,10 @@ export class Profile {
     }
 
     public static from(profile: Profile): Profile {
-        return Object.assign(Object.create(Object.getPrototypeOf(this)), this);
+        return Object.assign(
+            Object.create(Object.getPrototypeOf(profile)),
+            profile,
+        );
     }
 
     public static toJson(profile: Partial<Profile>) {
