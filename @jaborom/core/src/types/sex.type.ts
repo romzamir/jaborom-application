@@ -1,1 +1,1 @@
-export type Sex = "Male" | "Female" | "Other";
+export type Sex = 'Male' | 'Female' | 'Other';
