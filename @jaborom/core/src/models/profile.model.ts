@@ -1,9 +1,5 @@
 import {Sex, ProfileType} from '../types';
-import {
-    profileSexToSexNumber,
-    sexNumberToProfileSex,
-    formatDate,
-} from '../utils';
+import {profileSexToSexNumber, sexNumberToProfileSex, intoDate} from '../utils';
 import {v4 as uuidv4} from 'uuid';
 
 export class Profile implements ProfileType {
@@ -26,8 +22,8 @@ export class Profile implements ProfileType {
         public notes: string = '',
     ) {
         this.sex = typeof sex === 'number' ? sexNumberToProfileSex(sex) : sex;
-        this.dateOfBirth = formatDate(dateOfBirth);
-        this.dateOfSigning = formatDate(dateOfSigning)!;
+        this.dateOfBirth = intoDate(dateOfBirth);
+        this.dateOfSigning = intoDate(dateOfSigning)!;
     }
 
     public clone(): Profile {

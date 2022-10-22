@@ -2,7 +2,7 @@ export function dateToLongDateString(date: Date): string {
     return longDateFormat.format(date);
 }
 
-export const formatDate = (maybeDate: Date | string | null): Date | null => {
+export const intoDate = (maybeDate: Date | string | null): Date | null => {
     if (!maybeDate) return null;
     return new Date(maybeDate);
 };
