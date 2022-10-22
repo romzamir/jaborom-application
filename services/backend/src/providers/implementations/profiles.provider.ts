@@ -1,4 +1,4 @@
-import {ProfileType, Sibling} from '@jaborom/core';
+import {ProfileType, SiblingType} from '@jaborom/core';
 import IProfilesDbTable from '../../db/abstractions/types/profiles.dbTable';
 import ISiblingsDbTable from '../../db/abstractions/types/siblings.dbTables';
 import IProfilesProvider from '../abstractions/types/profiles.provider';
@@ -93,7 +93,9 @@ export default class ProfilesProvider implements IProfilesProvider {
         return result !== 0;
     }
 
-    async getSiblingsByProfileId(profileId: number): Promise<Sibling[] | null> {
+    async getSiblingsByProfileId(
+        profileId: number,
+    ): Promise<SiblingType[] | null> {
         const siblings = await this._siblingsDbTable.getSiblings({
             key: 'profileId',
             condition: {
@@ -111,9 +113,9 @@ export default class ProfilesProvider implements IProfilesProvider {
 
     private async insertSibling(
         profileId: number,
-        sibling: Sibling,
+        sibling: SiblingType,
         checkIfProfileExists: boolean = true,
-    ): Promise<Sibling | null> {
+    ): Promise<SiblingType | null> {
         if (checkIfProfileExists && !this.checkIsProfileExists(profileId)) {
             return null;
         }
@@ -124,21 +126,21 @@ export default class ProfilesProvider implements IProfilesProvider {
 
     addSiblingToProfileId(
         profileId: number,
-        sibling: Sibling,
-    ): Promise<Sibling | null> {
+        sibling: SiblingType,
+    ): Promise<SiblingType | null> {
         return this.insertSibling(profileId, sibling, true);
     }
 
     async addSiblingsToProfileId(
         profileId: number,
-        siblings: Sibling[],
-    ): Promise<Sibling[] | null> {
+        siblings: SiblingType[],
+    ): Promise<SiblingType[] | null> {
         const profileExists = await this.checkIsProfileExists(profileId);
         if (!profileExists) {
             return null;
         }
 
-        const results: Sibling[] = [];
+        const results: SiblingType[] = [];
         for (const sibling of siblings) {
             results.push(
                 (await this.insertSibling(profileId, sibling, false))!,

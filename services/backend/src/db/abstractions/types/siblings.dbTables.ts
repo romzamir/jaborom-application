@@ -1,17 +1,17 @@
-import {Sibling} from '@jaborom/core';
+import {SiblingType} from '@jaborom/core';
 import {SearchOptions} from '../../../core/types/searchOptions';
 
 export default interface ISiblingsDbTable {
-    getSiblings(options?: SearchOptions<Sibling>): Promise<Sibling[]>;
+    getSiblings(options?: SearchOptions<SiblingType>): Promise<SiblingType[]>;
 
-    insertSibling(sibling: Sibling): Promise<Sibling>;
+    insertSibling(sibling: SiblingType): Promise<SiblingType>;
 
-    insertSiblings(siblings: Sibling[]): Promise<Sibling[]>;
+    insertSiblings(siblings: SiblingType[]): Promise<SiblingType[]>;
 
     updateSibling(
-        options: SearchOptions<Sibling>,
-        sibling: Sibling,
-    ): Promise<Sibling>;
+        options: SearchOptions<SiblingType>,
+        sibling: SiblingType,
+    ): Promise<SiblingType>;
 
-    deleteSiblings(options: SearchOptions<Sibling>): Promise<number>;
+    deleteSiblings(options: SearchOptions<SiblingType>): Promise<number>;
 }

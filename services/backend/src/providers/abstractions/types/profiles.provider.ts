@@ -1,4 +1,4 @@
-import {ProfileType, Sibling} from '@jaborom/core';
+import {ProfileType, SiblingType} from '@jaborom/core';
 import IDataProvider from '../provider';
 
 export default interface IProfilesProvider extends IDataProvider {
@@ -12,17 +12,17 @@ export default interface IProfilesProvider extends IDataProvider {
     update(id: number, profile: Partial<ProfileType>): Promise<void>;
     delete(id: number): Promise<boolean>;
 
-    getSiblingsByProfileId(profileId: number): Promise<Sibling[] | null>;
+    getSiblingsByProfileId(profileId: number): Promise<SiblingType[] | null>;
 
     addSiblingToProfileId(
         profileId: number,
-        siblings: Sibling,
-    ): Promise<Sibling | null>;
+        siblings: SiblingType,
+    ): Promise<SiblingType | null>;
 
     addSiblingsToProfileId(
         profileId: number,
-        siblings: Sibling[],
-    ): Promise<Sibling[] | null>;
+        siblings: SiblingType[],
+    ): Promise<SiblingType[] | null>;
 
     findProfiles(
         nameToSearch: string,

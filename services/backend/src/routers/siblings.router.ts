@@ -1,7 +1,7 @@
 import {Request, Response, Router} from 'express';
 import HttpStatus from 'http-status';
 
-import {Sibling} from '@jaborom/core';
+import {SiblingType} from '@jaborom/core';
 import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
 interface IParams {
@@ -44,7 +44,7 @@ export default function SiblingsRouter(
             throw new Error('Method not implemented.');
         }
 
-        const siblings: Sibling | Sibling[] = req.body;
+        const siblings: SiblingType | SiblingType[] = req.body;
         if (!siblings) {
             res.status(HttpStatus.BAD_REQUEST);
         } else {
