@@ -26,6 +26,8 @@ export function sexNumberToProfileSex(sex: number): Sex {
             return 'Male';
         case 1:
             return 'Female';
+        case 2:
+            return 'Other';
         default:
             throw new Error('Invalid sex number: ' + sex);
     }
