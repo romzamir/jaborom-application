@@ -1,6 +1,4 @@
-import {Profile} from '../../../../core/models/profile';
-
-import {dateToLongDateString} from '../../../../utils/date';
+import {Profile, dateToLongDateString} from '@jaborom/core';
 
 import './header.css';
 

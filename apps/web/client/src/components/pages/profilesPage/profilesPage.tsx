@@ -6,7 +6,7 @@ import {ProfilesPageItem} from './profilesPageItem';
 import {ProfilesPageSearchBar} from './profilesPageSearchBar';
 import {useAuthorize, useFetch, useUser} from '../../../hooks';
 
-import {ProfileDb} from '../../../core/types/profileDb.type';
+import {ProfileType} from '@jaborom/core';
 
 import {profilesProvider} from '../../../api/providers/profiles.provider';
 
@@ -27,17 +27,25 @@ export function ProfilesPage() {
     }, [location]);
 
     const [isLoading, profilesResult] =
-        useFetch<AxiosResponse<ProfileDb[]>>(performSearch);
+        useFetch<AxiosResponse<ProfileType[]>>(performSearch);
 
     if (!isAuthorized) return null;
+
+    if (isLoading)
+        return (
+            <div className='profiles-page'>
+                <ProfilesPageSearchBar text={searchText} />
+                <div className='profiles-grid-container'>
+                    <div>LOADING...</div>
+                </div>
+            </div>
+        );
 
     return (
         <div className='profiles-page'>
             <ProfilesPageSearchBar text={searchText} />
             <div className='profiles-grid-container'>
-                {isLoading ? (
-                    <div>LOADING...</div>
-                ) : _.isEmpty(profilesResult?.data) ? (
+                {_.isEmpty(profilesResult?.data) ? (
                     <div>לא נמצאו</div>
                 ) : (
                     profilesResult?.data.map((profile) => (

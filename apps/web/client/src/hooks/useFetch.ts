@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import {CancellablePromise} from '../core/types/cancellablePromise.type';
+import {CancellablePromise} from '@jaborom/core';
 
 export function useFetch<T>(
     fetchFunc: () => CancellablePromise<T>,

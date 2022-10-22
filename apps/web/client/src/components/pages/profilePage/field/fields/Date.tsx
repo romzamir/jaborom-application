@@ -1,7 +1,7 @@
 import DatePicker, {registerLocale} from 'react-datepicker';
 import heLocale from 'date-fns/locale/he';
 
-import {dateToLongDateString} from '../../../../../utils/date';
+import {dateToLongDateString} from '@jaborom/core';
 import {ProfileFieldContainer} from '../field';
 
 import 'react-datepicker/dist/react-datepicker.css';

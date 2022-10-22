@@ -1,9 +1,6 @@
 import {restCommunicator} from '../../api/restCommunicator';
 import {backendRoutes} from '../../core/constants/backendRoutes.constants';
-
-import {Profile} from '../../core/models/profile';
-import {ProfileDb} from '../../core/types/profileDb.type';
-import {wrapCancelablePromise} from '../../utils/cancelablePromise';
+import {Profile, ProfileType, wrapCancelablePromise} from '@jaborom/core';
 
 export const profilesProvider = ((window as any).profilesProvider = {
     getAll,
@@ -13,7 +10,7 @@ export const profilesProvider = ((window as any).profilesProvider = {
 });
 
 function getAll(limit: number = 20) {
-    return restCommunicator.get<ProfileDb[]>(backendRoutes.profiles, {limit});
+    return restCommunicator.get<ProfileType[]>(backendRoutes.profiles, {limit});
 }
 
 function getById(id: number | string) {
@@ -29,7 +26,7 @@ function getById(id: number | string) {
 }
 
 function search(searchText: string, limit: number = 20) {
-    return restCommunicator.get<ProfileDb[]>(backendRoutes.profiles, {
+    return restCommunicator.get<ProfileType[]>(backendRoutes.profiles, {
         searchText,
         limit,
     });
