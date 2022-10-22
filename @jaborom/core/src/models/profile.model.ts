@@ -1,4 +1,4 @@
-import { Sex, Profile as ProfileType } from "../types";
+import { Sex, ProfileType } from "../types";
 import {
   profileSexToSexNumber,
   sexNumberToProfileSex,

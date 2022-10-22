@@ -1,6 +1,6 @@
 import { Sex } from "./sex.type";
 
-export type Profile = {
+export type ProfileType = {
   id: number | null;
   personId: string;
   firstName: string;
