@@ -23,7 +23,7 @@ function getById(id: number | string) {
             const response = await promise;
             if (!response.data) return;
 
-            response.data = new Profile(response.data);
+            response.data = Profile.from(response.data);
         },
     );
 }

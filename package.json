@@ -1,0 +1,16 @@
+{
+  "name": "jaborom",
+  "private": true,
+  "version": "1.0.0",
+  "repository": "https://github.com/romzamir/jaborom-application.git",
+  "license": "MIT",
+  "workspaces": [
+    "@jaborom/**",
+    "apps/**",
+    "services/**"
+  ],
+  "scripts": {
+    "dev:client": "yarn workspace @jaborom/web-client dev",
+    "dev:server": "yarn workspace @jaborom/backend dev"
+  }
+}
