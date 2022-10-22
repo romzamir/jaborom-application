@@ -1,5 +1,4 @@
-import {Profile} from '../../core/types/profile.type';
-import {Sibling} from '../../core/types/sibling.type';
+import {ProfileType, Sibling} from '@jaborom/core';
 import IProfilesDbTable from '../../db/abstractions/types/profiles.dbTable';
 import ISiblingsDbTable from '../../db/abstractions/types/siblings.dbTables';
 import IProfilesProvider from '../abstractions/types/profiles.provider';
@@ -17,7 +16,7 @@ export default class ProfilesProvider implements IProfilesProvider {
         this._siblingsDbTable = siblingsDbTable;
     }
 
-    getAll(includeGraduates: boolean = false): Promise<Profile[]> {
+    getAll(includeGraduates: boolean = false): Promise<ProfileType[]> {
         return this._profilesDbTable.get({includeGraduates});
     }
 
@@ -37,7 +36,7 @@ export default class ProfilesProvider implements IProfilesProvider {
     async getById(
         id: number,
         includeGraduates: boolean = false,
-    ): Promise<Profile | null> {
+    ): Promise<ProfileType | null> {
         const result = await this._profilesDbTable.get({
             includeGraduates,
             additional: {
@@ -52,7 +51,7 @@ export default class ProfilesProvider implements IProfilesProvider {
         return result[0] ?? null;
     }
 
-    async insert(profile: Profile): Promise<Profile | null> {
+    async insert(profile: ProfileType): Promise<ProfileType | null> {
         try {
             return await this._profilesDbTable.insert(profile);
         } catch {
@@ -60,7 +59,7 @@ export default class ProfilesProvider implements IProfilesProvider {
         }
     }
 
-    async update(id: number, profile: Partial<Profile>): Promise<void> {
+    async update(id: number, profile: Partial<ProfileType>): Promise<void> {
         await this._profilesDbTable.update(
             {
                 includeGraduates: true,
@@ -152,7 +151,7 @@ export default class ProfilesProvider implements IProfilesProvider {
     findProfiles(
         nameToSearch: string,
         includeGraduates?: boolean,
-    ): Promise<Profile[]> {
+    ): Promise<ProfileType[]> {
         return this._profilesDbTable.findByFullName(
             nameToSearch,
             includeGraduates,

@@ -1,4 +1,4 @@
-import {Profile} from '../../../../core/types/profile.type';
+import {ProfileType} from '@jaborom/core';
 import {ProfilesSearchOptions} from '../../../../core/types/searchOptions/profiles.type';
 import IProfilesDbTable from '../../../abstractions/types/profiles.dbTable';
 import MySqlDbTable from '../DbTable';
@@ -12,7 +12,7 @@ export default class ProfilesMySqlDbTable
         super(name, connection);
     }
 
-    async get(options?: ProfilesSearchOptions): Promise<Profile[]> {
+    async get(options?: ProfilesSearchOptions): Promise<ProfileType[]> {
         const sql =
             `SELECT * FROM ${this.escapeName(this._name)}` +
             (options && options.additional
@@ -32,7 +32,7 @@ export default class ProfilesMySqlDbTable
         return !!result[0];
     }
 
-    async insert(profile: Profile): Promise<Profile> {
+    async insert(profile: ProfileType): Promise<ProfileType> {
         const sql =
             `INSERT INTO ${this.escapeName(this._name)} ` +
             this.objectToInsertSql(profile);
@@ -49,7 +49,7 @@ export default class ProfilesMySqlDbTable
 
     update(
         options: Required<ProfilesSearchOptions>,
-        profile: Partial<Profile>,
+        profile: Partial<ProfileType>,
     ): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
@@ -65,7 +65,7 @@ export default class ProfilesMySqlDbTable
     async findByFullName(
         nameToSearch: string,
         includeGraduates: boolean = false,
-    ): Promise<Profile[]> {
+    ): Promise<ProfileType[]> {
         const sql = `SELECT * FROM ${this.escapeName(
             this._name,
         )} WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;

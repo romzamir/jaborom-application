@@ -1,4 +1,4 @@
-import {Sibling} from '../../../../core/types/sibling.type';
+import {Sibling} from '@jaborom/core';
 import {SearchOptions} from '../../../../core/types/searchOptions';
 import ISiblingsDbTable from '../../../abstractions/types/siblings.dbTables';
 import MySqlDbTable from '../DbTable';

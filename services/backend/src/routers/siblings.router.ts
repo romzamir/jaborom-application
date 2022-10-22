@@ -1,17 +1,21 @@
 import {Request, Response, Router} from 'express';
 import HttpStatus from 'http-status';
 
-import {Sibling} from '../core/types/sibling.type';
+import {Sibling} from '@jaborom/core';
 import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
+
+interface IParams {
+    profileId: string;
+}
 
 export default function SiblingsRouter(
     profilesProvider: IProfilesProvider,
 ): Router {
     const router = Router();
 
-    router.get('/', async (req, res) => {
+    router.get('/', async (req: Request<IParams>, res) => {
         const profileId = parseInt(req.params.profileId);
-        if (Number.isNaN(profileId)) {
+        if (isNaN(profileId)) {
             //TODO: handle profileId is NaN
             throw new Error('Method not implemented.');
         }
@@ -33,7 +37,7 @@ export default function SiblingsRouter(
         res.end();
     });
 
-    router.post('/', async (req, res) => {
+    router.post('/', async (req: Request<IParams>, res) => {
         const profileId = parseInt(req.params.profileId);
         if (Number.isNaN(profileId)) {
             //TODO: handle profileId is NaN

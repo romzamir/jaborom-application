@@ -1,4 +1,4 @@
-import {Sibling} from '../../../core/types/sibling.type';
+import {Sibling} from '@jaborom/core';
 import {SearchOptions} from '../../../core/types/searchOptions';
 
 export default interface ISiblingsDbTable {
