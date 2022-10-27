@@ -1,6 +1,6 @@
 import {Sex, ProfileType} from '../types';
 import {profileSexToSexNumber, sexNumberToProfileSex, intoDate} from '../utils';
-import {v4 as uuidv4} from 'uuid';
+import {v4 as uuid} from 'uuid';
 
 export class Profile implements ProfileType {
     public dateOfSigning: Date;
