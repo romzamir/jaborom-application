@@ -1,4 +1,4 @@
-import {CancellablePromise} from '../core/types/cancellablePromise.type';
+import {CancellablePromise} from '../types/cancellablePromise.type';
 
 export function wrapCancelablePromise<T>(
     cancelablePromise: CancellablePromise<T>,

@@ -7,8 +7,7 @@ import {ProfilePageBody} from './body';
 import {useAuthorize, useFetch, useUser} from '../../../hooks';
 
 import {profilesProvider} from '../../../api/providers/profiles.provider';
-import {differenceObjects} from '../../../utils/difference';
-import {Profile} from '../../../core/models/profile';
+import {differenceObjects, Profile} from '@jaborom/core';
 
 import './profilePage.css';
 
@@ -61,31 +60,25 @@ export function ProfilePage() {
     }, [profile]);
 
     if (!isAuthorized) return null;
+    if (isLoading) return <>בטעינה...</>;
+    if (!profile) return <>הפרופיל לא נמצא</>;
 
     return (
-        <>
-            {isLoading ? (
-                'בטעינה...'
-            ) : !profile ? (
-                'הפרופיל לא נמצא'
-            ) : (
-                <div className='profile-page'>
-                    <ProfilePageHeader
-                        profile={profile}
-                        isEditMode={isEditMode}
-                        hasChanges={hasChanges}
-                        startEditMode={startEditMode}
-                        saveDraft={saveDraft}
-                        discardDraft={discardDraft}
-                    />
-                    <ProfilePageBody
-                        profile={draft ?? profile}
-                        isEditMode={isEditMode}
-                        setField={setDraftField}
-                    />
-                </div>
-            )}
-        </>
+        <div className='profile-page'>
+            <ProfilePageHeader
+                profile={profile}
+                isEditMode={isEditMode}
+                hasChanges={hasChanges}
+                startEditMode={startEditMode}
+                saveDraft={saveDraft}
+                discardDraft={discardDraft}
+            />
+            <ProfilePageBody
+                profile={draft ?? profile}
+                isEditMode={isEditMode}
+                setField={setDraftField}
+            />
+        </div>
     );
 }
 

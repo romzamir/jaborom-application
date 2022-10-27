@@ -1,12 +1,14 @@
-import {Profile} from '../../../../core/models/profile';
+import {
+    Profile,
+    profileSexToString,
+    sexStringToProfileSex,
+} from '@jaborom/core';
 import {
     ProfileDateField,
     ProfileLongTextField,
     ProfileTextField,
     ProfileToggleField,
 } from '../field';
-
-import {profileSexToString, sexStringToProfileSex} from '../../../../utils/sex';
 import {SEX_OPTIONS} from '../../../../constants/profile';
 
 import './body.css';

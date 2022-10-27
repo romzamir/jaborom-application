@@ -1,4 +1,4 @@
-export type Sibling = {
+export type SiblingType = {
     id?: number;
     profileId?: string;
     name: string;

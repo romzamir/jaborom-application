@@ -1,7 +1,7 @@
 import {Request, Response, Router} from 'express';
 import HttpStatus from 'http-status';
 
-import {Profile} from '../core/types/profile.type';
+import {ProfileType} from '@jaborom/core';
 import IProfilesProvider from '../providers/abstractions/types/profiles.provider';
 
 export default function ProfilesRouter(
@@ -45,7 +45,7 @@ export default function ProfilesRouter(
     });
 
     router.post('/', async (req, res) => {
-        const profile: Profile = req.body;
+        const profile: ProfileType = req.body;
         const result = await profilesProvider.insert(profile);
         if (result !== null) {
             res.json(result);
@@ -58,14 +58,14 @@ export default function ProfilesRouter(
 
     router.put('/:id', async (req, res) => {
         const {id} = req.params;
-        const profileChanges: Partial<Profile> = req.body;
+        const profileChanges: Partial<ProfileType> = req.body;
         await profilesProvider.update(+id, profileChanges);
         res.status(HttpStatus.OK).end();
     });
 
     router.delete('/:id', async (req, res) => {
         const id: number = parseInt(req.params.id?.toString() || '');
-        if (id === NaN) {
+        if (isNaN(id)) {
             res.status(HttpStatus.BAD_REQUEST);
         } else {
             const didDelete = await profilesProvider.delete(id);

@@ -1,6 +1,6 @@
-import {ProfileSex} from '../core/types/sex.type';
+import {Sex} from '../types';
 
-export function profileSexToString(sex: ProfileSex): string {
+export function profileSexToString(sex: Sex): string {
     const str = profileSexToStringMap[sex];
     if (str === undefined) {
         throw new Error('Invalid sex: ' + sex);
@@ -9,7 +9,7 @@ export function profileSexToString(sex: ProfileSex): string {
     return str;
 }
 
-export function sexStringToProfileSex(sex: string): ProfileSex {
+export function sexStringToProfileSex(sex: string): Sex {
     const entry = Object.entries(profileSexToStringMap).find(
         ([_key, value]) => value === sex,
     );
@@ -17,32 +17,37 @@ export function sexStringToProfileSex(sex: string): ProfileSex {
         throw new Error('Invalid sex: ' + sex);
     }
 
-    return entry[0] as ProfileSex;
+    return entry[0] as Sex;
 }
 
-export function sexNumberToProfileSex(sex: number): ProfileSex {
+export function sexNumberToProfileSex(sex: number): Sex {
     switch (sex) {
         case 0:
             return 'Male';
         case 1:
             return 'Female';
+        case 2:
+            return 'Other';
         default:
             throw new Error('Invalid sex number: ' + sex);
     }
 }
 
-export function profileSexToSexNumber(sex: ProfileSex): number {
+export function profileSexToSexNumber(sex: Sex): number {
     switch (sex) {
         case 'Male':
             return 0;
         case 'Female':
             return 1;
+        case 'Other':
+            return 2;
         default:
             throw new Error('Invalid profile sex: ' + sex);
     }
 }
 
-const profileSexToStringMap: Record<ProfileSex, string> = {
+const profileSexToStringMap: Record<Sex, string> = {
     Male: 'זכר',
     Female: 'נקבה',
+    Other: 'אחר',
 };

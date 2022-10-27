@@ -4,11 +4,11 @@ import Axios, {
     AxiosRequestHeaders,
     AxiosResponse,
 } from 'axios';
+import {CancellablePromise} from '@jaborom/core';
 
 import {authenticator} from '../auth';
 
 import {backendConfig} from '../core/config/backend.config';
-import {CancellablePromise} from '../core/types/cancellablePromise.type';
 
 const validateStatus = () => true;
 const axiosConfig: AxiosRequestConfig = {validateStatus};

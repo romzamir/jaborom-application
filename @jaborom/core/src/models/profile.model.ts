@@ -1,8 +1,8 @@
-import {ProfileSex} from '../types/sex.type';
-import {profileSexToSexNumber, sexNumberToProfileSex} from '../../utils/sex';
-import {v4 as uuidv4} from 'uuid';
-import {formatDate} from '../../utils/date';
-export class Profile {
+import {Sex, ProfileType} from '../types';
+import {profileSexToSexNumber, sexNumberToProfileSex, intoDate} from '../utils';
+import {v4 as uuid} from 'uuid';
+
+export class Profile implements ProfileType {
     public dateOfSigning: Date;
     public dateOfBirth: Date | null = null;
 
@@ -13,7 +13,7 @@ export class Profile {
         public lastName: string,
         public school: number,
         public grade: number,
-        public sex: ProfileSex,
+        public sex: Sex,
         dateOfBirth: Date | string,
         dateOfSigning: Date | string,
         public address: string = '',
@@ -22,8 +22,8 @@ export class Profile {
         public notes: string = '',
     ) {
         this.sex = typeof sex === 'number' ? sexNumberToProfileSex(sex) : sex;
-        this.dateOfBirth = formatDate(dateOfBirth);
-        this.dateOfSigning = formatDate(dateOfSigning)!;
+        this.dateOfBirth = intoDate(dateOfBirth);
+        this.dateOfSigning = intoDate(dateOfSigning)!;
     }
 
     public clone(): Profile {

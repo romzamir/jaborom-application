@@ -1,4 +1,4 @@
-import {Profile} from '../../../../core/types/profile.type';
+import {ProfileType} from '@jaborom/core';
 import {ProfilesSearchOptions} from '../../../../core/types/searchOptions/profiles.type';
 import IProfilesDbTable from '../../../abstractions/types/profiles.dbTable';
 import MSSqlDbConnection from '../DbConnection';
@@ -12,7 +12,7 @@ export default class ProfilesMSSqlDbTable
         super(name, connection);
     }
 
-    async get(options?: ProfilesSearchOptions): Promise<Profile[]> {
+    async get(options?: ProfilesSearchOptions): Promise<ProfileType[]> {
         const sql =
             `SELECT * FROM [${this._name}]` +
             (options && options.additional
@@ -32,7 +32,7 @@ export default class ProfilesMSSqlDbTable
         return result.recordset.length > 0;
     }
 
-    async insert(profile: Profile): Promise<Profile> {
+    async insert(profile: ProfileType): Promise<ProfileType> {
         const insertSql = this.objectToInsertSql(profile);
         const sql = `INSERT INTO [${this._name}] ${insertSql}; SELECT SCOPE_IDENTITY();`;
         const result = await this.connection.query(sql);
@@ -49,7 +49,7 @@ export default class ProfilesMSSqlDbTable
 
     async update(
         options: Required<ProfilesSearchOptions>,
-        profile: Partial<Profile>,
+        profile: Partial<ProfileType>,
     ): Promise<boolean> {
         const setSql = this.objectToSetSql(profile);
         const whereSql = this.searchOptionsToSqlCondition(options.additional);
@@ -69,7 +69,7 @@ export default class ProfilesMSSqlDbTable
     async findByFullName(
         nameToSearch: string,
         includeGraduates: boolean = false,
-    ): Promise<Profile[]> {
+    ): Promise<ProfileType[]> {
         const sql = `SELECT * FROM [${this._name}] WHERE CONCAT(firstName, ' ', lastName) LIKE '%${nameToSearch}%'`;
         const result = await this.connection.query(sql);
         return result.recordset;

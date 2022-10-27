@@ -1,7 +1,7 @@
 import {SearchOptions} from '.';
-import {Profile} from '../profile.type';
+import {ProfileType} from '@jaborom/core';
 
 export type ProfilesSearchOptions = {
     includeGraduates: boolean;
-    additional?: SearchOptions<Profile>;
+    additional?: SearchOptions<ProfileType>;
 };

@@ -1,12 +1,14 @@
-export type Profile = {
-    id: number;
-    personId?: number;
+import {Sex} from './sex.type';
+
+export type ProfileType = {
+    id: number | null;
+    personId: string;
     firstName: string;
     lastName: string;
     school: number;
     grade: number;
-    sex: number;
-    dateOfBirth?: Date;
+    sex: Sex;
+    dateOfBirth?: Date | null;
     dateOfSigning: Date;
     address?: string;
     hobbies?: string;

@@ -1,16 +1,16 @@
-import {Profile} from '../../../core/types/profile.type';
+import {ProfileType} from '@jaborom/core';
 import {ProfilesSearchOptions} from '../../../core/types/searchOptions/profiles.type';
 
 export default interface IProfilesDbTable {
-    get(options?: ProfilesSearchOptions): Promise<Profile[]>;
+    get(options?: ProfilesSearchOptions): Promise<ProfileType[]>;
 
     isExists(options: ProfilesSearchOptions): Promise<boolean>;
 
-    insert(profile: Profile): Promise<Profile>;
+    insert(profile: ProfileType): Promise<ProfileType>;
 
     update(
         options: Required<ProfilesSearchOptions>,
-        profile: Partial<Profile>,
+        profile: Partial<ProfileType>,
     ): Promise<boolean>;
 
     delete(options: Required<ProfilesSearchOptions>): Promise<number>;
@@ -18,5 +18,5 @@ export default interface IProfilesDbTable {
     findByFullName(
         nameToSearch: string,
         includeGraduates?: boolean,
-    ): Promise<Profile[]>;
+    ): Promise<ProfileType[]>;
 }

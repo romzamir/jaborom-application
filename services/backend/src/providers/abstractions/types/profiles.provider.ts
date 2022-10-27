@@ -1,29 +1,31 @@
-import {Profile} from '../../../core/types/profile.type';
-import {Sibling} from '../../../core/types/sibling.type';
+import {ProfileType, SiblingType} from '@jaborom/core';
 import IDataProvider from '../provider';
 
 export default interface IProfilesProvider extends IDataProvider {
-    getAll(includeGraduates?: boolean): Promise<Profile[]>;
+    getAll(includeGraduates?: boolean): Promise<ProfileType[]>;
     checkIsProfileExists(profileId: number): Promise<boolean>;
-    getById(id: number, includeGraduates?: boolean): Promise<Profile | null>;
-    insert(profile: Profile): Promise<Profile | null>;
-    update(id: number, profile: Partial<Profile>): Promise<void>;
+    getById(
+        id: number,
+        includeGraduates?: boolean,
+    ): Promise<ProfileType | null>;
+    insert(profile: ProfileType): Promise<ProfileType | null>;
+    update(id: number, profile: Partial<ProfileType>): Promise<void>;
     delete(id: number): Promise<boolean>;
 
-    getSiblingsByProfileId(profileId: number): Promise<Sibling[] | null>;
+    getSiblingsByProfileId(profileId: number): Promise<SiblingType[] | null>;
 
     addSiblingToProfileId(
         profileId: number,
-        siblings: Sibling,
-    ): Promise<Sibling | null>;
+        siblings: SiblingType,
+    ): Promise<SiblingType | null>;
 
     addSiblingsToProfileId(
         profileId: number,
-        siblings: Sibling[],
-    ): Promise<Sibling[] | null>;
+        siblings: SiblingType[],
+    ): Promise<SiblingType[] | null>;
 
     findProfiles(
         nameToSearch: string,
         includeGraduates?: boolean,
-    ): Promise<Profile[]>;
+    ): Promise<ProfileType[]>;
 }

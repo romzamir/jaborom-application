@@ -1,4 +1,4 @@
-import {Sibling} from '../../../../core/types/sibling.type';
+import {SiblingType} from '@jaborom/core';
 import {SearchOptions} from '../../../../core/types/searchOptions';
 import ISiblingsDbTable from '../../../abstractions/types/siblings.dbTables';
 import MySqlDbTable from '../DbTable';
@@ -12,7 +12,9 @@ export default class SiblingsMySqlDbTable
         super(name, connection);
     }
 
-    async getSiblings(options?: SearchOptions<Sibling>): Promise<Sibling[]> {
+    async getSiblings(
+        options?: SearchOptions<SiblingType>,
+    ): Promise<SiblingType[]> {
         const sql =
             `SELECT * FROM ${this.escapeName(this._name)}` +
             (options
@@ -22,7 +24,7 @@ export default class SiblingsMySqlDbTable
         return result ?? [];
     }
 
-    async insertSibling(sibling: Sibling): Promise<Sibling> {
+    async insertSibling(sibling: SiblingType): Promise<SiblingType> {
         const sql =
             `INSERT INTO ${this.escapeName(this._name)} ` +
             this.objectToInsertSql(sibling);
@@ -37,8 +39,8 @@ export default class SiblingsMySqlDbTable
         return newSibling;
     }
 
-    async insertSiblings(siblings: Sibling[]): Promise<Sibling[]> {
-        const results: Sibling[] = [];
+    async insertSiblings(siblings: SiblingType[]): Promise<SiblingType[]> {
+        const results: SiblingType[] = [];
         for (const sibling of siblings) {
             results.push(await this.insertSibling(sibling));
         }
@@ -47,13 +49,13 @@ export default class SiblingsMySqlDbTable
     }
 
     updateSibling(
-        options: SearchOptions<Sibling>,
-        sibling: Sibling,
-    ): Promise<Sibling> {
+        options: SearchOptions<SiblingType>,
+        sibling: SiblingType,
+    ): Promise<SiblingType> {
         throw new Error('Method not implemented.');
     }
 
-    async deleteSiblings(options: SearchOptions<Sibling>): Promise<number> {
+    async deleteSiblings(options: SearchOptions<SiblingType>): Promise<number> {
         const sql =
             `DELETE FROM ${this.escapeName(this._name)} ` +
             ('WHERE ' + this.searchOptionsToSqlCondition(options));
