@@ -61,7 +61,7 @@ export function ProfilePage() {
 
     if (!isAuthorized) return null;
     if (isLoading) return <>בטעינה...</>;
-    if (!profile) return <>הפרופי לא נמצא</>;
+    if (!profile) return <>הפרופיל לא נמצא</>;
 
     return (
         <div className='profile-page'>
