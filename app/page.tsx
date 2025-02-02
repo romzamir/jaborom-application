@@ -1,7 +1,5 @@
 "use client";
 
-import { LoginPage } from "./login/page";
-
 export default function Home() {
-  return <LoginPage />;
+  return <div className="home-page">THIS IS THE HOME PAGE!</div>;
 }

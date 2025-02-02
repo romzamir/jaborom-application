@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Chrome, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +15,9 @@ import {
 
 import { createClient } from "@/utils/supabase/client";
 
-export function LoginPage() {
+export default function LoginPage() {
   const supabase = createClient();
+  const router = useRouter();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const handleGoogleLogin = async () => {
@@ -36,8 +38,12 @@ export function LoginPage() {
 
   useEffect(() => {
     (async () => {
-      const session = await supabase.auth.getSession();
-      console.log(session.data);
+      const sessionRequest = await supabase.auth.getSession();
+      const session = sessionRequest.data.session;
+
+      if (!session) return;
+
+      router.push("/");
     })();
   }, []);
 
