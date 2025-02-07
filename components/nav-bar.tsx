@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth } from "@/hooks/use-auth";
+import { usePathname } from "next/navigation";
 
 export function NavBar() {
-  const { isAuthenticated } = useAuth();
-  if (!isAuthenticated) return null;
+  const pathname = usePathname();
+
+  const showNavBar = !pathname.startsWith("/auth");
+
+  if (!showNavBar) return null;
 
   return (
     <nav className="bg-background p-4">
