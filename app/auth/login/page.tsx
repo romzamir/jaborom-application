@@ -41,6 +41,7 @@ export default function LoginPage() {
       const sessionRequest = await supabase.auth.getSession();
       const session = sessionRequest.data.session;
 
+      console.log({ session });
       if (!session) return;
 
       router.push("/");
