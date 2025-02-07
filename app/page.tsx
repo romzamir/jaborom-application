@@ -14,7 +14,7 @@ export default function HomePage() {
         <Link href="/members/new">
           <Button>הוספת חבר חדש</Button>
         </Link>
-        <Link href="/search">
+        <Link href="/members">
           <Button variant="outline">חיפוש חברים</Button>
         </Link>
       </div>

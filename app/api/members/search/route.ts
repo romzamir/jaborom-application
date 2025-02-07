@@ -1,35 +1,23 @@
 import { NextResponse } from "next/server";
-import { mockMembers } from "@/lib/mockData";
+import { supabase } from "@/utils/supabase/client";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const term = searchParams.get("term");
 
-  if (!term) {
-    const simplifiedMembers = mockMembers.map(
-      ({ id, firstName, lastName, city }) => ({
-        id,
-        firstName,
-        lastName,
-        city,
-      })
-    );
-    return NextResponse.json(simplifiedMembers);
+  let query = supabase
+    .from("members")
+    .select("id, firstName, lastName, address, grade");
+
+  if (term) {
+    query = query.or(`firstName.ilike.%${term}%,lastName.ilike.%${term}%`);
   }
 
-  const results = mockMembers.filter(
-    (member) =>
-      member.firstName.includes(term) || member.lastName.includes(term)
-  );
+  const { data: members, error } = await query;
 
-  const simplifiedResults = results.map(
-    ({ id, firstName, lastName, city }) => ({
-      id,
-      firstName,
-      lastName,
-      city,
-    })
-  );
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
-  return NextResponse.json(simplifiedResults);
+  return NextResponse.json(members);
 }

@@ -20,7 +20,7 @@ export function NavBar() {
           <Link href="/" className="hover:underline">
             דף הבית
           </Link>
-          <Link href="/members/search" className="hover:underline">
+          <Link href="/members" className="hover:underline">
             חיפוש חברים
           </Link>
           <Link href="/members/new" className="hover:underline">

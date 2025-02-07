@@ -1,34 +1,28 @@
 import { NextResponse } from "next/server";
-import { mockMembers } from "@/lib/mockData";
+import { supabase } from "@/utils/supabase/client";
 
 export async function GET() {
-  const simplifiedMembers = mockMembers.map(
-    ({ id, firstName, lastName, city }) => ({
-      id,
-      firstName,
-      lastName,
-      city,
-    })
-  );
-  return NextResponse.json(simplifiedMembers);
+  const { data: members, error } = await supabase
+    .from("members")
+    .select("id, firstName, lastName, city, grade");
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json(members);
 }
 
 export async function POST(request: Request) {
   const data = await request.json();
-  const newMember = {
-    id: mockMembers.length + 1,
-    ...data,
-  };
-  mockMembers.push(newMember);
-  return NextResponse.json(newMember, { status: 201 });
-}
+  const { data: newMember, error } = await supabase
+    .from("members")
+    .insert([data])
+    .select();
 
-export async function PUT(request: Request) {
-  const data = await request.json();
-  const index = mockMembers.findIndex((member) => member.id === data.id);
-  if (index === -1) {
-    return NextResponse.json({ error: "Member not found" }, { status: 404 });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
-  mockMembers[index] = { ...mockMembers[index], ...data };
-  return NextResponse.json(mockMembers[index]);
+
+  return NextResponse.json(newMember[0], { status: 201 });
 }

@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
-import { israeliGrades, gradeToHebrewName } from "@/lib/mockData";
+import { israeliGrades, gradeToHebrewName } from "@/utils/grade";
 
 const phoneSchema = z.object({
   title: z.string().min(1, { message: "יש לבחור כותרת" }),
@@ -33,14 +33,21 @@ const phoneSchema = z.object({
 });
 
 const formSchema = z.object({
+  identityNumber: z.string().nullable(),
   firstName: z.string().min(2, { message: "שם פרטי חייב להכיל לפחות 2 תווים" }),
   lastName: z.string().min(2, { message: "שם משפחה חייב להכיל לפחות 2 תווים" }),
-  birthDate: z.date({ required_error: "יש לבחור תאריך לידה" }),
+  birthDate: z.date({ required_error: "יש לבחור תאריך לידה" }).nullable(),
   joinDate: z.date({ required_error: "יש לבחור תאריך הצטרפות" }),
   grade: z.number().min(1).max(12),
-  city: z.string().min(2, { message: "שם העיר חייב להכיל לפחות 2 תווים" }),
-  street: z.string().min(2, { message: "שם הרחוב חייב להכיל לפחות 2 תווים" }),
-  houseNumber: z.string().min(1, { message: "יש להזין מספר בית" }),
+  address: z
+    .object({
+      city: z.string().min(2, { message: "שם העיר חייב להכיל לפחות 2 תווים" }),
+      street: z
+        .string()
+        .min(2, { message: "שם הרחוב חייב להכיל לפחות 2 תווים" }),
+      houseNumber: z.string().min(1, { message: "יש להזין מספר בית" }),
+    })
+    .nullable(),
   phones: z
     .array(phoneSchema)
     .min(1, { message: "יש להזין לפחות מספר טלפון אחד" }),
@@ -76,9 +83,6 @@ export default function MemberForm({ initialData }: MemberFormProps) {
   const [joinDate, setJoinDate] = useState<Date | undefined>(
     initialData?.joinDate ? new Date(initialData.joinDate) : undefined
   );
-  const [selectedHobbies, setSelectedHobbies] = useState<string[]>(
-    initialData?.hobbies || []
-  );
   const router = useRouter();
 
   const {
@@ -87,6 +91,8 @@ export default function MemberForm({ initialData }: MemberFormProps) {
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
+    resetField,
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -96,7 +102,11 @@ export default function MemberForm({ initialData }: MemberFormProps) {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields: phonesValues,
+    append: appendPhone,
+    remove: removePhone,
+  } = useFieldArray({
     control,
     name: "phones",
   });
@@ -106,22 +116,16 @@ export default function MemberForm({ initialData }: MemberFormProps) {
       Object.entries(initialData).forEach(([key, value]) => {
         setValue(key as any, value);
       });
-      setSelectedHobbies(initialData.hobbies);
+      setValue("hobbies", initialData.hobbies);
     }
   }, [initialData, setValue]);
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const formData = {
       ...data,
-      hobbies: selectedHobbies,
-      customHobby: selectedHobbies.includes("אחר")
-        ? data.customHobby
-        : undefined,
     };
 
-    const url = initialData
-      ? `${process.env.NEXT_PUBLIC_API_URL}/api/members/${initialData.id}`
-      : `${process.env.NEXT_PUBLIC_API_URL}/api/members`;
+    const url = initialData ? `/api/members/${initialData.id}` : `/api/members`;
 
     const method = initialData ? "PUT" : "POST";
 
@@ -146,7 +150,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
       } else {
         alert("חבר נוסף בהצלחה!");
       }
-      router.push("/search");
+      router.push("/members");
     } catch (error) {
       console.error("Error:", error);
       alert("אירעה שגיאה בשמירת החבר");
@@ -155,7 +159,20 @@ export default function MemberForm({ initialData }: MemberFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <Label htmlFor="identityNumber">מספר תעודת זהות</Label>
+          <Input
+            id="identityNumber"
+            {...register("identityNumber")}
+            placeholder="מספר תעודת זהות"
+          />
+          {errors.identityNumber && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.identityNumber.message}
+            </p>
+          )}
+        </div>
         <div>
           <Label htmlFor="firstName">שם פרטי</Label>
           <Input
@@ -205,12 +222,11 @@ export default function MemberForm({ initialData }: MemberFormProps) {
               <Calendar
                 mode="single"
                 selected={birthDate}
-                onSelect={(date: Date | undefined) => {
-                  if (!date) return;
+                onSelect={(date) => {
                   setBirthDate(date);
-                  setValue("birthDate", date);
+                  setValue("birthDate", date ?? null);
                 }}
-                disabled={(date: Date) =>
+                disabled={(date) =>
                   date > new Date() || date < new Date("1900-01-01")
                 }
                 initialFocus
@@ -243,13 +259,17 @@ export default function MemberForm({ initialData }: MemberFormProps) {
               <Calendar
                 mode="single"
                 selected={joinDate}
-                onSelect={(date: Date | undefined) => {
-                  if (!date) return;
+                onSelect={(date) => {
+                  if (!date) {
+                    setJoinDate(date);
+                    resetField("joinDate");
+                    return;
+                  }
 
                   setJoinDate(date);
                   setValue("joinDate", date);
                 }}
-                disabled={(date: Date) =>
+                disabled={(date) =>
                   date > new Date() || date < new Date("1900-01-01")
                 }
                 initialFocus
@@ -288,28 +308,40 @@ export default function MemberForm({ initialData }: MemberFormProps) {
       <div className="grid grid-cols-3 gap-4">
         <div className="col-span-3 md:col-span-1">
           <Label htmlFor="city">עיר</Label>
-          <Input id="city" {...register("city")} placeholder="שם העיר" />
-          {errors.city && (
-            <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
+          <Input
+            id="city"
+            {...register("address.city")}
+            placeholder="שם העיר"
+          />
+          {errors.address?.city && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.address?.city.message}
+            </p>
           )}
         </div>
         <div className="col-span-2 md:col-span-1">
           <Label htmlFor="street">רחוב</Label>
-          <Input id="street" {...register("street")} placeholder="שם הרחוב" />
-          {errors.street && (
-            <p className="text-red-500 text-sm mt-1">{errors.street.message}</p>
+          <Input
+            id="street"
+            {...register("address.street")}
+            placeholder="שם הרחוב"
+          />
+          {errors.address?.street && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.address?.street.message}
+            </p>
           )}
         </div>
         <div className="col-span-1">
           <Label htmlFor="houseNumber">מספר בית</Label>
           <Input
             id="houseNumber"
-            {...register("houseNumber")}
+            {...register("address.houseNumber")}
             placeholder="מספר"
           />
-          {errors.houseNumber && (
+          {errors.address?.houseNumber && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.houseNumber.message}
+              {errors.address?.houseNumber.message}
             </p>
           )}
         </div>
@@ -317,7 +349,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
 
       <div>
         <Label>מספרי טלפון</Label>
-        {fields.map((field, index) => (
+        {phonesValues.map((field, index) => (
           <div
             key={field.id}
             className="flex items-center space-x-2 rtl:space-x-reverse mt-2"
@@ -349,7 +381,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
                 type="button"
                 variant="ghost"
                 size="icon"
-                onClick={() => remove(index)}
+                onClick={() => removePhone(index)}
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -364,7 +396,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
           variant="outline"
           size="sm"
           className="mt-2"
-          onClick={() => append({ title: "", number: "" })}
+          onClick={() => appendPhone({ title: "", number: "" })}
         >
           <PlusCircle className="h-4 w-4 mr-2" />
           הוסף מספר טלפון
@@ -381,13 +413,14 @@ export default function MemberForm({ initialData }: MemberFormProps) {
             >
               <Checkbox
                 id={hobby}
-                checked={selectedHobbies.includes(hobby)}
+                checked={getValues("hobbies").includes(hobby)}
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setSelectedHobbies([...selectedHobbies, hobby]);
+                    setValue("hobbies", [...getValues("hobbies"), hobby]);
                   } else {
-                    setSelectedHobbies(
-                      selectedHobbies.filter((h) => h !== hobby)
+                    setValue(
+                      "hobbies",
+                      getValues("hobbies").filter((h) => h !== hobby)
                     );
                   }
                 }}
@@ -401,7 +434,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
             </div>
           ))}
         </div>
-        {selectedHobbies.includes("אחר") && (
+        {getValues("hobbies").includes("אחר") && (
           <Input
             className="mt-2"
             placeholder="תחביב אחר"

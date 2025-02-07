@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { mockMembers, gradeToHebrewName } from "@/lib/mockData";
+import { gradeToHebrewName } from "@/utils/grade";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface Member {
@@ -20,35 +20,33 @@ export default function SearchMembers() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Member[]>([]);
 
+  const fetchMembers = async (term?: string) => {
+    const url = new URL(`/api/members/search`, window.location.origin);
+    if (term) {
+      url.searchParams.append("term", term);
+    }
+
+    try {
+      const response = await fetch(url.toString());
+      if (!response.ok) {
+        throw new Error("Failed to fetch members");
+      }
+
+      const data = await response.json();
+      setSearchResults(data);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("אירעה שגיאה בטעינת החברים");
+    }
+  };
+
   useEffect(() => {
-    // Initialize with all members
-    setSearchResults(
-      mockMembers.map(({ id, firstName, lastName, city, grade }) => ({
-        id,
-        firstName,
-        lastName,
-        city,
-        grade,
-      }))
-    );
+    fetchMembers();
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const results = mockMembers.filter(
-      (member) =>
-        member.firstName.includes(searchTerm) ||
-        member.lastName.includes(searchTerm)
-    );
-    setSearchResults(
-      results.map(({ id, firstName, lastName, city, grade }) => ({
-        id,
-        firstName,
-        lastName,
-        city,
-        grade,
-      }))
-    );
+    fetchMembers(searchTerm);
   };
 
   return (

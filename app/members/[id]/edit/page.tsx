@@ -1,12 +1,21 @@
 import { notFound } from "next/navigation";
 import MemberForm from "@/components/member-form";
-import { mockMembers } from "@/lib/mockData";
+import { supabase } from "@/utils/supabase";
 
-export default function EditMemberPage({ params }: { params: { id: string } }) {
+export default async function EditMemberPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const id = Number.parseInt(params.id);
-  const member = mockMembers.find((m) => m.id === id);
 
-  if (!member) {
+  const { data: member, error } = await supabase
+    .from("members")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error || !member) {
     notFound();
   }
 
