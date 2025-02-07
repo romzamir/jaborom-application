@@ -13,10 +13,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { createClient } from "@/utils/supabase/client";
+import { supabase } from "@/utils/supabase/client";
 
 export default function LoginPage() {
-  const supabase = createClient();
   const router = useRouter();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
