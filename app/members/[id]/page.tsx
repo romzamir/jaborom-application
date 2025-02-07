@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import MemberDetails from "@/components/MemberDetails";
+import MemberDetails from "@/components/member-details";
 import { mockMembers } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 

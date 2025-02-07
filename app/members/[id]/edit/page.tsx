@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import MemberForm from "@/components/MemberForm";
+import MemberForm from "@/components/member-form";
 import { mockMembers } from "@/lib/mockData";
 
 export default function EditMemberPage({ params }: { params: { id: string } }) {
