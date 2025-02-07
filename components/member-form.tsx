@@ -243,7 +243,9 @@ export default function MemberForm({ initialData }: MemberFormProps) {
               <Calendar
                 mode="single"
                 selected={joinDate}
-                onSelect={(date: Date) => {
+                onSelect={(date: Date | undefined) => {
+                  if (!date) return;
+
                   setJoinDate(date);
                   setValue("joinDate", date);
                 }}
