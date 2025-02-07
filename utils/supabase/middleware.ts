@@ -2,7 +2,6 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function authMiddleware(request: NextRequest) {
-  console.log("running");
   let supabaseResponse = NextResponse.next({
     request,
   });
