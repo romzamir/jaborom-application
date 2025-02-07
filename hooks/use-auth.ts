@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase/client"; // Adjust path if needed
 import { Session } from "@supabase/supabase-js";
