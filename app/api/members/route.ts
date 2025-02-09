@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 
 export async function GET() {
+  const supabase = await createClient();
   const { data: members, error } = await supabase
     .from("members")
     .select("id, firstName, lastName, city, grade");
@@ -14,6 +15,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const supabase = await createClient();
+
   const data = await request.json();
   const { data: newMember, error } = await supabase
     .from("members")
