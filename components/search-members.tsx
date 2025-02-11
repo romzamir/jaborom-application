@@ -21,7 +21,7 @@ export default function SearchMembers() {
   const [searchResults, setSearchResults] = useState<Member[]>([]);
 
   const fetchMembers = async (term?: string) => {
-    const url = new URL(`/api/members/search`, window.location.origin);
+    const url = new URL(`/api/members`, window.location.origin);
     if (term) {
       url.searchParams.append("term", term);
     }
