@@ -1,42 +1,30 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 import { gradeToHebrewName } from "@/utils/grade";
 import { Card, CardContent } from "@/components/ui/card";
-
-interface Member {
-  id: number;
-  firstName: string;
-  lastName: string;
-  city: string;
-  grade: number;
-}
+import { fetchMembersServer, Member } from "@/utils/fetch-members";
 
 export default function SearchMembers() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Member[]>([]);
 
   const fetchMembers = async (term?: string) => {
-    const url = new URL(`/api/members`, window.location.origin);
-    if (term) {
-      url.searchParams.append("term", term);
-    }
+    const { members, error } = await fetchMembersServer(term ?? "Rom");
 
-    try {
-      const response = await fetch(url.toString());
-      if (!response.ok) {
-        throw new Error("Failed to fetch members");
+    if (error) {
+      console.error(error);
+
+      if (error instanceof Error) {
+        alert("אירעה שגיאה בטעינת החברים\n" + (error as any).message);
       }
-
-      const data = await response.json();
-      setSearchResults(data);
-    } catch (error) {
-      console.error("Error:", error);
-      alert("אירעה שגיאה בטעינת החברים");
+    } else if (members) {
+      setSearchResults(members);
     }
   };
 
