@@ -2,13 +2,14 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import MemberDetails from "@/components/member-details";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/utils/supabase";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function MemberPage({
   params,
 }: {
   params: { id: string };
 }) {
+  const supabase = await createClient();
   const id = Number.parseInt(params.id);
 
   const { data: member, error } = await supabase
