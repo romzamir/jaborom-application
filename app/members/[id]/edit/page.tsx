@@ -1,14 +1,14 @@
 import { notFound } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
 import MemberForm from "@/components/member-form";
-import { supabase } from "@/utils/supabase";
 
 export default async function EditMemberPage({
   params,
 }: {
   params: { id: string };
 }) {
+  const supabase = await createClient();
   const id = Number.parseInt(params.id);
-
   const { data: member, error } = await supabase
     .from("members")
     .select("*")
