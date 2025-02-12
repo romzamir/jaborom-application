@@ -22,5 +22,9 @@ export async function fetchMembersServer(searchTerm?: string) {
 
   const { data: members, error } = await query.returns<Member[]>();
 
-  return { members, error };
+  if (error) {
+    throw error;
+  }
+
+  return members;
 }
