@@ -1,8 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import type React from "react";
-import { ThemeProvider } from "@/components/theme-provider";
 import { NavBar } from "@/components/nav-bar";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <Providers>
           <NavBar />
           {children}
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
