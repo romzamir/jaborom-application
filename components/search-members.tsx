@@ -16,11 +16,13 @@ import { fetchMembersServer } from "@/utils/fetch-members";
 export default function SearchMembers() {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-  const { data: members } = useQuery({
+  const { data: members, isLoading: isQueryLoading } = useQuery({
     queryKey: ["search-members", debouncedSearchTerm],
     queryFn: () => fetchMembersServer(debouncedSearchTerm),
     staleTime: ms("1m"),
   });
+
+  const isLoading = isQueryLoading || searchTerm !== debouncedSearchTerm;
 
   return (
     <div className="space-y-6">
@@ -51,6 +53,7 @@ export default function SearchMembers() {
             {searchTerm ? "תוצאות חיפוש" : "רשימת חברים"}
           </h2>
           <ul className="space-y-2">
+            {isLoading && <span>בטעינה...</span>}
             {members?.map((member) => (
               <li
                 key={member.id}
