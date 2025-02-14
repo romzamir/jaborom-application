@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+
+import { Member } from "@/types/member";
 import { format } from "date-fns";
 import { he } from "date-fns/locale";
 import { CalendarIcon, PlusCircle, X } from "lucide-react";
@@ -27,53 +28,12 @@ import {
 import { useRouter } from "next/navigation";
 import { israeliGrades, gradeToHebrewName } from "@/utils/grade";
 
-const phoneSchema = z.object({
-  title: z.string().min(1, { message: "יש לבחור כותרת" }),
-  number: z.string().regex(/^05\d{8}$/, { message: "מספר טלפון לא תקין" }),
-});
-
-const formSchema = z.object({
-  identityNumber: z.string().nullable(),
-  firstName: z.string().min(2, { message: "שם פרטי חייב להכיל לפחות 2 תווים" }),
-  lastName: z.string().min(2, { message: "שם משפחה חייב להכיל לפחות 2 תווים" }),
-  birthDate: z.date({ required_error: "יש לבחור תאריך לידה" }).nullable(),
-  joinDate: z.date({ required_error: "יש לבחור תאריך הצטרפות" }),
-  grade: z.number().min(1).max(12),
-  address: z
-    .object({
-      city: z.string().min(2, { message: "שם העיר חייב להכיל לפחות 2 תווים" }),
-      street: z
-        .string()
-        .min(2, { message: "שם הרחוב חייב להכיל לפחות 2 תווים" }),
-      houseNumber: z.string().min(1, { message: "יש להזין מספר בית" }),
-    })
-    .nullable(),
-  phones: z
-    .array(phoneSchema)
-    .min(1, { message: "יש להזין לפחות מספר טלפון אחד" }),
-  hobbies: z
-    .array(z.string())
-    .min(1, { message: "יש לבחור לפחות תחביב אחד" })
-    .default([]),
-  customHobby: z.string().optional(),
-});
-
-const predefinedHobbies = [
-  "כדורגל",
-  "ריקוד",
-  "ציור",
-  "נגינה",
-  "קריאה",
-  "טיולים",
-  "בישול",
-  "צילום",
-  "אחר",
-];
+const predefinedHobbies = ["ריקוד", "שירה", "ספורט", "מחשבים", "הדרכה"];
 
 const phoneTitles = ["עצמי", "אמא", "אבא", "אחר"];
 
 interface MemberFormProps {
-  initialData?: z.infer<typeof formSchema> & { id?: number };
+  initialData?: Member & { id?: number };
 }
 
 export default function MemberForm({ initialData }: MemberFormProps) {

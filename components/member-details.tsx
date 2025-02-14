@@ -1,25 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Member } from "@/types/member";
 import { gradeToHebrewName } from "@/utils/grade";
-import { StringValidation } from "zod";
-
-interface Member {
-  id: number;
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  joinDate: string;
-  grade: number;
-  address?: {
-    city: string;
-    street: string;
-    houseNumber: string;
-  };
-  phones: Array<{
-    title: string;
-    number: string;
-  }>;
-  hobbies: string[];
-}
 
 export default function MemberDetails({ member }: { member: Member }) {
   return (
