@@ -85,12 +85,20 @@ export default function MemberForm({ initialData }: MemberFormProps) {
     );
 
   const onSubmit = async (data: Member) => {
-    const isNew = !initialData;
-    const savePromise = isNew ? createMember(data) : saveMember(data);
+    const isNew = !("id" in data);
+    const savePromise = (
+isNew ? createMember(data) : saveMember(data)
+    ) as Promise<void>;
 
-    toast.promise(savePromise, {
+    toast.promise<void | number>(savePromise, {
       loading: isNew ? "יוצר..." : "שומר...",
-      success: isNew ? "החניך נוצר בהצלחה!" : "החניך נשמר בהצלחה!",
+      success: (data) => {
+        if (isNew && typeof data === "number") {
+          router.push(`/members/${data}`);
+        }
+
+        return isNew ? "החניך נוצר בהצלחה!" : "החניך נשמר בהצלחה!";
+      },
       error: isNew ? "שגיאה ביצירת החניך!" : "שגיאה בשמירת החניך!",
     });
 
