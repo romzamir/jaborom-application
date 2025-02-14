@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -25,12 +25,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
 import { israeliGrades, gradeToHebrewName } from "@/utils/grade";
+import { createMember, saveMember } from "@/utils/members/supabase";
 
 const predefinedHobbies = ["ריקוד", "שירה", "ספורט", "מחשבים", "הדרכה"];
 
-const phoneTitles = ["עצמי", "אמא", "אבא", "אחר"];
+const phoneTitles = ["אישי", "אמא", "אבא", "אחר"];
 
 interface MemberFormProps {
   initialData?: Member & { id?: number };
@@ -43,7 +43,6 @@ export default function MemberForm({ initialData }: MemberFormProps) {
   const [joinDate, setJoinDate] = useState<Date | undefined>(
     initialData?.joinDate ? new Date(initialData.joinDate) : undefined
   );
-  const router = useRouter();
 
   const {
     register,
@@ -51,10 +50,10 @@ export default function MemberForm({ initialData }: MemberFormProps) {
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues,
     resetField,
+    watch,
   } = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(Member),
     defaultValues: initialData || {
       phones: [{ title: "", number: "" }],
       hobbies: [],
@@ -71,49 +70,20 @@ export default function MemberForm({ initialData }: MemberFormProps) {
     name: "phones",
   });
 
-  useEffect(() => {
+  const hobbies = watch("hobbies");
+  const addHobby = (hobby: string) => setValue("hobbies", [...hobbies, hobby]);
+  const removeHobby = (hobbyToRemove: string) =>
+    setValue(
+      "hobbies",
+      hobbies.filter((hobby) => hobby !== hobbyToRemove)
+    );
+
+  const onSubmit = async (data: Member) => {
+    console.log(data);
     if (initialData) {
-      Object.entries(initialData).forEach(([key, value]) => {
-        setValue(key as any, value);
-      });
-      setValue("hobbies", initialData.hobbies);
-    }
-  }, [initialData, setValue]);
-
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    const formData = {
-      ...data,
-    };
-
-    const url = initialData ? `/api/members/${initialData.id}` : `/api/members`;
-
-    const method = initialData ? "PUT" : "POST";
-
-    try {
-      const response = await fetch(url, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to save member");
-      }
-
-      const result = await response.json();
-      console.log(result);
-
-      if (initialData) {
-        alert("חבר עודכן בהצלחה!");
-      } else {
-        alert("חבר נוסף בהצלחה!");
-      }
-      router.push("/members");
-    } catch (error) {
-      console.error("Error:", error);
-      alert("אירעה שגיאה בשמירת החבר");
+      await saveMember(data);
+    } else {
+      await createMember(data);
     }
   };
 
@@ -367,40 +337,25 @@ export default function MemberForm({ initialData }: MemberFormProps) {
         <Label>תחביבים</Label>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
           {predefinedHobbies.map((hobby) => (
-            <div
+            <label
               key={hobby}
-              className="flex items-center space-x-2 rtl:space-x-reverse"
+              className="flex items-center space-x-2 space-x-reverse"
             >
               <Checkbox
-                id={hobby}
-                checked={getValues("hobbies").includes(hobby)}
+                value={hobby}
+                checked={hobbies.includes(hobby)}
                 onCheckedChange={(checked) => {
                   if (checked) {
-                    setValue("hobbies", [...getValues("hobbies"), hobby]);
+                    addHobby(hobby);
                   } else {
-                    setValue(
-                      "hobbies",
-                      getValues("hobbies").filter((h) => h !== hobby)
-                    );
+                    removeHobby(hobby);
                   }
                 }}
               />
-              <Label
-                htmlFor={hobby}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {hobby}
-              </Label>
-            </div>
+              <span className="mr-2">{hobby}</span>
+            </label>
           ))}
         </div>
-        {getValues("hobbies").includes("אחר") && (
-          <Input
-            className="mt-2"
-            placeholder="תחביב אחר"
-            {...register("customHobby")}
-          />
-        )}
         {errors.hobbies && (
           <p className="text-red-500 text-sm mt-1">{errors.hobbies.message}</p>
         )}
