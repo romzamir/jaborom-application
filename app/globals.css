@@ -80,3 +80,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+/*
+  This is for the calendar
+  Credit to: https://gist.github.com/mjbalcueva/1fbcb1be9ef68a82c14d778b686a04fa
+*/
+.rdp-vhidden {
+  @apply hidden;
+}
