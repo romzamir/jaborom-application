@@ -23,8 +23,22 @@ export async function fetchMembersServer(searchTerm?: string) {
   return members.map((value) => MemberInfo.parse(value));
 }
 
-export async function createMember(member: Omit<Member, "id">) {
-  throw new Error("Not implemented.");
+export async function createMember(
+  member: Omit<Member, "id">
+): Promise<number> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("members")
+    .insert(member)
+    .select()
+    .returns<Member[]>();
+
+  if (error) {
+    throw error;
+  }
+
+  return data[0].id;
 }
 
 export async function saveMember(member: Member) {
