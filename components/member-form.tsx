@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import toast from "react-hot-toast";
 
 import { Member } from "@/types/member";
@@ -37,6 +38,10 @@ interface MemberFormProps {
   initialData?: Member & { id?: number };
 }
 
+const MaybeNewMember = Member.extend({
+  id: z.number().optional(),
+});
+
 export default function MemberForm({ initialData }: MemberFormProps) {
   const [birthDate, setBirthDate] = useState<Date | undefined>(
     initialData?.birthDate ? new Date(initialData.birthDate) : undefined
@@ -54,7 +59,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
     resetField,
     watch,
   } = useForm({
-    resolver: zodResolver(Member),
+    resolver: zodResolver(MaybeNewMember),
     defaultValues: initialData || {
       phones: [{ title: "", number: "" }],
       hobbies: [],
