@@ -36,13 +36,10 @@ export default function MemberDetails({ member }: { member: Member }) {
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-foreground">עיר:</h3>
-            <p className="text-muted-foreground">{member.address?.city}</p>
-          </div>
-          <div>
             <h3 className="font-semibold text-foreground">כתובת:</h3>
             <p className="text-muted-foreground">
-              {member.address?.street} {member.address?.houseNumber}
+              {member.address?.street} {member.address?.houseNumber},{" "}
+              {member.address?.city}
             </p>
           </div>
         </div>
