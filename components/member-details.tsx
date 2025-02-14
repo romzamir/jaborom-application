@@ -1,3 +1,6 @@
+import { format } from "date-fns";
+import { he } from "date-fns/locale";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Member } from "@/types/member";
 import { gradeToHebrewName } from "@/utils/grade";
@@ -14,11 +17,17 @@ export default function MemberDetails({ member }: { member: Member }) {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold text-foreground">תאריך לידה:</h3>
-            <p className="text-muted-foreground">{member.birthDate}</p>
+            <p className="text-muted-foreground">
+              {member.birthDate
+                ? format(member.birthDate, "dd/MM/yyyy", { locale: he })
+                : "לא הוזן תאריך לידה"}
+            </p>
           </div>
           <div>
             <h3 className="font-semibold text-foreground">תאריך הצטרפות:</h3>
-            <p className="text-muted-foreground">{member.joinDate}</p>
+            <p className="text-muted-foreground">
+              {format(member.joinDate, "dd/MM/yyyy", { locale: he })}
+            </p>
           </div>
           <div>
             <h3 className="font-semibold text-foreground">כיתה:</h3>
