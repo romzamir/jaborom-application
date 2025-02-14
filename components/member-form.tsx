@@ -45,12 +45,12 @@ const MaybeNewMember = Member.extend({
 export default function MemberForm({ initialData }: MemberFormProps) {
   const router = useRouter();
 
+  console.log("rendered");
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
-    getValues,
     setValue,
     watch,
   } = useForm({
@@ -78,8 +78,8 @@ export default function MemberForm({ initialData }: MemberFormProps) {
       "hobbies",
       hobbies.filter((hobby) => hobby !== hobbyToRemove)
     );
-  const birthDate = getValues("birthDate");
-  const joinDate = getValues("joinDate");
+  const birthDate = watch("birthDate");
+  const joinDate = watch("joinDate");
 
   const onSubmit = async (data: Member) => {
     const isNew = !("id" in data);
@@ -171,6 +171,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
                 mode="single"
                 selected={birthDate ?? new Date()}
                 onSelect={(date) => {
+                  console.log(date);
                   setValue("birthDate", date ?? null);
                 }}
                 disabled={(date) =>
