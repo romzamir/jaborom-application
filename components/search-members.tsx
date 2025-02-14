@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { gradeToHebrewName } from "@/utils/grade";
 import { Card, CardContent } from "@/components/ui/card";
-import { fetchMembersServer } from "@/utils/fetch-members";
+import { fetchMembersServer } from "@/utils/members/supabase";
 
 export default function SearchMembers() {
   const [searchTerm, setSearchTerm] = useState("");
