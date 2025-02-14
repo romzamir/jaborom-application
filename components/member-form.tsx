@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -44,20 +43,15 @@ const MaybeNewMember = Member.extend({
 });
 
 export default function MemberForm({ initialData }: MemberFormProps) {
-  const [birthDate, setBirthDate] = useState<Date | undefined>(
-    initialData?.birthDate ? new Date(initialData.birthDate) : undefined
-  );
-  const [joinDate, setJoinDate] = useState<Date | undefined>(
-    initialData?.joinDate ? new Date(initialData.joinDate) : undefined
-  );
+  const router = useRouter();
 
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
+    getValues,
     setValue,
-    resetField,
     watch,
   } = useForm({
     resolver: zodResolver(MaybeNewMember),
@@ -84,11 +78,13 @@ export default function MemberForm({ initialData }: MemberFormProps) {
       "hobbies",
       hobbies.filter((hobby) => hobby !== hobbyToRemove)
     );
+  const birthDate = getValues("birthDate");
+  const joinDate = getValues("joinDate");
 
   const onSubmit = async (data: Member) => {
     const isNew = !("id" in data);
     const savePromise = (
-isNew ? createMember(data) : saveMember(data)
+      isNew ? createMember(data) : saveMember(data)
     ) as Promise<void>;
 
     toast.promise<void | number>(savePromise, {
@@ -172,9 +168,8 @@ isNew ? createMember(data) : saveMember(data)
             <PopoverContent className="w-auto p-0">
               <Calendar
                 mode="single"
-                selected={birthDate}
+                selected={birthDate ?? new Date()}
                 onSelect={(date) => {
-                  setBirthDate(date);
                   setValue("birthDate", date ?? null);
                 }}
                 disabled={(date) =>
@@ -212,12 +207,9 @@ isNew ? createMember(data) : saveMember(data)
                 selected={joinDate}
                 onSelect={(date) => {
                   if (!date) {
-                    setJoinDate(date);
-                    resetField("joinDate");
-                    return;
+                    throw new Error("Join date cannot be null!");
                   }
 
-                  setJoinDate(date);
                   setValue("joinDate", date);
                 }}
                 disabled={(date) =>
