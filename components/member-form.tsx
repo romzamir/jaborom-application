@@ -167,6 +167,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
               <Calendar
+                initialFocus
                 mode="single"
                 selected={birthDate ?? new Date()}
                 onSelect={(date) => {
@@ -175,7 +176,9 @@ export default function MemberForm({ initialData }: MemberFormProps) {
                 disabled={(date) =>
                   date > new Date() || date < new Date("1900-01-01")
                 }
-                initialFocus
+                captionLayout="dropdown-buttons"
+                fromYear={1990}
+                toDate={new Date()}
               />
             </PopoverContent>
           </Popover>
@@ -203,6 +206,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
               <Calendar
+                initialFocus
                 mode="single"
                 selected={joinDate}
                 onSelect={(date) => {
@@ -215,7 +219,9 @@ export default function MemberForm({ initialData }: MemberFormProps) {
                 disabled={(date) =>
                   date > new Date() || date < new Date("1900-01-01")
                 }
-                initialFocus
+                captionLayout="dropdown-buttons"
+                fromYear={1990}
+                toDate={new Date()}
               />
             </PopoverContent>
           </Popover>
