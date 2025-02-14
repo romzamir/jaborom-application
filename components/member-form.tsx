@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 import { Member } from "@/types/member";
 import { format } from "date-fns";
@@ -79,12 +80,18 @@ export default function MemberForm({ initialData }: MemberFormProps) {
     );
 
   const onSubmit = async (data: Member) => {
-    console.log(data);
-    if (initialData) {
-      await saveMember(data);
-    } else {
-      await createMember(data);
-    }
+    const isNew = !initialData;
+    const savePromise = isNew ? createMember(data) : saveMember(data);
+
+    toast.promise(savePromise, {
+      loading: isNew ? "יוצר..." : "שומר...",
+      success: isNew ? "החניך נוצר בהצלחה!" : "החניך נשמר בהצלחה!",
+      error: isNew ? "שגיאה ביצירת החניך!" : "שגיאה בשמירת החניך!",
+    });
+
+    savePromise.catch((...args) =>
+      console.error("Failed in saving member!", ...args)
+    );
   };
 
   return (

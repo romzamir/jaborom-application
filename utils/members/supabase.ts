@@ -30,7 +30,7 @@ export async function createMember(member: Omit<Member, "id">) {
 export async function saveMember(member: Member) {
   const supabase = await createClient();
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("members")
     .update(member)
     .eq("id", member.id)
@@ -39,6 +39,4 @@ export async function saveMember(member: Member) {
   if (error) {
     throw error;
   }
-
-  return data;
 }
