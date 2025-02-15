@@ -157,12 +157,12 @@ export default function MemberForm({ initialData }: MemberFormProps) {
                 variant="outline"
                 className="w-full justify-start text-right"
               >
+                <CalendarIcon className="ml-2 h-4 w-4" />
                 {birthDate ? (
                   format(birthDate, "dd/MM/yyyy", { locale: he })
                 ) : (
                   <span>בחר תאריך לידה</span>
                 )}
-                <CalendarIcon className="mr-2 h-4 w-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -171,7 +171,6 @@ export default function MemberForm({ initialData }: MemberFormProps) {
                 mode="single"
                 selected={birthDate ?? new Date()}
                 onSelect={(date) => {
-                  console.log(date);
                   setValue("birthDate", date ?? null);
                 }}
                 disabled={(date) =>
@@ -197,12 +196,12 @@ export default function MemberForm({ initialData }: MemberFormProps) {
                 variant="outline"
                 className="w-full justify-start text-right"
               >
+                <CalendarIcon className="ml-2 h-4 w-4" />
                 {joinDate ? (
                   format(joinDate, "dd/MM/yyyy", { locale: he })
                 ) : (
                   <span>בחר תאריך הצטרפות</span>
                 )}
-                <CalendarIcon className="mr-2 h-4 w-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
