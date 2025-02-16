@@ -14,7 +14,7 @@ export function NavBar() {
     <nav className="bg-background p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-xl font-bold">
-          ג'אבורום
+          ז'בורום
         </Link>
         <div className="space-x-4 rtl:space-x-reverse">
           <Link href="/" className="hover:underline">

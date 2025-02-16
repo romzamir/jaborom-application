@@ -8,8 +8,7 @@ import { Providers } from "./providers";
 const rubik = Rubik({ subsets: ["latin", "hebrew"] });
 
 export const metadata = {
-  title: "ג'אבורום - ניהול חברים",
-  description: "מערכת לניהול חברים בתנועת נוער",
+  title: "ז'בורום - ניהול חניכים",
 };
 
 export default function RootLayout({
