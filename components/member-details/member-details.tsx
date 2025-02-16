@@ -13,6 +13,7 @@ export default function MemberDetails({ member }: { member: Member }) {
       <CardHeader>
         <CardTitle className="text-2xl font-bold">
           {member.firstName} {member.lastName}
+          <span className="text-sm mr-2">{member.identityNumber}</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
