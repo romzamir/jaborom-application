@@ -32,13 +32,14 @@ export async function createMember(
     .from("members")
     .insert(member)
     .select()
-    .returns<Member[]>();
+    .returns<Member[]>()
+    .single();
 
   if (error) {
     throw error;
   }
 
-  return data[0].id;
+  return data.id;
 }
 
 export async function saveMember(member: Member) {
