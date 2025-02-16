@@ -1,25 +1,24 @@
+"use client";
+
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import MemberDetails from "@/components/member-details";
+import MemberDetails, {
+  MemberDetailsSkeleton,
+} from "@/components/member-details";
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/server";
+import { useQuery } from "@tanstack/react-query";
+import { fetchMember } from "@/utils/members/supabase";
 
-export default async function MemberPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const supabase = await createClient();
+export default function MemberPage({ params }: { params: { id: string } }) {
   const id = Number.parseInt(params.id);
 
-  const { data: member, error } = await supabase
-    .from("members")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const { data: member, isLoading } = useQuery({
+    queryKey: ["member", params.id],
+    queryFn: () => fetchMember(id),
+  });
 
-  if (error || !member) {
-    notFound();
+  if (!member && !isLoading) {
+    return notFound();
   }
 
   return (
@@ -32,7 +31,11 @@ export default async function MemberPage({
           <Button>ערוך חבר</Button>
         </Link>
       </div>
-      <MemberDetails member={member} />
+      {isLoading || !member ? (
+        <MemberDetailsSkeleton />
+      ) : (
+        <MemberDetails member={member} />
+      )}
     </div>
   );
 }

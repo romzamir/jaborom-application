@@ -55,3 +55,20 @@ export async function saveMember(member: Member) {
     throw error;
   }
 }
+
+export async function fetchMember(id: number) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("members")
+    .select("*")
+    .eq("id", id)
+    .returns<Member>()
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
