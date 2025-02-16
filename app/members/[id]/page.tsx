@@ -7,21 +7,12 @@ import MemberDetails, {
   MemberDetailsSkeleton,
 } from "@/components/member-details";
 import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { fetchMember } from "@/utils/members/supabase";
-
-const MAX_FETCH_TRIES = 3;
+import { useMember } from "@/hooks/use-member";
 
 export default function MemberPage({ params }: { params: { id: string } }) {
   const id = Number.parseInt(params.id);
 
-  const { data: member, isLoading } = useQuery({
-    queryKey: ["member", params.id],
-    queryFn: () => fetchMember(id),
-    retry: (count, error) => {
-      return count < MAX_FETCH_TRIES && error.message !== "NEXT_NOT_FOUND";
-    },
-  });
+  const { data: member, isLoading } = useMember(id);
 
   if (!member && !isLoading) {
     return notFound();
