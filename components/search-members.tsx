@@ -29,7 +29,7 @@ export default function SearchMembers() {
       <Card>
         <CardContent className="pt-6">
           <div className="space-y-4">
-            <Label htmlFor="search">חיפוש חבר</Label>
+            <Label htmlFor="search">חיפוש חניך</Label>
             <div className="flex mt-1">
               <Input
                 id="search"
@@ -50,7 +50,7 @@ export default function SearchMembers() {
       <Card>
         <CardContent>
           <h2 className="text-xl font-semibold mb-4">
-            {searchTerm ? "תוצאות חיפוש" : "רשימת חברים"}
+            {searchTerm ? "תוצאות חיפוש" : "רשימת חניכים"}
           </h2>
           <ul className="space-y-2">
             {isLoading && <span>בטעינה...</span>}

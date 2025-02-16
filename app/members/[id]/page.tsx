@@ -23,11 +23,11 @@ export default function MemberPage({ params }: { params: { id: string } }) {
   return (
     <div className="container mx-auto p-4 rtl">
       <h1 className="text-3xl font-bold mb-6 text-center text-foreground">
-        פרטי חבר
+        פרטי חניך
       </h1>
       <div className="flex justify-end mb-4">
         <Button disabled={isDisabled} className="disabled:pointer-events-none">
-          <Link href={`/members/${id}/edit`}>ערוך חבר</Link>
+          <Link href={`/members/${id}/edit`}>ערוך חניך</Link>
         </Button>
       </div>
       {isDisabled ? (

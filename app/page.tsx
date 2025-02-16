@@ -9,10 +9,10 @@ export default function HomePage() {
       </h1>
       <div className="flex justify-center space-x-4 rtl:space-x-reverse">
         <Link href="/members/new">
-          <Button>הוספת חבר חדש</Button>
+          <Button>הוספת חניך חדש</Button>
         </Link>
         <Link href="/members">
-          <Button variant="outline">חיפוש חברים</Button>
+          <Button variant="outline">חיפוש חניכים</Button>
         </Link>
       </div>
     </div>

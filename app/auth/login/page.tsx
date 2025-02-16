@@ -54,7 +54,7 @@ export default function LoginPage() {
             <Chrome className="w-6 h-6 text-primary-foreground" />
           </div>
           <CardTitle className="text-2xl font-bold">ברוכים הבאים</CardTitle>
-          <CardDescription>התחברו לחשבון שלכם כדי להמשיך</CardDescription>
+          <CardDescription>התחניךו לחשבון שלכם כדי להמשיך</CardDescription>
         </CardHeader>
         <CardContent className="flex justify-center">
           <Button
@@ -86,7 +86,7 @@ export default function LoginPage() {
                 />
               </svg>
             )}
-            {isLoggingIn ? "...מתחבר" : "המשך עם Google"}
+            {isLoggingIn ? "...מתחניך" : "המשך עם Google"}
           </Button>
         </CardContent>
       </Card>

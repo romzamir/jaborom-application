@@ -387,7 +387,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
       </div>
 
       <Button type="submit" className="w-full">
-        {initialData ? "עדכן חבר" : "שמור חבר"}
+        {initialData ? "עדכן חניך" : "שמור חניך"}
       </Button>
     </form>
   );

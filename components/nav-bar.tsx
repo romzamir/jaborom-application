@@ -21,10 +21,10 @@ export function NavBar() {
             דף הבית
           </Link>
           <Link href="/members" className="hover:underline">
-            חיפוש חברים
+            חיפוש חניכים
           </Link>
           <Link href="/members/new" className="hover:underline">
-            הוספת חבר חדש
+            הוספת חניך חדש
           </Link>
         </div>
       </div>
