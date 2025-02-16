@@ -2,6 +2,7 @@
 
 import { Member, MemberInfo } from "@/types/member";
 import { createClient } from "@/utils/supabase/server";
+import { notFound } from "next/navigation";
 
 export async function fetchMembersServer(searchTerm?: string) {
   const supabase = await createClient();
@@ -63,12 +64,15 @@ export async function fetchMember(id: number) {
     .from("members")
     .select("*")
     .eq("id", id)
-    .returns<Member>()
-    .single();
+    .returns<Member[]>();
 
   if (error) {
     throw error;
   }
 
-  return data;
+  if (data.length === 0) {
+    throw notFound();
+  }
+
+  return data[0];
 }

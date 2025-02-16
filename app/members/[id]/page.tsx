@@ -10,12 +10,17 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMember } from "@/utils/members/supabase";
 
+const MAX_FETCH_TRIES = 3;
+
 export default function MemberPage({ params }: { params: { id: string } }) {
   const id = Number.parseInt(params.id);
 
   const { data: member, isLoading } = useQuery({
     queryKey: ["member", params.id],
     queryFn: () => fetchMember(id),
+    retry: (count, error) => {
+      return count < MAX_FETCH_TRIES && error.message !== "NEXT_NOT_FOUND";
+    },
   });
 
   if (!member && !isLoading) {
