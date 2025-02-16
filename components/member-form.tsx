@@ -147,7 +147,7 @@ export default function MemberForm({ initialData }: MemberFormProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
           <Label>תאריך לידה</Label>
           <Popover>
@@ -249,6 +249,13 @@ export default function MemberForm({ initialData }: MemberFormProps) {
           </Select>
           {errors.grade && (
             <p className="text-red-500 text-sm mt-1">{errors.grade.message}</p>
+          )}
+        </div>
+        <div>
+          <Label htmlFor="school">בית ספר</Label>
+          <Input id="school" {...register("school")} placeholder="בית ספר" />
+          {errors.school && (
+            <p className="text-red-500 text-sm mt-1">{errors.school.message}</p>
           )}
         </div>
       </div>

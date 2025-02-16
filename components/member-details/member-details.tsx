@@ -38,6 +38,12 @@ export default function MemberDetails({ member }: { member: Member }) {
             </p>
           </div>
           <div>
+            <h3 className="font-semibold text-foreground">בית ספר:</h3>
+            <p className="text-muted-foreground">{member.school}</p>
+          </div>
+        </div>
+        <div className="mt-4">
+          <div>
             <h3 className="font-semibold text-foreground">כתובת:</h3>
             <p className="text-muted-foreground">
               {member.address?.street} {member.address?.houseNumber},{" "}

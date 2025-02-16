@@ -27,6 +27,7 @@ export const Member = z.object({
     .pipe(z.coerce.date())
     .or(z.date({ required_error: "יש לבחור תאריך הצטרפות" })),
   grade: z.number().min(1).max(12),
+  school: z.string({ required_error: "לא הוזן בית ספר" }),
   address: z
     .object({
       city: z.string().min(2, { message: "שם העיר חייב להכיל לפחות 2 תווים" }),
