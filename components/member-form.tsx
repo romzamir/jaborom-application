@@ -45,7 +45,6 @@ const MaybeNewMember = Member.extend({
 export default function MemberForm({ initialData }: MemberFormProps) {
   const router = useRouter();
 
-  console.log("rendered");
   const {
     register,
     control,
